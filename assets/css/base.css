@@ -1,0 +1,410 @@
+/* ==========================================================================
+   Mockly — base
+   Azzeramento, elementi, primitive di layout. Nessun componente: quelli
+   stanno in components.css. I valori vengono da tokens.css.
+   ========================================================================== */
+
+/* --- Azzeramento ------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+ul[class],
+ol[class] {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-height) + var(--space-medium));
+  -webkit-text-size-adjust: 100%;
+  /* Il pannello del menu, chiuso, resta fuori schermo con un transform: la
+     sua riga di layout (non il transform) sporge comunque a destra. Su
+     mobile vero questo fa allargare l'intero viewport di layout, spingendo
+     fuori schermo l'hamburger stesso (position:fixed si misura su quel
+     viewport). overflow-x su html — non solo su body — è quello che impedisce
+     l'allargamento, non solo lo scroll. */
+  overflow-x: clip;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+body.is-menu-open {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+/* Selezione calda invece del blu di sistema. */
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-text-inverse);
+}
+
+/* --- Titoli ------------------------------------------------------------- */
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  color: var(--color-text);
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-extrabold);
+  line-height: var(--line-height-h1);
+  letter-spacing: var(--letter-spacing-h1);
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-extrabold);
+  line-height: var(--line-height-h2);
+  letter-spacing: var(--letter-spacing-h2);
+}
+
+h3 {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-h3);
+  letter-spacing: var(--letter-spacing-h3);
+}
+
+h4 {
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-h4);
+}
+
+/* --- Testo -------------------------------------------------------------- */
+
+p {
+  max-width: var(--content-measure);
+  text-wrap: pretty;
+}
+
+strong,
+b {
+  font-weight: var(--font-weight-bold);
+}
+
+small {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+/* --- Collegamenti -------------------------------------------------------- */
+
+a {
+  color: var(--color-accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+}
+
+a:active {
+  color: var(--color-accent-active);
+}
+
+/* --- Media --------------------------------------------------------------- */
+
+img,
+picture,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* --- Moduli: ereditarietà dei caratteri ---------------------------------- */
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* --- Fuoco --------------------------------------------------------------- */
+
+:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-accent);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: var(--radius-small);
+}
+
+.surface-inverse :focus-visible {
+  outline-color: var(--color-accent-glow);
+}
+
+/* --- Salta al contenuto --------------------------------------------------- */
+
+.skip-link {
+  position: absolute;
+  top: var(--space-2xsmall);
+  left: var(--space-2xsmall);
+  z-index: var(--layer-menu);
+  padding: var(--space-xsmall) var(--space-small);
+  background-color: var(--color-text);
+  border-radius: var(--radius-pill);
+  color: var(--color-text-inverse);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-label);
+  text-transform: uppercase;
+  text-decoration: none;
+  transform: translateY(calc(-100% - var(--space-large)));
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+  color: var(--color-text-inverse);
+  outline-color: var(--color-accent);
+}
+
+/* --- Contenitore ---------------------------------------------------------- */
+
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin-inline: auto;
+  padding-inline: var(--container-gutter);
+}
+
+.container--narrow {
+  max-width: var(--container-width-narrow);
+}
+
+/* --- Sezione -------------------------------------------------------------- */
+
+.section {
+  padding-block: var(--section-spacing);
+  position: relative;
+}
+
+.section--tight {
+  padding-block: calc(var(--section-spacing) * 0.55);
+}
+
+.section--warm {
+  background-color: var(--color-background-warm);
+}
+
+.section--alt {
+  background-color: var(--color-surface-alt);
+}
+
+/* Testata: occhiello pill + titolo grande. Niente più cuciture. */
+.section__header {
+  max-width: 56rem;
+  margin-bottom: var(--space-xlarge);
+}
+
+.section__label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xsmall);
+  margin: 0 0 var(--space-small);
+  padding: var(--space-3xsmall) var(--space-small);
+  background-color: var(--color-accent-soft);
+  border-radius: var(--radius-pill);
+  color: var(--color-accent-hover);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-label);
+  letter-spacing: var(--letter-spacing-label);
+  text-transform: uppercase;
+}
+
+.section__label::before {
+  content: "";
+  width: 0.45em;
+  height: 0.45em;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-accent);
+}
+
+.surface-inverse .section__label {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-accent-glow);
+}
+
+.surface-inverse .section__label::before {
+  background-color: var(--color-accent-glow);
+}
+
+.section__title {
+  max-width: 24ch;
+}
+
+.section__title--wide {
+  max-width: 30ch;
+}
+
+.section__intro {
+  margin-top: var(--space-small);
+  font-size: var(--font-size-lead);
+  line-height: var(--line-height-lead);
+  color: var(--color-text-muted);
+}
+
+/* Compatibilità: .is-highlighted resta nell'HTML come marcatore del blocco
+   di conversione (lo conta tools/check.js). La firma visiva è l'alone
+   azzurro, non richiede token dedicati. */
+
+/* --- Superficie scura ------------------------------------------------------ */
+
+.surface-inverse {
+  background-color: var(--color-surface-inverse);
+  color: var(--color-text-inverse);
+}
+
+.surface-inverse h1,
+.surface-inverse h2,
+.surface-inverse h3,
+.surface-inverse h4 {
+  color: var(--color-text-inverse);
+}
+
+.surface-inverse a {
+  color: var(--color-text-inverse);
+}
+
+/* --- Reveal on scroll ------------------------------------------------------
+   Gli elementi partono abbassati e trasparenti, entrano con .is-visible.
+   Il ritardo sta in --reveal-delay così si sfalsano senza JS in più. */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity var(--duration-reveal) var(--ease-out),
+    transform var(--duration-reveal) var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Utility --------------------------------------------------------------- */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+.text-lead {
+  font-size: var(--font-size-lead);
+  line-height: var(--line-height-lead);
+}
+
+.text-label {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-label);
+  text-transform: uppercase;
+}
+
+.push-xsmall {
+  margin-top: var(--space-xsmall);
+}
+
+.push-small {
+  margin-top: var(--space-small);
+}
+
+.push-medium {
+  margin-top: var(--space-medium);
+}
+
+.push-large {
+  margin-top: var(--space-large);
+}
+
+/* --- Movimento ridotto ------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --- Senza JavaScript: niente contenuti invisibili --------------------------
+   Reveal e ingresso hero nascondono via CSS ma mostrano via JS: se il JS non
+   c'è, tutto resta visibile e il sito resta interamente leggibile. */
+
+@media (scripting: none) {
+  .reveal,
+  .hero__stagger {
+    opacity: 1;
+    transform: none;
+  }
+}

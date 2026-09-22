@@ -1,0 +1,6 @@
+.DS_Store
+.claude/
+PROMPT.md
+AGENTS.md
+docs/
+tools/

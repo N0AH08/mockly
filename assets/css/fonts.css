@@ -1,0 +1,25 @@
+/* ==========================================================================
+   Font ospitati in locale, non caricati da Google Fonts: nessun dato —
+   nemmeno l'indirizzo IP di chi visita — esce verso terzi solo per mostrare
+   il testo in pagina. Vedi cookie.html e privacy.html.
+
+   Plus Jakarta Sans è un variable font: un solo file copre tutti i pesi da
+   400 a 800 (invece di uno per peso), per questo il font-weight qui sotto è
+   un intervallo, non un numero singolo.
+   ========================================================================== */
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("../fonts/plus-jakarta-sans.woff2") format("woff2");
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("../fonts/ibm-plex-mono.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}

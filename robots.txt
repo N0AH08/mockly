@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Pagine di servizio: utili a chi naviga, inutili nei risultati di ricerca.
+Disallow: /grazie.html
+Disallow: /404.html
+
+# Strumenti di lavoro, non fanno parte del sito.
+Disallow: /tools/
+Disallow: /docs/
+
+Sitemap: https://mockly.it/sitemap.xml

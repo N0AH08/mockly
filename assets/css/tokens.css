@@ -1,0 +1,141 @@
+/* ==========================================================================
+   Mockly — design token
+   Identità "blu moderno": bianco, inchiostro blu-notte, blu vivo in sfumatura.
+   Aloni azzurri come firma. Vedi docs/02-design.md.
+   Solo custom property, nessuna regola. Ogni token è usato davvero.
+   Contrasti AA verificati via script il 18/09/2026 (vedi docs/02-design.md §4).
+   ========================================================================== */
+
+:root {
+
+  /* --- Colore: superfici --------------------------------------------- */
+  --color-background: #FFFFFF;             /* bianco */
+  --color-background-warm: #F2F6FE;        /* lavaggio azzurro per fasce */
+  --color-surface: #FFFFFF;                /* card, form */
+  --color-surface-alt: #EAF1FD;            /* fasce alternate, media */
+  --color-surface-inverse: #0A1830;        /* pannelli scuri: CTA, footer */
+
+  /* --- Colore: testo -------------------------------------------------- */
+  --color-text: #0E1B2C;                   /* 17.33 su bianco */
+  --color-text-muted: #4A5B74;             /* 6.91 su bianco, 6.38 su wash */
+  --color-text-inverse: #FFFFFF;           /* 17.70 su superficie inversa */
+  --color-text-inverse-muted: #C9D8F2;     /* 12.30 su superficie inversa */
+
+  /* --- Colore: bordi -------------------------------------------------- */
+  --color-border: #E2E9F5;                 /* decorativo su bianco */
+  --color-border-strong: #B9C8E2;          /* decorativo freddo, mai testo */
+
+  /* --- Colore: accento blu vivo --------------------------------------- */
+  --color-accent: #1D4ED8;                 /* 6.70 su bianco; bianco sopra 6.70 */
+  --color-accent-hover: #1E40AF;           /* 8.72 su bianco */
+  --color-accent-active: #1E3A8A;
+  --color-accent-soft: #E2EBFD;            /* fondi, badge */
+  --color-accent-glow: #5EA2FF;            /* solo grafica: aloni, sfumature */
+
+  /* --- Sfumatura istituzionale (solo grafica e titoli grandi) ---------- */
+  --gradient-brand: linear-gradient(100deg, #1D4ED8 10%, #3B82F6 90%);
+  --gradient-glow: linear-gradient(135deg, #1D4ED8, #5EA2FF);
+
+  /* --- Colore: stati semantici ---------------------------------------- */
+  --color-success: #1F6B43;                /* 6.48 su bianco */
+  --color-warning: #8A5A00;                /* 5.93 su bianco */
+  --color-error: #A32318;                  /* 7.47 su bianco */
+  --color-error-soft: #FBE9E7;
+
+  /* --- Colore: velo del menu mobile ----------------------------------- */
+  --color-overlay: rgba(10, 24, 48, 0.55);
+
+  /* --- Tipografia: famiglie ------------------------------------------- */
+  --font-heading: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-body: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* --- Tipografia: scala (mobile -> desktop) --------------------------- */
+  --font-size-h1: clamp(2.5rem, 1.6rem + 4vw, 4.5rem);          /* 40 -> 72 */
+  --font-size-h2: clamp(1.875rem, 1.4rem + 2vw, 3rem);          /* 30 -> 48 */
+  --font-size-h3: clamp(1.375rem, 1.18rem + 0.8vw, 1.75rem);    /* 22 -> 28 */
+  --font-size-h4: clamp(1.125rem, 1.04rem + 0.34vw, 1.3125rem); /* 18 -> 21 */
+  --font-size-lead: clamp(1.1875rem, 1.11rem + 0.34vw, 1.375rem);
+  --font-size-body: clamp(1.0625rem, 1.03rem + 0.11vw, 1.125rem);
+  --font-size-small: 0.9375rem;
+  --font-size-label: 0.8125rem;
+
+  /* --- Tipografia: pesi ------------------------------------------------ */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  /* --- Tipografia: interlinea ------------------------------------------ */
+  --line-height-h1: 1.04;
+  --line-height-h2: 1.1;
+  --line-height-h3: 1.25;
+  --line-height-h4: 1.3;
+  --line-height-lead: 1.55;
+  --line-height-body: 1.65;
+  --line-height-small: 1.45;
+  --line-height-label: 1.4;
+
+  /* --- Tipografia: crenatura ------------------------------------------- */
+  --letter-spacing-h1: -0.03em;
+  --letter-spacing-h2: -0.025em;
+  --letter-spacing-h3: -0.01em;
+  --letter-spacing-label: 0.08em;
+
+  /* --- Spaziatura (base 4) --------------------------------------------- */
+  --space-3xsmall: 0.25rem;
+  --space-2xsmall: 0.5rem;
+  --space-xsmall: 0.75rem;
+  --space-small: 1rem;
+  --space-medium: 1.5rem;
+  --space-large: 2rem;
+  --space-xlarge: 3rem;
+  --space-2xlarge: 4rem;
+  --space-3xlarge: 6rem;
+
+  /* --- Raggi: il moderno è morbido -------------------------------------- */
+  --radius-small: 10px;   /* campi, bottoni, badge, filtri: non più pillole */
+  --radius-medium: 14px;  /* card */
+  --radius-large: 18px;   /* pannelli, hero visual */
+  --radius-pill: 999px;   /* solo cerchi veri: pallini, avatar, icone rotonde */
+
+  /* --- Bordi e focus ---------------------------------------------------- */
+  --border-width-hairline: 1px;
+  --border-width-medium: 2px;
+  --focus-ring-width: 3px;
+  --focus-ring-offset: 2px;
+
+  /* --- Ombre fredde ------------------------------------------------------ */
+  --shadow-small: 0 1px 2px rgba(14, 27, 44, 0.06);
+  --shadow-medium: 0 12px 32px rgba(14, 27, 44, 0.10);
+  --shadow-large: 0 24px 64px rgba(14, 27, 44, 0.14);
+  --shadow-glow: 0 8px 30px rgba(94, 162, 255, 0.40);
+  --shadow-card-hover: 0 20px 48px rgba(29, 78, 216, 0.18);
+
+  /* --- Layout ------------------------------------------------------------ */
+  --container-width: 75rem;                /* 1200 */
+  --container-width-narrow: 44rem;
+  --container-gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --section-spacing: clamp(3.5rem, 2.2rem + 6vw, 7rem);
+  --content-measure: 68ch;
+  --header-height: clamp(3.75rem, 3.4rem + 1.5vw, 4.5rem);
+
+  /* --- Piani di sovrapposizione ------------------------------------------ */
+  --layer-header: 100;
+  --layer-overlay: 150;
+  --layer-menu: 200;
+  --layer-back-to-top: 90;
+  --layer-preloader: 300;
+
+  /* --- Motion ------------------------------------------------------------ */
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 500ms;
+  --duration-reveal: 700ms;
+  --duration-menu: 380ms;   /* solo il pannello mobile */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-menu: cubic-bezier(0.32, 0.72, 0, 1); /* scatto iOS: parte forte, atterra morbido */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+}

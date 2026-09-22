@@ -1,0 +1,2966 @@
+/* ==========================================================================
+   Mockly — componenti
+   Identità "bottega digitale": bianco, blu, carta millimetrata invece di
+   blob sfumati, segni disegnati a mano invece di testo in sfumatura.
+   BEM per esteso. Stati is- + ARIA. Mobile-first.
+   Questo file supporta sia il markup rivoluzionato (hero, demo-viewer,
+   bento) sia le classi delle pagine non ancora migrate (seam, promise-list).
+   ========================================================================== */
+
+/* Compatibilità pagine vecchie: la cucitura diventa una pill in sfumatura. */
+/* Firma: un tratto disegnato a mano al posto di una barra in sfumatura —
+   coerente con "scritto a mano", non un gradiente che fa tutti i siti. */
+.section__seam {
+  display: block;
+  width: 4.5rem;
+  height: 10px;
+  margin-top: var(--space-small);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 10'%3E%3Cpath d='M2 6.6C14 2 23 9 35 5C47 1 58 8.2 70 3.4' fill='none' stroke='%231D4ED8' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.call-to-action__seam,
+.site-footer__seam {
+  display: none;
+}
+
+.section__seam + .section__title {
+  margin-top: var(--space-small);
+}
+
+.promise-list__item::before,
+.product-card::before,
+.price-card::before {
+  background: none;
+}
+
+/* ==========================================================================
+   Bottone — pill calda
+   ========================================================================== */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xsmall);
+  padding: 0.95rem 1.7rem;
+  min-height: 3rem;
+  border: var(--border-width-medium) solid transparent;
+  border-radius: var(--radius-small);
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-spring),
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.button:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.button__icon {
+  flex-shrink: 0;
+  width: 1.125em;
+  height: 1.125em;
+  fill: currentColor;
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.button:hover .button__icon {
+  transform: translateX(3px);
+}
+
+.button--primary {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-text-inverse);
+  box-shadow: 0 10px 24px rgba(29, 78, 216, 0.28);
+}
+
+.button--primary:hover {
+  background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+  color: var(--color-text-inverse);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow);
+}
+
+.button--primary:active {
+  background-color: var(--color-accent-active);
+  border-color: var(--color-accent-active);
+  box-shadow: none;
+}
+
+.button--secondary {
+  background-color: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text);
+  box-shadow: var(--shadow-small);
+}
+
+.button--secondary:hover {
+  border-color: var(--color-text);
+  color: var(--color-text);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+.button--ghost {
+  background-color: transparent;
+  border-color: var(--color-border-strong);
+  color: var(--color-text);
+}
+
+.button--ghost:hover {
+  border-color: var(--color-text);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+}
+
+.surface-inverse .button--primary {
+  background-color: var(--color-text-inverse);
+  border-color: var(--color-text-inverse);
+  color: var(--color-accent-hover);
+  box-shadow: none;
+}
+
+.surface-inverse .button--primary:hover {
+  background-color: var(--color-accent-glow);
+  border-color: var(--color-accent-glow);
+  color: var(--color-surface-inverse);
+}
+
+.surface-inverse .button--ghost {
+  border-color: rgba(255, 255, 255, 0.35);
+  color: var(--color-text-inverse);
+}
+
+.surface-inverse .button--ghost:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--color-text-inverse);
+  color: var(--color-text-inverse);
+}
+
+.button--full-width {
+  width: 100%;
+}
+
+.button[disabled],
+.button.is-loading {
+  background-color: var(--color-surface-alt);
+  border-color: var(--color-border);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+@media (min-width: 30em) {
+  .button--full-width {
+    width: auto;
+  }
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xsmall);
+}
+
+.button-group--stacked {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+@media (min-width: 30em) {
+  .button-group--stacked {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+/* ==========================================================================
+   Firma: quanto manca alla fine della pagina, sempre in vista
+   ========================================================================== */
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: calc(var(--layer-header) + 1);
+  height: 3px;
+  pointer-events: none;
+}
+
+.scroll-progress__bar {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: var(--gradient-brand);
+  box-shadow: 0 0 8px rgba(29, 78, 216, 0.45);
+  transition: width 120ms linear;
+}
+
+@media (scripting: none) {
+  .scroll-progress {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Intestazione — vetro bianco
+   ========================================================================== */
+
+.site-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: var(--layer-header);
+  background-color: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: var(--border-width-hairline) solid transparent;
+  transition:
+    border-color var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out),
+    background-color var(--duration-base) var(--ease-out);
+}
+
+.site-header.is-scrolled {
+  background-color: rgba(255, 255, 255, 0.94);
+  border-bottom-color: var(--color-border);
+  box-shadow: var(--shadow-small);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-small);
+  min-height: var(--header-height);
+}
+
+.site-header__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: var(--font-weight-extrabold);
+  letter-spacing: -0.03em;
+  text-decoration: none;
+}
+
+.site-header__logo:hover {
+  color: var(--color-accent-hover);
+}
+
+.site-header__logo-icon {
+  display: block;
+  height: 1.9rem;
+  width: auto;
+}
+
+.site-header__navigation {
+  display: none;
+}
+
+.site-header__navigation-list {
+  display: flex;
+  align-items: center;
+  /* Otto voci: restano compatte così entrano a 1280px senza overflow. */
+  gap: var(--space-xsmall);
+}
+
+.site-header__navigation-link {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.65rem;
+  border-radius: var(--radius-small);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out);
+}
+
+.site-header__navigation-link:hover {
+  color: var(--color-text);
+  background-color: var(--color-surface-alt);
+}
+
+.site-header__navigation-link.is-current {
+  color: var(--color-text);
+  background-color: var(--color-accent-soft);
+  font-weight: var(--font-weight-bold);
+}
+
+.site-header__navigation-link.is-current::after {
+  content: none;
+}
+
+.site-header__action {
+  display: none;
+}
+
+.site-header__action .button {
+  padding: 0.7rem 1.3rem;
+  min-height: 2.75rem;
+  font-size: 0.95rem;
+}
+
+.site-header__toggle {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0 0.6rem;
+  background-color: var(--color-surface);
+  border: var(--border-width-hairline) solid var(--color-border);
+  border-radius: var(--radius-pill);
+}
+
+.site-header__toggle-bar {
+  display: block;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background-color: var(--color-text);
+}
+
+/* Niente morph hamburger → X: la trasformazione avverrebbe coperta dal
+   pannello (glitch visibile ai bordi). La X vive dentro il pannello. */
+
+.site-header__overlay {
+  position: fixed;
+  inset: 0;
+  /* `.site-header` ha backdrop-filter: diventa il contenitore di ogni
+     discendente `fixed`, "inset: 0" si misura sui suoi ~60px invece che sul
+     vero viewport, e il velo copre solo la barra in alto. Altezza esplicita
+     in unità di viewport, immune al contenitore: 100dvh tiene conto anche
+     della barra degli indirizzi mobile, dove supportata. */
+  height: 100vh;
+  height: 100dvh;
+  z-index: var(--layer-overlay);
+  background-color: var(--color-overlay);
+  opacity: 0;
+  visibility: hidden;
+  /* Il dito sul velo non deve far scorrere la pagina dietro (iOS). */
+  touch-action: none;
+  transition:
+    opacity var(--duration-base) var(--ease-out),
+    visibility 0s linear var(--duration-base);
+}
+
+.site-header__overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity var(--duration-base) var(--ease-out),
+    visibility 0s;
+}
+
+.site-header__panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  /* Stesso motivo dell'overlay qui sopra: "bottom: 0" si misura sull'header
+     (backdrop-filter lo rende il contenitore dei discendenti fixed), non sul
+     viewport reale, e il pannello resta alto quanto la sola barra — si vede
+     la testata col logo e la X, il resto del sito sotto. Altezza esplicita
+     in unità di viewport invece di dedurla da top+bottom. */
+  height: 100vh;
+  height: 100dvh;
+  z-index: var(--layer-menu);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-small);
+  width: min(22rem, 88vw);
+  padding: var(--space-small) var(--space-medium) calc(var(--space-medium) + env(safe-area-inset-bottom, 0px));
+  overflow-y: auto;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-large) 0 0 var(--radius-large);
+  box-shadow: var(--shadow-large);
+  transform: translateX(100%);
+  visibility: hidden;
+  transition:
+    transform var(--duration-menu) var(--ease-menu),
+    visibility 0s linear var(--duration-menu);
+}
+
+.site-header__panel.is-open {
+  transform: translateX(0);
+  visibility: visible;
+  transition:
+    transform var(--duration-menu) var(--ease-menu),
+    visibility 0s;
+}
+
+/* Barra propria del pannello: marchio + X dedicata. Senza, la X
+   dell'hamburger resterebbe coperta dal pannello stesso. */
+.site-header__panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 3rem;
+}
+
+.site-header__panel-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  margin: 0;
+  max-width: none;
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-extrabold);
+  letter-spacing: -0.03em;
+}
+
+.site-header__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  background-color: var(--color-surface-alt);
+  border: var(--border-width-hairline) solid var(--color-border);
+  border-radius: var(--radius-pill);
+  color: var(--color-text);
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-spring);
+}
+
+.site-header__close:hover {
+  background-color: var(--color-accent-soft);
+  color: var(--color-accent-hover);
+  transform: rotate(90deg);
+}
+
+.site-header__toggle,
+.site-header__close,
+.site-header__panel-link {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.site-header__close:active {
+  transform: scale(0.94);
+}
+
+.site-header__close-icon {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.site-header__panel-link:active {
+  background-color: var(--color-accent-soft);
+}
+
+.site-header__panel-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xsmall);
+}
+
+.site-header__panel-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-small);
+  padding: var(--space-xsmall) var(--space-small);
+  border-radius: var(--radius-small);
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+
+.site-header__panel-link::after {
+  content: "→";
+  color: var(--color-border-strong);
+  font-weight: var(--font-weight-regular);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition:
+    opacity var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.site-header__panel-link:hover::after,
+.site-header__panel-link.is-current::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.site-header__panel-link:hover {
+  background-color: var(--color-surface-alt);
+}
+
+.site-header__panel-link.is-current {
+  background-color: var(--color-accent-soft);
+  color: var(--color-accent-hover);
+}
+
+.site-header__panel-link.is-current::after {
+  color: var(--color-accent-hover);
+}
+
+/* Entrata in sequenza: testa, voci, fondo. Ritardi corti: tutto si assesta
+   entro ~600ms, altrimenti sembra lag invece che animazione. */
+.site-header__panel-head,
+.site-header__panel-foot {
+  opacity: 0;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+.site-header__panel.is-open .site-header__panel-head {
+  opacity: 1;
+  transition-delay: 60ms;
+}
+
+.site-header__panel.is-open .site-header__panel-foot {
+  opacity: 1;
+  transition-delay: 280ms;
+}
+
+.site-header__panel-list > li {
+  opacity: 0;
+  transform: translateX(12px);
+  transition:
+    opacity var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out);
+}
+
+.site-header__panel.is-open .site-header__panel-list > li {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.site-header__panel.is-open .site-header__panel-list > li:nth-child(1) { transition-delay: 80ms; }
+.site-header__panel.is-open .site-header__panel-list > li:nth-child(2) { transition-delay: 105ms; }
+.site-header__panel.is-open .site-header__panel-list > li:nth-child(3) { transition-delay: 130ms; }
+.site-header__panel.is-open .site-header__panel-list > li:nth-child(4) { transition-delay: 155ms; }
+.site-header__panel.is-open .site-header__panel-list > li:nth-child(5) { transition-delay: 180ms; }
+.site-header__panel.is-open .site-header__panel-list > li:nth-child(6) { transition-delay: 205ms; }
+.site-header__panel.is-open .site-header__panel-list > li:nth-child(7) { transition-delay: 230ms; }
+
+.site-header__panel-foot {
+  display: grid;
+  gap: var(--space-small);
+  margin-top: auto;
+  padding-top: var(--space-small);
+}
+
+.site-header__panel-foot .button {
+  width: 100%;
+}
+
+.site-header__panel-note {
+  margin: 0;
+  max-width: none;
+  padding: var(--space-small);
+  background-color: var(--color-background-warm);
+  border-radius: var(--radius-small);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+  text-align: center;
+}
+
+@media (min-width: 80em) {
+  .site-header__navigation,
+  .site-header__action {
+    display: block;
+  }
+
+  .site-header__toggle,
+  .site-header__panel,
+  .site-header__overlay {
+    display: none;
+  }
+}
+
+.page-body {
+  padding-top: var(--header-height);
+}
+
+/* ==========================================================================
+   Bottone WhatsApp — pulsante rotondo fluttuante (solo telefono)
+   ========================================================================== */
+
+.whatsapp-bar {
+  position: fixed;
+  right: var(--space-small);
+  bottom: calc(var(--space-small) + env(safe-area-inset-bottom, 0px));
+  z-index: var(--layer-header);
+}
+
+.whatsapp-bar__button {
+  width: 3.5rem;
+  height: 3.5rem;
+  padding: 0;
+  min-height: 0;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 12px 28px rgba(29, 78, 216, 0.4);
+}
+
+.whatsapp-bar__icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+@media (min-width: 80em) {
+  .whatsapp-bar {
+    display: none;
+  }
+}
+
+@media (max-width: 79.99em) {
+  .site-footer {
+    padding-bottom: calc(var(--space-3xlarge) + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* ==========================================================================
+   Torna su — freccia fissa in basso a destra
+   Su telefono sta sopra il bottone WhatsApp, su desktop in un angolo.
+   ========================================================================== */
+
+.back-to-top {
+  position: fixed;
+  right: var(--space-small);
+  bottom: calc(5.25rem + env(safe-area-inset-bottom, 0px));
+  z-index: var(--layer-back-to-top);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  background-color: var(--color-surface);
+  border: var(--border-width-hairline) solid var(--color-border);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-medium);
+  color: var(--color-accent);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(0.75rem);
+  transition:
+    opacity var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out),
+    visibility 0s linear var(--duration-base),
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.back-to-top:hover {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-text-inverse);
+}
+
+.back-to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition:
+    opacity var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out),
+    visibility 0s,
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.back-to-top__icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+@media (min-width: 80em) {
+  .back-to-top {
+    right: var(--space-large);
+    bottom: var(--space-large);
+  }
+}
+
+/* ==========================================================================
+   Hero rivoluzionato
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  overflow: clip;
+  padding-block: var(--space-2xlarge) var(--space-xlarge);
+  /* Senza la trama a puntini lo sfondo bianco si confondeva col resto della
+     pagina, lasciando un vuoto piatto sotto al testo. Un lavaggio leggero
+     (lo stesso di .section--warm altrove nel sito) basta a farla leggere
+     come una sezione a sé. */
+  background-color: var(--color-background-warm);
+}
+
+/* Faretto che segue il puntatore: acceso solo da JS (mouse fine, niente
+   riduzione di movimento). Senza JS resta a opacità zero, invisibile. */
+.hero__spotlight {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: radial-gradient(
+    480px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    rgba(94, 162, 255, 0.20),
+    transparent 70%
+  );
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: var(--space-xlarge);
+}
+
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xsmall);
+  padding: var(--space-2xsmall) var(--space-small);
+  background-color: var(--color-surface);
+  border: var(--border-width-hairline) solid var(--color-border);
+  border-radius: var(--radius-small);
+  box-shadow: var(--shadow-small);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-label);
+  text-transform: uppercase;
+}
+
+.hero__eyebrow-dot {
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-success);
+  box-shadow: 0 0 0 4px rgba(31, 107, 67, 0.15);
+  animation: eyebrow-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes eyebrow-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 3px rgba(31, 107, 67, 0.18);
+  }
+
+  50% {
+    box-shadow: 0 0 0 7px rgba(31, 107, 67, 0.06);
+  }
+}
+
+.hero__title {
+  margin-top: var(--space-small);
+  max-width: 14ch;
+}
+
+/*
+ * Firma: un cerchio disegnato a mano invece del testo in sfumatura blu —
+ * l'elemento più riconoscibile di "fatto da un tool AI" in questo periodo.
+ * Colore pieno, non trasparente: l'enfasi la fa il segno sotto, che si
+ * disegna da sé quando la pagina è pronta (stesso timing di .hero__stagger).
+ * Su sfondo scuro (surface-inverse, CTA) il colore cambia da solo perché
+ * usa currentColor sia per il testo sia per il tratto della SVG.
+ */
+.hero__mark {
+  display: inline;
+  padding-bottom: 0.04em;
+  color: var(--color-accent);
+  background-repeat: repeat-x;
+  background-position: 0 100%;
+  background-size: 170px 14px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 170 14'%3E%3Cpath d='M2 9.5C34 2.5 68 12 100 6C124 1.5 148 10 168 5' fill='none' stroke='%231D4ED8' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E");
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.surface-inverse .hero__mark,
+.call-to-action__title .hero__mark {
+  color: var(--color-accent-glow);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 170 14'%3E%3Cpath d='M2 9.5C34 2.5 68 12 100 6C124 1.5 148 10 168 5' fill='none' stroke='%235EA2FF' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+/* Nel titolo dell'hero il tratto a mano sotto la parola resta troppo simile
+   a una riga da template: qui resta solo il colore pieno, senza segno. */
+.hero__title .hero__mark {
+  padding-bottom: 0;
+  background-image: none;
+}
+
+.hero__text {
+  margin-top: var(--space-medium);
+  max-width: 52ch;
+  font-size: var(--font-size-lead);
+  line-height: var(--line-height-lead);
+  color: var(--color-text-muted);
+}
+
+.hero__actions {
+  margin-top: var(--space-large);
+}
+
+.hero__microcopy {
+  margin-top: var(--space-small);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+/* Ingresso hero: gli elementi salgono in sequenza al caricamento. */
+.hero__stagger {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity var(--duration-reveal) var(--ease-out),
+    transform var(--duration-reveal) var(--ease-out);
+  transition-delay: var(--hero-delay, 0ms);
+}
+
+body.is-loaded .hero__stagger {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/*
+ * Confronto interattivo: uno schizzo a mano libera (wireframe disegnato in
+ * SVG, non una foto filtrata) coperto sopra lo screenshot vero di Forno
+ * Nero, tagliato con clip-path in base a uno slider nativo — accessibile
+ * da tastiera e da touch senza codice in più. Mostra "zero template" invece
+ * di scriverlo soltanto. Senza JS l'input non sposta nulla, quindi lo
+ * schizzo e il divisore restano nascosti e si vede solo il sito vero
+ * (vedi @media (scripting: none) più sotto).
+ */
+.hero__reveal {
+  position: relative;
+}
+
+.hero__reveal-label {
+  margin-bottom: var(--space-xsmall);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  letter-spacing: 0.01em;
+  text-align: center;
+}
+
+.hero__reveal-stage {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 8 / 5;
+  background-color: var(--color-background-warm);
+  border: var(--border-width-hairline) solid var(--color-border);
+  border-radius: var(--radius-large);
+  box-shadow: var(--shadow-large);
+  --reveal-pct: 38%;
+}
+
+.hero__reveal-final {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.hero__reveal-sketch {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 calc(100% - var(--reveal-pct)) 0 0);
+}
+
+.hero__reveal-sketch-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero__reveal-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--reveal-pct);
+  width: 2px;
+  margin-left: -1px;
+  background-color: var(--color-accent);
+  pointer-events: none;
+}
+
+.hero__reveal-line::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2.2rem;
+  height: 2.2rem;
+  transform: translate(-50%, -50%);
+  background-color: var(--color-surface);
+  border: var(--border-width-hairline) solid var(--color-accent);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-medium);
+}
+
+.hero__reveal-control {
+  display: flex;
+  align-items: center;
+  gap: var(--space-small);
+  margin-top: var(--space-small);
+}
+
+.hero__reveal-control-label {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+}
+
+.hero__reveal-input {
+  flex: 1;
+  appearance: none;
+  -webkit-appearance: none;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-border-strong);
+  outline-offset: 4px;
+}
+
+.hero__reveal-input::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-accent);
+  border: 3px solid var(--color-surface);
+  box-shadow: var(--shadow-medium);
+  cursor: grab;
+}
+
+.hero__reveal-input::-moz-range-thumb {
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-accent);
+  border: 3px solid var(--color-surface);
+  box-shadow: var(--shadow-medium);
+  cursor: grab;
+}
+
+.hero__reveal-input::-webkit-slider-thumb:active,
+.hero__reveal-input::-moz-range-thumb:active {
+  cursor: grabbing;
+}
+
+@media (scripting: none) {
+  .hero__reveal-sketch,
+  .hero__reveal-line,
+  .hero__reveal-control {
+    display: none;
+  }
+}
+
+.hero__trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xsmall) var(--space-medium);
+  margin-top: var(--space-large);
+  padding-top: var(--space-medium);
+  border-top: var(--border-width-hairline) solid var(--color-border);
+}
+
+.hero__trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xsmall);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+}
+
+.hero__trust-item::before {
+  content: "✓";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-accent-soft);
+  color: var(--color-accent-hover);
+  font-size: 0.8rem;
+  font-weight: var(--font-weight-bold);
+}
+
+/* ==========================================================================
+   Hero home: testo centrato, con dei "oggettini" intorno che richiamano
+   sito e gestionale — al posto della trama a puntini, tolta perché troppo
+   simile a un template.
+   ========================================================================== */
+
+.hero__content--centered {
+  position: relative;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.hero__content--centered .hero__eyebrow,
+.hero__content--centered .hero__title,
+.hero__content--centered .hero__text {
+  margin-inline: auto;
+}
+
+.hero__content--centered .hero__title {
+  max-width: 16ch;
+}
+
+.hero__content--centered .hero__actions {
+  justify-content: center;
+}
+
+.hero__content--centered .hero__trust {
+  justify-content: center;
+}
+
+/* Sotto i 64em non c'è spazio per farli girare intorno al testo senza
+   coprirlo: restano nascosti, il testo centrato basta da solo. */
+.hero__objects {
+  display: none;
+  pointer-events: none;
+}
+
+@media (min-width: 64em) {
+  .hero__objects {
+    display: contents;
+  }
+}
+
+.hero__object {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: var(--radius-medium);
+  box-shadow: var(--shadow-medium);
+  opacity: 0;
+  transform: rotate(var(--object-rotate, 0deg));
+  animation:
+    hero-object-in 700ms var(--ease-out) var(--object-delay, 0ms) forwards,
+    hero-object-float 5s ease-in-out infinite;
+  animation-delay: var(--object-delay, 0ms), calc(var(--object-delay, 0ms) + 700ms);
+}
+
+.hero__object svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero__object--1 {
+  top: -3%;
+  left: 2%;
+}
+
+.hero__object--2 {
+  top: 10%;
+  right: -3%;
+}
+
+.hero__object--3 {
+  bottom: 16%;
+  left: -4%;
+}
+
+.hero__object--4 {
+  bottom: 16%;
+  right: -4%;
+}
+
+@keyframes hero-object-in {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes hero-object-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--object-rotate, 0deg));
+  }
+
+  50% {
+    transform: translateY(-8px) rotate(var(--object-rotate, 0deg));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__object {
+    opacity: 1;
+    animation: none;
+  }
+}
+
+/* ==========================================================================
+   Hero delle pagine interne: la stessa firma della home, senza ripeterla
+   ========================================================================== */
+/*
+ * La home ha il pannello che si scrive da solo: qui non lo ripetiamo (sarebbe
+ * la stessa cosa) ma non lasciamo le pagine interne piatte come prima. Due
+ * elementi, entrambi presi da un dato vero della pagina, mai da un motivo
+ * decorativo generico: una cifra enorme e sbiadita dietro il titolo (48H,
+ * 15, 3...) e il titolo stesso che si "decifra" invece di comparire con un
+ * fade. Il contenuto vero (container) va dopo, in un solo elemento
+ * position:relative, altrimenti gli orb e la cifra — anche loro assoluti —
+ * finirebbero sopra al testo per via dell'ordine di stacking.
+ */
+.hero--page > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.hero__ghost-stat {
+  position: absolute;
+  top: 50%;
+  right: clamp(-0.5rem, 4vw, 2rem);
+  transform: translateY(-54%);
+  z-index: 0;
+  font-family: var(--font-mono);
+  font-size: clamp(5.5rem, 20vw, 11rem);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  color: var(--color-accent-soft);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero__title-page {
+  max-width: 20ch;
+}
+
+@media (min-width: 64em) {
+  .hero__ghost-stat {
+    right: clamp(1rem, 8vw, 5rem);
+  }
+}
+
+/* Vecchio markup hero ancora in giro: lo fa sembrare nuovo senza toccarlo. */
+.hero__label {
+  display: inline-block;
+  margin-bottom: var(--space-small);
+  padding: var(--space-3xsmall) var(--space-small);
+  background-color: var(--color-accent-soft);
+  border-radius: var(--radius-small);
+  color: var(--color-accent-hover);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-label);
+  text-transform: uppercase;
+}
+
+@media (min-width: 64em) {
+  .hero {
+    padding-block: var(--space-3xlarge) var(--space-2xlarge);
+  }
+
+  .hero__inner {
+    grid-template-columns: 1.05fr 1fr;
+    align-items: center;
+    gap: var(--space-2xlarge);
+  }
+
+  /* Hero delle pagine interne: una colonna sola, mai schiacciata a metà. */
+  .hero__inner > :only-child {
+    grid-column: 1 / -1;
+  }
+
+  /*
+   * Home: struttura diversa dalle pagine interne. Non due colonne affiancate
+   * ma testo sopra e, sotto, un confronto interattivo a piena larghezza —
+   * più spazio per farlo leggere bene, invece di schiacciarlo in una colonna
+   * stretta accanto al testo.
+   */
+  .hero__inner--stacked {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__inner--stacked .hero__content {
+    max-width: 62ch;
+  }
+
+  .hero__reveal-stage {
+    max-width: 46rem;
+    margin-inline: auto;
+  }
+}
+
+/* ==========================================================================
+   Preloader della home: un laptop, un cursore che clicca, il sito si apre
+   ========================================================================== */
+/*
+ * Senza JS il preloader non serve a niente (nessuno spegnerebbe mai
+ * l'overlay), quindi resta mostrato di default e sparisce solo grazie a
+ * `@media (scripting: none)` più sotto — l'opposto della convenzione usata
+ * per le animazioni decorative, ma qui è l'unico modo per non bloccare il
+ * sito a chi non ha JavaScript.
+ */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: var(--layer-preloader);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-background-warm);
+  /* Il "vero" cambio di stato lo fa .pl-bloom qui sotto, che dipinge già
+     tutto di bianco prima che questo overlay sparisca: la dissolvenza che
+     resta serve solo a non lasciare un salto netto di 1 frame. */
+  transition: opacity 200ms linear, visibility 200ms;
+}
+
+.preloader.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.pl-scene {
+  position: relative;
+  width: min(420px, 78vw);
+}
+
+.pl-laptop {
+  position: relative;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(16px) scale(0.96);
+  animation: pl-in var(--duration-slow) 100ms var(--ease-out) forwards;
+}
+
+@keyframes pl-in {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.pl-screen {
+  background-color: var(--color-surface-inverse);
+  border-radius: var(--radius-large) var(--radius-large) 3px 3px;
+  padding: var(--space-2xsmall);
+  box-shadow: var(--shadow-large);
+}
+
+.pl-screen__inner {
+  background-image: linear-gradient(160deg, #17335F 0%, var(--color-surface-inverse) 100%);
+  border-radius: 4px;
+  aspect-ratio: 16 / 10;
+  position: relative;
+  overflow: hidden;
+}
+
+.pl-file {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3xsmall);
+}
+
+.pl-file span {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-text-inverse-muted);
+}
+
+.pl-file-icon {
+  transition: transform 150ms ease;
+}
+
+.pl-file.is-active .pl-file-icon {
+  transform: scale(0.88);
+}
+
+.pl-base {
+  height: 14px;
+  background-image: linear-gradient(180deg, #1A2C52, var(--color-surface-inverse));
+  border-radius: 0 0 10px 10px;
+  margin-inline: -6px;
+  box-shadow: 0 10px 24px rgba(14, 27, 44, 0.2);
+}
+
+.pl-base::before {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 6px;
+  margin-inline: auto;
+  background-color: var(--color-surface-inverse);
+  border-radius: 0 0 6px 6px;
+}
+
+.pl-cursor {
+  position: absolute;
+  left: 82%;
+  top: 78%;
+  z-index: 3;
+  opacity: 0;
+  animation: pl-cursor-move 1.6s 500ms cubic-bezier(0.5, 0, 0.2, 1) forwards;
+}
+
+@keyframes pl-cursor-move {
+  0% {
+    left: 84%;
+    top: 82%;
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  70%,
+  100% {
+    left: 50%;
+    top: 50%;
+    opacity: 1;
+  }
+}
+
+.pl-click-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border: 2.5px solid var(--color-accent-glow);
+  border-radius: var(--radius-pill);
+  transform: translate(-50%, -50%) scale(0.4);
+  opacity: 0;
+  animation: pl-click 550ms 2150ms ease-out forwards;
+}
+
+@keyframes pl-click {
+  0% {
+    transform: translate(-50%, -50%) scale(0.4);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(5);
+    opacity: 0;
+  }
+}
+
+.pl-flash {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-background);
+  border-radius: inherit;
+  opacity: 0;
+  animation: pl-flash 350ms 2200ms ease-out forwards;
+}
+
+@keyframes pl-flash {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/*
+ * Il file "si apre": un cerchio bianco — il vero colore di sfondo del sito,
+ * non quello caldo del preloader — si espande dal punto del clic (poco
+ * sotto il centro, dov'è il file) fino a coprire tutto lo schermo, come se
+ * il sito si riversasse fuori da lì invece di comparire con una dissolvenza
+ * uguale ovunque.
+ */
+.pl-bloom {
+  position: absolute;
+  left: 50%;
+  top: 54%;
+  width: 300vmax;
+  height: 300vmax;
+  background-color: var(--color-background);
+  /* --radius-pill è un raggio fisso (pensato per pallini/avatar): su un
+     elemento enorme come questo arrotonderebbe appena gli angoli invece di
+     restare un cerchio. Qui serve percentuale. */
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 1;
+  z-index: 4;
+  animation: pl-bloom-out 1.05s 2300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pl-bloom-out {
+  to {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.pl-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2.6rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  opacity: 0;
+  animation:
+    pl-in 500ms 300ms ease forwards,
+    pl-caption-out 400ms 2150ms ease forwards;
+}
+
+@keyframes pl-caption-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pl-laptop,
+  .pl-cursor,
+  .pl-click-ring,
+  .pl-flash,
+  .pl-bloom,
+  .pl-caption {
+    animation: none;
+  }
+}
+
+@media (scripting: none) {
+  .preloader {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Fascia promesse + griglie vecchie
+   ========================================================================== */
+
+.promise-list {
+  display: grid;
+  gap: var(--space-small);
+}
+
+.promise-list__item {
+  position: relative;
+  padding: var(--space-medium);
+  background-color: var(--color-surface);
+  border: var(--border-width-hairline) solid var(--color-border);
+  border-radius: var(--radius-medium);
+}
+
+.promise-list__title {
+  margin-bottom: var(--space-3xsmall);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-h4);
+}
+
+.promise-list__text {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+@media (min-width: 48em) {
+  .promise-list {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-medium);
+  }
+}
+
+.card-grid {
+  display: grid;
+  gap: var(--space-medium);
+}
+
+@media (min-width: 48em) {
+  .card-grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card-grid--3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 64em) {
+  .card-grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ==========================================================================
+   Demo viewer — "provalo prima di comprarlo"
+   ========================================================================== */
+
+.demo-viewer {
+  margin-top: var(--space-xlarge);
+  overflow: hidden;
+  background-color: var(--color-surface-inverse);
+  border-radius: var(--radius-large);
+  color: var(--color-text-inverse);
+  box-shadow: var(--shadow-large);
+}
+
+.demo-viewer__tabs {
+  display: flex;
+  gap: var(--space-2xsmall);
+  padding: var(--space-small);
+  overflow-x: auto;
+}
+
+.demo-viewer__tab {
+  flex-shrink: 0;
+  padding: 0.65rem 1.2rem;
+  background-color: transparent;
+  border: var(--border-width-hairline) solid rgba(255, 255, 255, 0.22);
+  border-radius: var(--radius-small);
+  color: var(--color-text-inverse-muted);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-small);
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.demo-viewer__tab:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  color: var(--color-text-inverse);
+}
+
+.demo-viewer__tab.is-selected {
+  background-color: var(--color-text-inverse);
+  border-color: var(--color-text-inverse);
+  color: var(--color-surface-inverse);
+}
+
+.demo-viewer__panels {
+  padding: 0 var(--space-small) var(--space-small);
+}
+
+.demo-viewer__panel {
+  display: none;
+  grid-template-columns: 1fr;
+  gap: var(--space-medium);
+  padding: var(--space-medium);
+  background-color: rgba(255, 255, 255, 0.06);
+  border: var(--border-width-hairline) solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-medium);
+}
+
+.demo-viewer__panel.is-visible {
+  display: grid;
+  animation: panel-in var(--duration-base) var(--ease-out);
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.demo-viewer__media {
+  overflow: hidden;
+  border-radius: var(--radius-small);
+}
+
+.demo-viewer__image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.demo-viewer__panel:hover .demo-viewer__image {
+  transform: scale(1.025);
+}
+
+.demo-viewer__sector {
+  color: var(--color-accent-glow);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-label);
+  letter-spacing: var(--letter-spacing-label);
+  text-transform: uppercase;
+}
+
+.demo-viewer__title {
+  margin-top: var(--space-3xsmall);
+  color: var(--color-text-inverse);
+}
+
+.demo-viewer__summary {
+  margin-top: var(--space-2xsmall);
+  color: var(--color-text-inverse-muted);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.demo-viewer__watch {
+  margin-top: var(--space-small);
+  color: var(--color-text-inverse-muted);
+  font-size: var(--font-size-small);
+}
+
+.demo-viewer__watch strong {
+  color: var(--color-text-inverse);
+}
+
+.demo-viewer__action {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xsmall);
+  margin-top: var(--space-medium);
+}
+
+.demo-viewer__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xsmall);
+  padding: 0.8rem 1.4rem;
+  border-radius: var(--radius-small);
+  background-color: var(--color-accent);
+  color: var(--color-text-inverse);
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.demo-viewer__link:hover {
+  background-color: var(--color-accent-glow);
+  color: var(--color-surface-inverse);
+  transform: translateY(-2px);
+}
+
+.demo-viewer__note {
+  align-self: center;
+  color: var(--color-text-inverse-muted);
+  font-size: var(--font-size-small);
+}
+
+@media (min-width: 64em) {
+  .demo-viewer__panel.is-visible {
+    grid-template-columns: 1.4fr 1fr;
+    align-items: center;
+    gap: var(--space-xlarge);
+    padding: var(--space-large);
+  }
+
+  .demo-viewer__panels {
+    padding: 0 var(--space-medium) var(--space-medium);
+  }
+}
+
+/* ==========================================================================
+   Bento servizi + card prodotto
+   ========================================================================== */
+
+.bento {
+  display: grid;
+  gap: var(--space-medium);
+}
+
+/* ==========================================================================
+   Firma: il faretto segue il dito su ogni card del sito
+   Non la solita card-che-si-solleva: la luce (blu, non bianca) segue il
+   puntatore dentro il bordo. Un'unica regola per i quattro tipi di card,
+   accesa da JS solo con mouse fine — con dito o senza JS resta la card
+   normale, niente cambia. Vedi init_card_spotlight in main.js.
+   ========================================================================== */
+.bento__card,
+.product-card,
+.price-card,
+.project-card {
+  --spot-x: 50%;
+  --spot-y: 50%;
+}
+
+.bento__card::after,
+.product-card::after,
+.price-card::after,
+.project-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  background: radial-gradient(280px circle at var(--spot-x) var(--spot-y), rgba(29, 78, 216, 0.16), transparent 65%);
+  opacity: 0;
+  transition: opacity var(--duration-base) var(--ease-out);
+  pointer-events: none;
+}
+
+.bento__card--dark::after {
+  background: radial-gradient(280px circle at var(--spot-x) var(--spot-y), rgba(94, 162, 255, 0.22), transparent 65%);
+}
+
+.bento__card.is-spotlit::after,
+.product-card.is-spotlit::after,
+.price-card.is-spotlit::after,
+.project-card.is-spotlit::after {
+  opacity: 1;
+}
+
+.bento__card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-large);
+  background-color: var(--color-surface);
+  border: var(--border-width-hairline) solid var(--color-border);
+  border-radius: var(--radius-large);
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+}
+
+.bento__card:hover {
+  transform: translateY(-5px);
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.bento__card--dark {
+  background-color: var(--color-surface-inverse);
+  border-color: var(--color-surface-inverse);
+  color: var(--color-text-inverse);
+}
+
+.bento__card--dark:hover {
+  border-color: var(--color-surface-inverse);
+  box-shadow: var(--shadow-large);
+}
+
+.bento__card--dark .bento__description {
+  color: var(--color-text-inverse-muted);
+}
+
+
+.bento__label {
+  color: var(--color-accent-hover);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-label);
+  letter-spacing: var(--letter-spacing-label);
+  text-transform: uppercase;
+}
+
+.bento__card--dark .bento__label {
+  color: var(--color-accent-glow);
+}
+
+.bento__title {
+  margin-top: var(--space-2xsmall);
+}
+
+.bento__card--dark .bento__title {
+  color: var(--color-text-inverse);
+}
+
+.bento__price {
+  margin-top: var(--space-2xsmall);
+  font-family: var(--font-mono);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+}
+
+.bento__card--dark .bento__price {
+  color: var(--color-text-inverse-muted);
+}
+
+.bento__description {
+  margin-top: var(--space-xsmall);
+  color: var(--color-text-muted);
+}
+
+.bento__points {
+  display: grid;
+  gap: var(--space-2xsmall);
+  margin-top: var(--space-medium);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+}
+
+.bento__points li {
+  display: flex;
+  gap: var(--space-2xsmall);
+  align-items: flex-start;
+}
+
+.bento__points li::before {
+  content: "✓";
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-accent-soft);
+  color: var(--color-accent-hover);
+  font-size: 0.78rem;
+  font-weight: var(--font-weight-bold);
+}
+
+.bento__card--dark .bento__points li::before {
+  background-color: rgba(255, 255, 255, 0.14);
+  color: var(--color-accent-glow);
+}
+
+.bento__action {
+  margin-top: auto;
+  padding-top: var(--space-large);
+}
+
+.product-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-large);
+  background-color: var(--color-surface);
+  border: var(--border-width-hairline) solid var(--color-border);
+  border-radius: var(--radius-large);
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.product-card:focus-within {
+  border-color: var(--color-accent);
+}
+
+.product-card__label {
+  margin-bottom: var(--space-2xsmall);
+  color: var(--color-accent-hover);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-label);
+  text-transform: uppercase;
+}
+
+.product-card__title {
+  margin-bottom: var(--space-2xsmall);
+}
+
+.product-card__price {
+  margin-bottom: var(--space-xsmall);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+}
+
+.product-card__description {
+  margin-bottom: var(--space-medium);
+  color: var(--color-text-muted);
+}
+
+.product-card__action {
+  margin-top: auto;
+}
+
+@media (min-width: 64em) {
+  .bento {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ==========================================================================
+   Card prezzo
+   ========================================================================== */
+
+.price-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-large);
+  background-color: var(--color-surface);
+  border: var(--border-width-hairline) solid var(--color-border);
+  border-radius: var(--radius-large);
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
+}
+
+.price-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-medium);
+}
+
+.price-card__plan {
+  margin-bottom: var(--space-2xsmall);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-h3);
+  letter-spacing: -0.01em;
+}
+
+.price-card__note {
+  margin-top: var(--space-3xsmall);
+  margin-bottom: var(--space-small);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.price-card__include-list,
+.price-card__exclude-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xsmall);
+  margin-bottom: var(--space-medium);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.price-card__include,
+.price-card__exclude {
+  display: grid;
+  grid-template-columns: 1.25rem 1fr;
+  gap: var(--space-2xsmall);
+}
+
+.price-card__include::before {
+  content: "✓";
+  color: var(--color-success);
+  font-weight: var(--font-weight-bold);
+}
+
+.price-card__exclude::before {
+  content: "—";
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-bold);
+}
+
+.price-card__exclude {
+  color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   Tabella piani
+   ========================================================================== */
+
+.plan-table__scroll {
+  position: relative;
+  overflow-x: auto;
+  border: var(--border-width-hairline) solid var(--color-border);
+  border-radius: var(--radius-medium);
+  background-color: var(--color-surface);
+}
+
+.plan-table {
+  width: 100%;
+  min-width: 34rem;
+  border-collapse: collapse;
+  font-size: var(--font-size-small);
+}
+
+.plan-table__caption {
+  padding: var(--space-small) var(--space-medium);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+  text-align: left;
+}
+
+.plan-table th,
+.plan-table td {
+  padding: var(--space-xsmall) var(--space-small);
+  border-bottom: var(--border-width-hairline) solid var(--color-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.plan-table thead th {
+  background-color: var(--color-background-warm);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-label);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.plan-table__cell--feature {
+  font-weight: var(--font-weight-medium);
+}
+
+.plan-table__cell--plan.is-featured {
+  background-color: var(--color-accent-soft);
+}
+
+.plan-table thead th.is-featured {
+  background-color: var(--color-accent);
+  color: var(--color-text-inverse);
+}
+
+.plan-table__check {
+  color: var(--color-success);
+  font-weight: var(--font-weight-bold);
+}
+
+.plan-table__dash {
+  color: var(--color-text-muted);
+}
+
+.plan-table tbody tr:last-child th,
+.plan-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+@media (min-width: 48em) {
+  .plan-table {
+    min-width: 0;
+  }
+}
+
+/* ==========================================================================
+   Card progetto
+   ========================================================================== */
+
+.project-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: var(--color-surface);
+  border: var(--border-width-hairline) solid var(--color-border);
+  border-radius: var(--radius-large);
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-medium);
+}
+
+.project-card:focus-within {
+  border-color: var(--color-accent);
+}
+
+.project-card__media {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-surface-alt);
+  border-bottom: var(--border-width-hairline) solid var(--color-border);
+}
+
+.project-card__image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.project-card:hover .project-card__image {
+  transform: scale(1.04);
+}
+
+.project-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-2xsmall);
+  padding: var(--space-medium);
+}
+
+.project-card__sector {
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-label);
+  text-transform: uppercase;
+}
+
+.project-card__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-bold);
+}
+
+.project-card__summary {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.project-card__action {
+  margin-top: auto;
+  padding-top: var(--space-xsmall);
+}
+
+.project-card__link {
+  font-weight: var(--font-weight-bold);
+  text-decoration: underline;
+}
+
+.project-card__external-note {
+  display: block;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+}
+
+.project-card.is-hidden {
+  display: none;
+}
+
+/* ==========================================================================
+   Etichetta
+   ========================================================================== */
+
+.badge {
+  display: inline-block;
+  padding: var(--space-3xsmall) var(--space-small);
+  border-radius: var(--radius-small);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-label);
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.badge--demo {
+  background-color: var(--color-surface-alt);
+  border: var(--border-width-hairline) solid var(--color-border-strong);
+  color: var(--color-text-muted);
+}
+
+.badge--real {
+  background-color: var(--color-accent-soft);
+  border: var(--border-width-hairline) solid var(--color-accent);
+  color: var(--color-accent-hover);
+}
+
+.badge--progress {
+  background-color: var(--color-surface-alt);
+  border: var(--border-width-hairline) solid var(--color-warning);
+  color: var(--color-warning);
+}
+
+/* ==========================================================================
+   Filtri
+   ========================================================================== */
+
+.filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xsmall);
+  margin-bottom: var(--space-large);
+}
+
+.filter-group__button {
+  padding: var(--space-2xsmall) 1.1rem;
+  min-height: 2.75rem;
+  background-color: var(--color-surface);
+  border: var(--border-width-hairline) solid var(--color-border);
+  border-radius: var(--radius-small);
+  color: var(--color-text);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.filter-group__button:hover {
+  border-color: var(--color-text);
+  transform: translateY(-1px);
+}
+
+.filter-group__button[aria-pressed="true"] {
+  background-color: var(--color-text);
+  border-color: var(--color-text);
+  color: var(--color-text-inverse);
+}
+
+/* ==========================================================================
+   Passi — timeline calda
+   ========================================================================== */
+
+.step-list {
+  display: grid;
+  gap: var(--space-small);
+  counter-reset: step;
+}
+
+.step-list__item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3.2rem 1fr;
+  gap: var(--space-medium);
+  padding: var(--space-medium);
+  background-color: var(--color-surface);
+  border: var(--border-width-hairline) solid var(--color-border);
+  border-radius: var(--radius-medium);
+  counter-increment: step;
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
+}
+
+.step-list__item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-medium);
+}
+
+.step-list__item::before {
+  content: counter(step, decimal-leading-zero);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  background: linear-gradient(140deg, var(--color-accent-soft), #F2F6FE);
+  border: var(--border-width-hairline) solid var(--color-border);
+  border-radius: var(--radius-pill);
+  color: var(--color-accent-hover);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+}
+
+.step-list__title {
+  margin-bottom: var(--space-3xsmall);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-h4);
+  letter-spacing: -0.01em;
+}
+
+.step-list__text {
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 64em) {
+  .step-list--split {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: var(--space-medium);
+  }
+}
+
+/* ==========================================================================
+   Confronto onesto
+   ========================================================================== */
+
+.balance {
+  display: grid;
+  gap: var(--space-medium);
+  margin-top: var(--space-large);
+}
+
+.balance__column {
+  padding: var(--space-large);
+  background-color: var(--color-surface);
+  border: var(--border-width-hairline) solid var(--color-border);
+  border-radius: var(--radius-large);
+}
+
+.balance__column--gain {
+  background: linear-gradient(160deg, #F2F6FE, var(--color-surface) 70%);
+  border-color: var(--color-accent-soft);
+}
+
+.balance__title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xsmall);
+  margin-bottom: var(--space-2xsmall);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-label);
+  text-transform: uppercase;
+}
+
+.balance__column--gain .balance__title {
+  color: var(--color-success);
+}
+
+.balance__text {
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 48em) {
+  .balance {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ==========================================================================
+   Accordion — apertura fluida
+   ========================================================================== */
+
+.accordion {
+  display: grid;
+  gap: var(--space-xsmall);
+}
+
+.accordion__item {
+  background-color: var(--color-surface);
+  border: var(--border-width-hairline) solid var(--color-border);
+  border-radius: var(--radius-medium);
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.accordion__item:hover {
+  border-color: var(--color-border-strong);
+}
+
+.accordion__item.is-open {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-medium);
+}
+
+.accordion__heading {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: normal;
+}
+
+.accordion__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-small);
+  width: 100%;
+  padding: var(--space-small) var(--space-medium);
+  background-color: transparent;
+  border: 0;
+  border-radius: var(--radius-medium);
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+  text-align: left;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.accordion__trigger:hover {
+  color: var(--color-accent-hover);
+}
+
+.accordion__icon {
+  position: relative;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-accent-soft);
+  color: var(--color-accent-hover);
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.accordion__icon::before,
+.accordion__icon::after {
+  content: "";
+  position: absolute;
+  background-color: currentColor;
+  border-radius: 2px;
+}
+
+.accordion__icon::before {
+  width: 0.8rem;
+  height: 2px;
+}
+
+.accordion__icon::after {
+  width: 2px;
+  height: 0.8rem;
+}
+
+.accordion__item.is-open .accordion__icon {
+  transform: rotate(135deg);
+  background-color: var(--color-accent);
+  color: var(--color-text-inverse);
+}
+
+.accordion__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows var(--duration-base) var(--ease-out);
+}
+
+.accordion__item.is-open .accordion__panel {
+  grid-template-rows: 1fr;
+}
+
+.accordion__panel-inner {
+  overflow: hidden;
+}
+
+.accordion__panel p {
+  padding: 0 var(--space-medium) var(--space-medium);
+  color: var(--color-text-muted);
+}
+
+.accordion__panel[hidden] {
+  display: none;
+}
+
+/* ==========================================================================
+   Modulo
+   ========================================================================== */
+
+.form {
+  display: grid;
+  gap: var(--space-medium);
+  padding: var(--space-large);
+  background-color: var(--color-surface);
+  border: var(--border-width-hairline) solid var(--color-border);
+  border-radius: var(--radius-large);
+  box-shadow: var(--shadow-medium);
+}
+
+.form__field {
+  display: grid;
+  gap: var(--space-3xsmall);
+}
+
+.form__label {
+  font-weight: var(--font-weight-semibold);
+}
+
+.form__required {
+  color: var(--color-error);
+}
+
+.form__hint {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.form__input,
+.form__textarea,
+.form__select {
+  width: 100%;
+  padding: var(--space-xsmall) var(--space-small);
+  min-height: 3rem;
+  background-color: var(--color-surface);
+  border: var(--border-width-hairline) solid var(--color-border-strong);
+  border-radius: var(--radius-small);
+  font-size: 1rem;
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.form__input:focus,
+.form__textarea:focus,
+.form__select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.18);
+}
+
+.form__textarea {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+.form__field.is-invalid .form__input,
+.form__field.is-invalid .form__textarea,
+.form__field.is-invalid .form__select {
+  border-width: var(--border-width-medium);
+  border-color: var(--color-error);
+  background-color: var(--color-error-soft);
+}
+
+.form__error {
+  display: none;
+  color: var(--color-error);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-small);
+}
+
+.form__field.is-invalid .form__error {
+  display: block;
+}
+
+.form__consent {
+  display: grid;
+  grid-template-columns: 1.25rem 1fr;
+  gap: var(--space-2xsmall);
+  align-items: start;
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.form__checkbox {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0.15rem 0 0;
+  accent-color: var(--color-accent);
+}
+
+.form__status {
+  display: none;
+  padding: var(--space-xsmall) var(--space-small);
+  border-radius: var(--radius-small);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.form__status.is-error {
+  display: block;
+  background-color: var(--color-error-soft);
+  border: var(--border-width-hairline) solid var(--color-error);
+  color: var(--color-error);
+}
+
+/* ==========================================================================
+   Briciole di pane
+   ========================================================================== */
+
+.breadcrumb {
+  padding-top: var(--space-medium);
+}
+
+.breadcrumb__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2xsmall);
+  font-size: var(--font-size-small);
+}
+
+.breadcrumb__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xsmall);
+  color: var(--color-text-muted);
+}
+
+.breadcrumb__item:not(:last-child)::after {
+  content: "/";
+  color: var(--color-border-strong);
+}
+
+.breadcrumb__link {
+  color: var(--color-text-muted);
+}
+
+.breadcrumb__link:hover {
+  color: var(--color-accent);
+}
+
+.breadcrumb__item.is-current {
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+}
+
+@media (max-width: 29.99em) {
+  .breadcrumb__item:not(:first-child):not(:last-child) {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Nota
+   ========================================================================== */
+
+.note {
+  padding: var(--space-small) var(--space-medium);
+  background-color: var(--color-background-warm);
+  border: var(--border-width-hairline) solid var(--color-border);
+  border-left: var(--border-width-medium) solid var(--color-accent);
+  border-radius: 0 var(--radius-small) var(--radius-small) 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.note__title {
+  display: block;
+  margin-bottom: var(--space-3xsmall);
+  color: var(--color-text);
+  font-weight: var(--font-weight-bold);
+}
+
+/* ==========================================================================
+   Chiamata all'azione — pannello scuro con carta millimetrata
+   ========================================================================== */
+
+.call-to-action {
+  position: relative;
+  padding-block: var(--section-spacing);
+}
+
+.call-to-action__panel {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(2rem, 1.4rem + 4vw, 4rem);
+  background-color: var(--color-surface-inverse);
+  border-radius: var(--radius-large);
+  color: var(--color-text-inverse);
+  box-shadow: var(--shadow-large);
+}
+
+.call-to-action__panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: radial-gradient(circle, rgba(94, 162, 255, 0.35) 1.5px, transparent 1.5px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(ellipse 60% 70% at 85% 10%, #000 30%, transparent 75%);
+  mask-image: radial-gradient(ellipse 60% 70% at 85% 10%, #000 30%, transparent 75%);
+  pointer-events: none;
+}
+
+.call-to-action__seam {
+  display: none;
+}
+
+.call-to-action__title {
+  position: relative;
+  max-width: 22ch;
+  color: var(--color-text-inverse);
+}
+
+.call-to-action__text {
+  position: relative;
+  margin-top: var(--space-medium);
+  max-width: 52ch;
+  font-size: var(--font-size-lead);
+  line-height: var(--line-height-lead);
+  color: var(--color-text-inverse-muted);
+}
+
+.call-to-action__actions {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xsmall);
+  margin-top: var(--space-large);
+}
+
+.call-to-action__note {
+  position: relative;
+  margin-top: var(--space-small);
+  color: var(--color-text-inverse-muted);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+/* Compatibilità con il vecchio markup a due colonne. */
+.call-to-action__inner {
+  position: relative;
+  display: grid;
+  gap: var(--space-large);
+}
+
+@media (min-width: 48em) {
+  .call-to-action__inner {
+    grid-template-columns: 1.4fr 1fr;
+    align-items: center;
+    gap: var(--space-xlarge);
+  }
+}
+
+/* ==========================================================================
+   Piè di pagina — espresso caldo
+   ========================================================================== */
+
+.site-footer {
+  padding-block: var(--space-2xlarge) var(--space-large);
+  background-color: var(--color-surface-inverse);
+  color: var(--color-text-inverse-muted);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+  border-radius: var(--radius-large) var(--radius-large) 0 0;
+}
+
+.site-footer__seam {
+  display: none;
+}
+
+.site-footer__grid {
+  display: grid;
+  gap: var(--space-large);
+}
+
+.site-footer__brand-name {
+  margin-bottom: var(--space-small);
+}
+
+.site-footer__logo-image {
+  display: block;
+  height: 4.5rem;
+  width: auto;
+}
+
+.site-footer__column-title {
+  margin-bottom: var(--space-xsmall);
+  color: var(--color-text-inverse);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-label);
+  text-transform: uppercase;
+}
+
+.site-footer__link-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xsmall);
+}
+
+.site-footer__link {
+  color: var(--color-text-inverse-muted);
+  text-decoration: none;
+}
+
+.site-footer__link:hover {
+  color: var(--color-text-inverse);
+  text-decoration: underline;
+}
+
+.site-footer__disclaimer {
+  margin-top: var(--space-2xlarge);
+  padding-top: var(--space-medium);
+  border-top: var(--border-width-hairline) solid rgba(255, 255, 255, 0.16);
+}
+
+.site-footer__disclaimer p {
+  max-width: 80ch;
+}
+
+.site-footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xsmall) var(--space-small);
+  margin-top: var(--space-medium);
+  padding-top: var(--space-medium);
+  border-top: var(--border-width-hairline) solid rgba(255, 255, 255, 0.16);
+}
+
+@media (min-width: 30em) {
+  .site-footer__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 64em) {
+  .site-footer__grid {
+    grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+    gap: var(--space-xlarge);
+  }
+}
+
+/* ==========================================================================
+   Scheda persona
+   ========================================================================== */
+
+.person-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xsmall);
+  padding: var(--space-large);
+  background-color: var(--color-surface);
+  border: var(--border-width-hairline) solid var(--color-border);
+  border-radius: var(--radius-large);
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
+}
+
+.person-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-medium);
+}
+
+.person-card__avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-bottom: var(--space-2xsmall);
+  background: var(--gradient-glow);
+  border-radius: var(--radius-pill);
+  color: var(--color-text-inverse);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-extrabold);
+}
+
+.person-card__name {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-bold);
+}
+
+.person-card__role {
+  color: var(--color-accent-hover);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-label);
+  letter-spacing: var(--letter-spacing-label);
+  text-transform: uppercase;
+}
+
+.person-card__text {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.person-card__link-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xsmall);
+  margin-top: auto;
+  padding-top: var(--space-xsmall);
+  font-size: var(--font-size-small);
+}
+
+/* ==========================================================================
+   Striscia prezzi home
+   ========================================================================== */
+
+.price-strip {
+  display: grid;
+  gap: var(--space-xsmall);
+  margin-top: var(--space-large);
+}
+
+.price-strip__item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-small);
+  padding: var(--space-small) var(--space-medium);
+  background-color: var(--color-surface);
+  border: var(--border-width-hairline) solid var(--color-border);
+  border-radius: var(--radius-medium);
+  text-decoration: none;
+  min-width: 0;
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+}
+
+.price-strip__item:hover {
+  transform: translateX(4px);
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-medium);
+}
+
+.price-strip__name {
+  color: var(--color-text);
+  font-weight: var(--font-weight-bold);
+}
+
+.price-strip__value {
+  color: var(--color-accent-hover);
+  font-family: var(--font-mono);
+  font-weight: var(--font-weight-medium);
+  text-align: right;
+}
+
+@media (min-width: 48em) {
+  .price-strip {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-medium);
+  }
+
+  .price-strip__item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3xsmall);
+    padding: var(--space-medium);
+  }
+
+  .price-strip__value {
+    white-space: nowrap;
+  }
+
+  .price-strip__item:hover {
+    transform: translateY(-4px);
+  }
+}

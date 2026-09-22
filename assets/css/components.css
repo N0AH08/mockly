@@ -1047,85 +1047,6 @@ body.is-loaded .hero__stagger {
   justify-content: center;
 }
 
-/* Sotto i 64em non c'è spazio per farli girare intorno al testo senza
-   coprirlo: restano nascosti, il testo centrato basta da solo. */
-.hero__objects {
-  display: none;
-  pointer-events: none;
-}
-
-@media (min-width: 64em) {
-  .hero__objects {
-    display: contents;
-  }
-}
-
-.hero__object {
-  position: absolute;
-  z-index: 2;
-  display: block;
-  width: 3.4rem;
-  height: 3.4rem;
-  border-radius: var(--radius-medium);
-  box-shadow: var(--shadow-medium);
-  opacity: 0;
-  transform: rotate(var(--object-rotate, 0deg));
-  animation:
-    hero-object-in 700ms var(--ease-out) var(--object-delay, 0ms) forwards,
-    hero-object-float 5s ease-in-out infinite;
-  animation-delay: var(--object-delay, 0ms), calc(var(--object-delay, 0ms) + 700ms);
-}
-
-.hero__object svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.hero__object--1 {
-  top: -3%;
-  left: 2%;
-}
-
-.hero__object--2 {
-  top: 10%;
-  right: -3%;
-}
-
-.hero__object--3 {
-  bottom: 16%;
-  left: -4%;
-}
-
-.hero__object--4 {
-  bottom: 16%;
-  right: -4%;
-}
-
-@keyframes hero-object-in {
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes hero-object-float {
-  0%,
-  100% {
-    transform: translateY(0) rotate(var(--object-rotate, 0deg));
-  }
-
-  50% {
-    transform: translateY(-8px) rotate(var(--object-rotate, 0deg));
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero__object {
-    opacity: 1;
-    animation: none;
-  }
-}
-
 /* ==========================================================================
    Hero delle pagine interne: la stessa firma della home, senza ripeterla
    ========================================================================== */
@@ -1528,179 +1449,6 @@ body.is-loaded .hero__stagger {
 }
 
 /* ==========================================================================
-   Demo viewer — "provalo prima di comprarlo"
-   ========================================================================== */
-
-.demo-viewer {
-  margin-top: var(--space-xlarge);
-  overflow: hidden;
-  background-color: var(--color-surface-inverse);
-  border-radius: var(--radius-large);
-  color: var(--color-text-inverse);
-  box-shadow: var(--shadow-large);
-}
-
-.demo-viewer__tabs {
-  display: flex;
-  gap: var(--space-2xsmall);
-  padding: var(--space-small);
-  overflow-x: auto;
-}
-
-.demo-viewer__tab {
-  flex-shrink: 0;
-  padding: 0.65rem 1.2rem;
-  background-color: transparent;
-  border: var(--border-width-hairline) solid rgba(255, 255, 255, 0.22);
-  border-radius: var(--radius-small);
-  color: var(--color-text-inverse-muted);
-  font-weight: var(--font-weight-semibold);
-  font-size: var(--font-size-small);
-  transition:
-    background-color var(--duration-fast) var(--ease-out),
-    color var(--duration-fast) var(--ease-out),
-    border-color var(--duration-fast) var(--ease-out),
-    transform var(--duration-fast) var(--ease-out);
-}
-
-.demo-viewer__tab:hover {
-  border-color: rgba(255, 255, 255, 0.5);
-  color: var(--color-text-inverse);
-}
-
-.demo-viewer__tab.is-selected {
-  background-color: var(--color-text-inverse);
-  border-color: var(--color-text-inverse);
-  color: var(--color-surface-inverse);
-}
-
-.demo-viewer__panels {
-  padding: 0 var(--space-small) var(--space-small);
-}
-
-.demo-viewer__panel {
-  display: none;
-  grid-template-columns: 1fr;
-  gap: var(--space-medium);
-  padding: var(--space-medium);
-  background-color: rgba(255, 255, 255, 0.06);
-  border: var(--border-width-hairline) solid rgba(255, 255, 255, 0.12);
-  border-radius: var(--radius-medium);
-}
-
-.demo-viewer__panel.is-visible {
-  display: grid;
-  animation: panel-in var(--duration-base) var(--ease-out);
-}
-
-@keyframes panel-in {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.demo-viewer__media {
-  overflow: hidden;
-  border-radius: var(--radius-small);
-}
-
-.demo-viewer__image {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-  object-position: top center;
-  transition: transform var(--duration-slow) var(--ease-out);
-}
-
-.demo-viewer__panel:hover .demo-viewer__image {
-  transform: scale(1.025);
-}
-
-.demo-viewer__sector {
-  color: var(--color-accent-glow);
-  font-family: var(--font-mono);
-  font-size: var(--font-size-label);
-  letter-spacing: var(--letter-spacing-label);
-  text-transform: uppercase;
-}
-
-.demo-viewer__title {
-  margin-top: var(--space-3xsmall);
-  color: var(--color-text-inverse);
-}
-
-.demo-viewer__summary {
-  margin-top: var(--space-2xsmall);
-  color: var(--color-text-inverse-muted);
-  font-size: var(--font-size-small);
-  line-height: var(--line-height-small);
-}
-
-.demo-viewer__watch {
-  margin-top: var(--space-small);
-  color: var(--color-text-inverse-muted);
-  font-size: var(--font-size-small);
-}
-
-.demo-viewer__watch strong {
-  color: var(--color-text-inverse);
-}
-
-.demo-viewer__action {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-xsmall);
-  margin-top: var(--space-medium);
-}
-
-.demo-viewer__link {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2xsmall);
-  padding: 0.8rem 1.4rem;
-  border-radius: var(--radius-small);
-  background-color: var(--color-accent);
-  color: var(--color-text-inverse);
-  font-weight: var(--font-weight-bold);
-  text-decoration: none;
-  transition:
-    background-color var(--duration-fast) var(--ease-out),
-    transform var(--duration-fast) var(--ease-out);
-}
-
-.demo-viewer__link:hover {
-  background-color: var(--color-accent-glow);
-  color: var(--color-surface-inverse);
-  transform: translateY(-2px);
-}
-
-.demo-viewer__note {
-  align-self: center;
-  color: var(--color-text-inverse-muted);
-  font-size: var(--font-size-small);
-}
-
-@media (min-width: 64em) {
-  .demo-viewer__panel.is-visible {
-    grid-template-columns: 1.4fr 1fr;
-    align-items: center;
-    gap: var(--space-xlarge);
-    padding: var(--space-large);
-  }
-
-  .demo-viewer__panels {
-    padding: 0 var(--space-medium) var(--space-medium);
-  }
-}
-
-/* ==========================================================================
    Bento servizi + card prodotto
    ========================================================================== */
 
@@ -1954,16 +1702,7 @@ body.is-loaded .hero__stagger {
   letter-spacing: -0.01em;
 }
 
-.price-card__note {
-  margin-top: var(--space-3xsmall);
-  margin-bottom: var(--space-small);
-  color: var(--color-text-muted);
-  font-size: var(--font-size-small);
-  line-height: var(--line-height-small);
-}
-
-.price-card__include-list,
-.price-card__exclude-list {
+.price-card__include-list {
   display: flex;
   flex-direction: column;
   gap: var(--space-2xsmall);
@@ -1972,8 +1711,7 @@ body.is-loaded .hero__stagger {
   line-height: var(--line-height-small);
 }
 
-.price-card__include,
-.price-card__exclude {
+.price-card__include {
   display: grid;
   grid-template-columns: 1.25rem 1fr;
   gap: var(--space-2xsmall);
@@ -1983,16 +1721,6 @@ body.is-loaded .hero__stagger {
   content: "✓";
   color: var(--color-success);
   font-weight: var(--font-weight-bold);
-}
-
-.price-card__exclude::before {
-  content: "—";
-  color: var(--color-text-muted);
-  font-weight: var(--font-weight-bold);
-}
-
-.price-card__exclude {
-  color: var(--color-text-muted);
 }
 
 /* ==========================================================================
@@ -2120,6 +1848,28 @@ body.is-loaded .hero__stagger {
   transform: scale(1.04);
 }
 
+.project-card__placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  padding: var(--space-medium);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-label);
+  letter-spacing: var(--letter-spacing-label);
+  text-transform: uppercase;
+  text-align: center;
+  background-image: repeating-linear-gradient(
+    135deg,
+    var(--color-border) 0,
+    var(--color-border) 1px,
+    transparent 1px,
+    transparent 12px
+  );
+}
+
 .project-card__body {
   display: flex;
   flex: 1;
@@ -2166,6 +1916,10 @@ body.is-loaded .hero__stagger {
 }
 
 .project-card.is-hidden {
+  display: none;
+}
+
+[data-show-more-wrap].is-hidden {
   display: none;
 }
 

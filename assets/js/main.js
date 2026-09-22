@@ -404,58 +404,6 @@
   }
 
   /* ------------------------------------------------------------------ *
-   * Demo viewer: schede cliccabili che cambiano pannello.
-   * ------------------------------------------------------------------ */
-
-  function init_demo_viewer() {
-    var viewer = document.querySelector("[data-demo-viewer]");
-    if (!viewer) return;
-
-    var tabs = viewer.querySelectorAll("[data-demo-tab]");
-    var panels = viewer.querySelectorAll("[data-demo-panel]");
-    if (!tabs.length || !panels.length) return;
-
-    function select_tab(selected_tab) {
-      var target = selected_tab.getAttribute("data-demo-tab");
-
-      Array.prototype.forEach.call(tabs, function (tab) {
-        var is_selected = tab === selected_tab;
-        tab.classList.toggle("is-selected", is_selected);
-        tab.setAttribute("aria-selected", is_selected ? "true" : "false");
-        tab.setAttribute("tabindex", is_selected ? "0" : "-1");
-      });
-
-      Array.prototype.forEach.call(panels, function (panel) {
-        var is_match = panel.getAttribute("data-demo-panel") === target;
-        panel.classList.toggle("is-visible", is_match);
-        if (is_match) {
-          panel.removeAttribute("hidden");
-        } else {
-          panel.setAttribute("hidden", "");
-        }
-      });
-    }
-
-    Array.prototype.forEach.call(tabs, function (tab, index) {
-      tab.addEventListener("click", function () {
-        select_tab(tab);
-      });
-
-      /* Frecce sinistra/destra come nelle tab vere. */
-      tab.addEventListener("keydown", function (event) {
-        if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
-        event.preventDefault();
-        var next_index =
-          event.key === "ArrowRight"
-            ? (index + 1) % tabs.length
-            : (index - 1 + tabs.length) % tabs.length;
-        tabs[next_index].focus();
-        select_tab(tabs[next_index]);
-      });
-    });
-  }
-
-  /* ------------------------------------------------------------------ *
    * Accordion con apertura fluida (grid-rows 0fr -> 1fr).
    * ------------------------------------------------------------------ */
 
@@ -530,15 +478,23 @@
 
     var buttons = group.querySelectorAll(".filter-group__button");
     var counter = document.querySelector("[data-filter-count]");
+    var show_more_button = document.querySelector("[data-show-more]");
+    var show_more_wrap = document.querySelector("[data-show-more-wrap]");
     var reduce_motion = prefers_reduced_motion();
+    var is_expanded = false;
+    var current_sector = "tutti";
 
     function apply_filter(selected_sector) {
+      current_sector = selected_sector;
       var visible_count = 0;
 
       Array.prototype.forEach.call(cards, function (card) {
         var sectors = (card.getAttribute("data-sector") || "").split(" ");
-        var is_match =
+        var is_sector_match =
           selected_sector === "tutti" || sectors.indexOf(selected_sector) !== -1;
+        var is_curated_out =
+          selected_sector === "tutti" && !is_expanded && card.hasAttribute("data-more");
+        var is_match = is_sector_match && !is_curated_out;
 
         card.classList.toggle("is-hidden", !is_match);
         if (is_match) {
@@ -555,6 +511,13 @@
         counter.textContent =
           visible_count === 1 ? "1 progetto" : visible_count + " progetti";
       }
+
+      if (show_more_wrap) {
+        show_more_wrap.classList.toggle(
+          "is-hidden",
+          selected_sector !== "tutti" || is_expanded
+        );
+      }
     }
 
     Array.prototype.forEach.call(buttons, function (button) {
@@ -566,6 +529,15 @@
         apply_filter(button.getAttribute("data-filter") || "tutti");
       });
     });
+
+    if (show_more_button) {
+      show_more_button.addEventListener("click", function () {
+        is_expanded = true;
+        apply_filter(current_sector);
+      });
+    }
+
+    apply_filter("tutti");
   }
 
   /* ------------------------------------------------------------------ *
@@ -753,7 +725,6 @@
   init_magnetic_buttons();
   init_hero_reveal();
   init_mobile_menu();
-  init_demo_viewer();
   init_accordions();
   init_project_filters();
   init_contact_form();

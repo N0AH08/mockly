@@ -34,7 +34,7 @@ ol[class] {
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--header-height) + var(--space-medium));
+  scroll-padding-top: calc(var(--header-height) + var(--space-large));
   -webkit-text-size-adjust: 100%;
   /* Il pannello del menu, chiuso, resta fuori schermo con un transform: la
      sua riga di layout (non il transform) sporge comunque a destra. Su
@@ -171,7 +171,7 @@ button {
 :focus-visible {
   outline: var(--focus-ring-width) solid var(--color-accent);
   outline-offset: var(--focus-ring-offset);
-  border-radius: var(--radius-small);
+  border-radius: var(--radius-crisp);
 }
 
 .surface-inverse :focus-visible {
@@ -237,48 +237,18 @@ button {
   background-color: var(--color-surface-alt);
 }
 
-/* Testata: occhiello pill + titolo grande. Niente più cuciture. */
+/* Testata di sezione: solo il titolo. Nessun occhiello ripetuto sopra ogni blocco.
+   Centrata sulla pagina, non più appoggiata al bordo sinistro del container. */
 .section__header {
   max-width: 56rem;
+  margin-inline: auto;
   margin-bottom: var(--space-xlarge);
-}
-
-.section__label {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2xsmall);
-  margin: 0 0 var(--space-small);
-  padding: var(--space-3xsmall) var(--space-small);
-  background-color: var(--color-accent-soft);
-  border-radius: var(--radius-pill);
-  color: var(--color-accent-hover);
-  font-family: var(--font-mono);
-  font-size: var(--font-size-label);
-  font-weight: var(--font-weight-medium);
-  line-height: var(--line-height-label);
-  letter-spacing: var(--letter-spacing-label);
-  text-transform: uppercase;
-}
-
-.section__label::before {
-  content: "";
-  width: 0.45em;
-  height: 0.45em;
-  border-radius: var(--radius-pill);
-  background-color: var(--color-accent);
-}
-
-.surface-inverse .section__label {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: var(--color-accent-glow);
-}
-
-.surface-inverse .section__label::before {
-  background-color: var(--color-accent-glow);
+  text-align: center;
 }
 
 .section__title {
   max-width: 24ch;
+  margin-inline: auto;
 }
 
 .section__title--wide {
@@ -286,15 +256,17 @@ button {
 }
 
 .section__intro {
+  max-width: 46ch;
   margin-top: var(--space-small);
+  margin-inline: auto;
   font-size: var(--font-size-lead);
   line-height: var(--line-height-lead);
   color: var(--color-text-muted);
 }
 
 /* Compatibilità: .is-highlighted resta nell'HTML come marcatore del blocco
-   di conversione (lo conta tools/check.js). La firma visiva è l'alone
-   azzurro, non richiede token dedicati. */
+   di conversione (lo conta tools/check.js). La firma visiva viene dal
+   pannello scuro (.call-to-action__panel), non richiede token dedicati. */
 
 /* --- Superficie scura ------------------------------------------------------ */
 
@@ -360,7 +332,6 @@ button {
   font-size: var(--font-size-label);
   font-weight: var(--font-weight-medium);
   letter-spacing: var(--letter-spacing-label);
-  text-transform: uppercase;
 }
 
 .push-xsmall {
@@ -377,6 +348,14 @@ button {
 
 .push-large {
   margin-top: var(--space-large);
+}
+
+/* Un paragrafo che contiene solo un bottone di richiamo a fine sezione:
+   centrato come il resto, non lasciato appeso a sinistra. Non tocca i
+   paragrafi di prosa (privacy, cookie) che usano gli stessi margini. */
+.push-medium:has(> a.button),
+.push-large:has(> a.button) {
+  text-align: center;
 }
 
 /* --- Movimento ridotto ------------------------------------------------------ */

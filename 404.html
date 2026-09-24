@@ -8,7 +8,7 @@
   <meta name="description" content="Questa pagina non c'&egrave;. Da qui puoi tornare alla home, aprire le demo di settore, vedere i prezzi o scriverci su WhatsApp.">
   <link rel="canonical" href="https://mockly.it/404.html">
   <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#FFFFFF">
+  <meta name="theme-color" content="#FAF6EE">
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="it_IT">
@@ -19,13 +19,13 @@
   <meta property="og:image" content="https://mockly.it/assets/img/og-cover.png">
   <meta name="twitter:card" content="summary_large_image">
 
-  <link rel="stylesheet" href="assets/css/fonts.css?v=20260923b">
+  <link rel="stylesheet" href="assets/css/fonts.css?v=20260925a">
 
   <link rel="icon" href="assets/img/favicon.png" type="image/png">
 
-  <link rel="stylesheet" href="assets/css/tokens.css?v=20260923b">
-  <link rel="stylesheet" href="assets/css/base.css?v=20260923b">
-  <link rel="stylesheet" href="assets/css/components.css?v=20260923h">
+  <link rel="stylesheet" href="assets/css/tokens.css?v=20260925a">
+  <link rel="stylesheet" href="assets/css/base.css?v=20260924d">
+  <link rel="stylesheet" href="assets/css/components.css?v=20260925e">
 
   <script type="application/ld+json">
   {
@@ -46,13 +46,24 @@
 
 <body class="page-body">
 
+  <div class="grain" aria-hidden="true"></div>
+  <div class="viewport-frame" aria-hidden="true"></div>
+
+  <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+    <filter id="liquid-glass" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.008 0.012" numOctaves="2" seed="7" result="noise"></feTurbulence>
+      <feGaussianBlur in="noise" stdDeviation="2" result="soft-noise"></feGaussianBlur>
+      <feDisplacementMap in="SourceGraphic" in2="soft-noise" scale="16" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+    </filter>
+  </svg>
+
   <div class="scroll-progress" aria-hidden="true"><span class="scroll-progress__bar" data-scroll-progress></span></div>
 
   <a class="skip-link" href="#contenuto">Salta al contenuto</a>
 
   <header class="site-header">
     <div class="container site-header__inner">
-      <a class="site-header__logo" href="index.html">
+        <a class="site-header__logo" href="index.html">
         <img class="site-header__logo-icon" src="assets/img/logo-mockly-icon.png" alt="" width="519" height="348">
         Mockly
       </a>
@@ -103,9 +114,6 @@
 
       <div class="site-header__panel-foot">
         <a class="button button--primary" href="https://wa.me/393517578080" aria-label="Scrivici su WhatsApp al 351 757 8080">Scrivici su WhatsApp</a>
-        <p class="site-header__panel-note">
-          Oristano, Sardegna — veniamo di persona entro 20 km.
-        </p>
       </div>
     </div>
   </header>
@@ -128,21 +136,19 @@
 
     <section class="section section--tight">
       <div class="container">
-        <div class="section__header">
-          <p class="section__label">Dove volevi andare?</p>
-          <span class="section__seam" aria-hidden="true"></span>
+        <div class="section__header reveal">
           <h2 class="section__title section__title--wide">Le quattro strade che prendono quasi tutti</h2>
         </div>
 
         <ul class="card-grid card-grid--2">
-          <li class="product-card">
+          <li class="product-card reveal">
             <h3 class="product-card__title">Le demo di settore</h3>
             <p class="product-card__description">Due siti di locali da aprire dal telefono.</p>
             <p class="product-card__action">
               <a class="button button--secondary button--full-width" href="portfolio.html">Apri il portfolio</a>
             </p>
           </li>
-          <li class="product-card">
+          <li class="product-card reveal" style="--reveal-delay: 80ms;">
             <h3 class="product-card__title">I gestionali</h3>
             <p class="product-card__description">
               Magazzino, ordini, clienti: software su misura per la tua azienda.
@@ -151,14 +157,14 @@
               <a class="button button--secondary button--full-width" href="gestionali.html">Apri i gestionali</a>
             </p>
           </li>
-          <li class="product-card">
+          <li class="product-card reveal" style="--reveal-delay: 160ms;">
             <h3 class="product-card__title">Il sito su misura</h3>
             <p class="product-card__description">Cosa c&rsquo;&egrave; dentro e cosa no.</p>
             <p class="product-card__action">
               <a class="button button--secondary button--full-width" href="siti-web.html">Come funziona</a>
             </p>
           </li>
-          <li class="product-card">
+          <li class="product-card reveal" style="--reveal-delay: 240ms;">
             <h3 class="product-card__title">Contatti</h3>
             <p class="product-card__description">WhatsApp, telefono, email.</p>
             <p class="product-card__action">
@@ -169,7 +175,7 @@
       </div>
     </section>
 
-    <section class="call-to-action call-to-action--inverse surface-inverse is-highlighted">
+    <section class="call-to-action is-highlighted">
       <div class="container">
         <span class="call-to-action__seam" aria-hidden="true"></span>
         <div class="call-to-action__inner">
@@ -233,7 +239,6 @@
             <li><a class="site-footer__link" href="mailto:mockly.website@gmail.com" aria-label="Scrivi a mockly.website@gmail.com">mockly.website@gmail.com</a></li>
             <li><a class="site-footer__link" href="https://www.instagram.com/mockly.site/" target="_blank" rel="noopener">Instagram: @mockly.site</a></li>
           </ul>
-          <p class="push-xsmall">Oristano, Sardegna — veniamo di persona entro 20 km</p>
         </div>
       </div>
 
@@ -255,6 +260,6 @@
     <svg class="back-to-top__icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 16V4m0 0 6 6m-6-6L4 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
 
-  <script src="assets/js/main.js?v=20260923c"></script>
+  <script src="assets/js/main.js?v=20260924g"></script>
 </body>
 </html>

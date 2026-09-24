@@ -1,57 +1,67 @@
 /* ==========================================================================
    Mockly — design token
-   Identità "blu moderno": bianco, inchiostro blu-notte, blu vivo in sfumatura.
-   Aloni azzurri come firma. Vedi docs/02-design.md.
+   Identità "bianco e cielo" (D59, sfondo schiarito in D64): fondo bianco
+   vero, inchiostro e titoli nelle sfumature del blu invece del caldo
+   terracotta di D50. Stesso principio "pietra e luce" di fondo — un solo
+   tono di superficie, nessuna fascia a colore diverso — ma l'accento è
+   cambiato per scelta di Simone.
    Solo custom property, nessuna regola. Ogni token è usato davvero.
-   Contrasti AA verificati via script il 18/09/2026 (vedi docs/02-design.md §4).
+   Contrasti AA verificati via script il 23/09/2026 (vedi docs/02-design.md §4).
    ========================================================================== */
 
 :root {
 
-  /* --- Colore: superfici --------------------------------------------- */
-  --color-background: #FFFFFF;             /* bianco */
-  --color-background-warm: #F2F6FE;        /* lavaggio azzurro per fasce */
-  --color-surface: #FFFFFF;                /* card, form */
-  --color-surface-alt: #EAF1FD;            /* fasce alternate, media */
-  --color-surface-inverse: #0A1830;        /* pannelli scuri: CTA, footer */
+  /* --- Colore: superfici — un solo tono, nessuna fascia diversa --------- */
+  --color-background: #FFFFFF;             /* bianco vero, non più panna */
+  --color-background-warm: #FFFFFF;        /* stesso tono: zero fasce a lavaggio diverso */
+  --color-surface: #FFFFFF;                /* le card non hanno un tono proprio: le disegna il bordo */
+  --color-surface-alt: #FFFFFF;            /* stesso motivo */
+  --color-surface-inverse: #1B2A3D;        /* pannelli scuri: CTA, footer — ardesia blu, niente più verde */
 
-  /* --- Colore: testo -------------------------------------------------- */
-  --color-text: #0E1B2C;                   /* 17.33 su bianco */
-  --color-text-muted: #4A5B74;             /* 6.91 su bianco, 6.38 su wash */
-  --color-text-inverse: #FFFFFF;           /* 17.70 su superficie inversa */
-  --color-text-inverse-muted: #C9D8F2;     /* 12.30 su superficie inversa */
+  /* --- Colore: testo — inchiostro freddo, sfumature di blu -------------- */
+  --color-text: #2B3444;                   /* blu ardesia scuro, 11.61 su panna */
+  --color-text-muted: #5C6B80;             /* 5.03 su panna */
+  --color-text-inverse: #FFFFFF;           /* 14.53 su superficie inversa */
+  --color-text-inverse-muted: #9BAAB8;     /* blu-grigio, 6.11 su superficie inversa */
 
   /* --- Colore: bordi -------------------------------------------------- */
-  --color-border: #E2E9F5;                 /* decorativo su bianco */
-  --color-border-strong: #B9C8E2;          /* decorativo freddo, mai testo */
+  --color-border: #DDE3EE;                 /* decorativo, tinto di blu invece che di carta */
+  --color-border-strong: #B7C2D6;          /* decorativo più deciso, mai testo — le card contano su questo */
 
-  /* --- Colore: accento blu vivo --------------------------------------- */
-  --color-accent: #1D4ED8;                 /* 6.70 su bianco; bianco sopra 6.70 */
-  --color-accent-hover: #1E40AF;           /* 8.72 su bianco */
-  --color-accent-active: #1E3A8A;
-  --color-accent-soft: #E2EBFD;            /* fondi, badge */
-  --color-accent-glow: #5EA2FF;            /* solo grafica: aloni, sfumature */
+  /* --- Colore: accento blu/celeste (primario) --------------------------- */
+  --color-accent: #2E5CD9;                 /* 5.34 su panna; bianco sopra 5.76 */
+  --color-accent-hover: #1E44AD;           /* 7.84 su panna */
+  --color-accent-active: #163783;
+  --color-accent-soft: #E3EAFB;            /* fondi, badge */
+  --color-accent-glow: #6C9BFF;            /* solo su sfondo scuro: focus, stati — 5.38 su surface-inverse */
 
-  /* --- Sfumatura istituzionale (solo grafica e titoli grandi) ---------- */
-  --gradient-brand: linear-gradient(100deg, #1D4ED8 10%, #3B82F6 90%);
-  --gradient-glow: linear-gradient(135deg, #1D4ED8, #5EA2FF);
+  /* --- Colore: accento mare (secondario, con parsimonia) ----------------- */
+  --color-sea: #276E73;                    /* 5.47 su panna; bianco sopra 5.89 */
+  --color-sea-soft: #DCEBEA;
+
+  /* --- Sfumatura: un solo momento, non decorazione diffusa --------------- */
+  --gradient-hero: linear-gradient(100deg, #2E5CD9 10%, #5C86EC 90%); /* solo sulla barra di avanzamento lettura */
 
   /* --- Colore: stati semantici ---------------------------------------- */
-  --color-success: #1F6B43;                /* 6.48 su bianco */
-  --color-warning: #8A5A00;                /* 5.93 su bianco */
-  --color-error: #A32318;                  /* 7.47 su bianco */
-  --color-error-soft: #FBE9E7;
+  --color-success: #1F6B43;                /* 6.01 su panna */
+  --color-warning: #8A5A00;                /* 5.50 su panna */
+  --color-error: #A32318;                  /* 6.93 su panna */
+  --color-error-soft: #F5E1DC;
 
   /* --- Colore: velo del menu mobile ----------------------------------- */
-  --color-overlay: rgba(10, 24, 48, 0.55);
+  --color-overlay: rgba(14, 20, 32, 0.6);  /* blu-notte, non più macchia verde */
 
-  /* --- Tipografia: famiglie ------------------------------------------- */
-  --font-heading: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-  --font-body: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  /* --- Tipografia: famiglie ---------------------------------------------
+     Fraunces nei titoli (serif con carattere, non il solito sans da
+     generatore) e Space Grotesk nel corpo del testo — l'opposto dell'uso
+     comune (di solito è un titolo, non un paragrafo): la coppia resta
+     leggibile ma non suona come nessun altro sito fatto con un builder. */
+  --font-heading: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   /* --- Tipografia: scala (mobile -> desktop) --------------------------- */
-  --font-size-h1: clamp(2.5rem, 1.6rem + 4vw, 4.5rem);          /* 40 -> 72 */
+  --font-size-h1: clamp(2.5rem, 1.4rem + 5.2vw, 5.25rem);       /* 40 -> 84: più sicurezza nella scala */
   --font-size-h2: clamp(1.875rem, 1.4rem + 2vw, 3rem);          /* 30 -> 48 */
   --font-size-h3: clamp(1.375rem, 1.18rem + 0.8vw, 1.75rem);    /* 22 -> 28 */
   --font-size-h4: clamp(1.125rem, 1.04rem + 0.34vw, 1.3125rem); /* 18 -> 21 */
@@ -67,21 +77,21 @@
   --font-weight-bold: 700;
   --font-weight-extrabold: 800;
 
-  /* --- Tipografia: interlinea ------------------------------------------ */
-  --line-height-h1: 1.04;
-  --line-height-h2: 1.1;
-  --line-height-h3: 1.25;
+  /* --- Tipografia: interlinea (Fraunces, serif ad alto contrasto, sta più stretto) --- */
+  --line-height-h1: 0.98;
+  --line-height-h2: 1.06;
+  --line-height-h3: 1.2;
   --line-height-h4: 1.3;
   --line-height-lead: 1.55;
   --line-height-body: 1.65;
   --line-height-small: 1.45;
   --line-height-label: 1.4;
 
-  /* --- Tipografia: crenatura ------------------------------------------- */
-  --letter-spacing-h1: -0.03em;
-  --letter-spacing-h2: -0.025em;
-  --letter-spacing-h3: -0.01em;
-  --letter-spacing-label: 0.08em;
+  /* --- Tipografia: crenatura (un serif con carattere non vuole -0.03em ovunque) --- */
+  --letter-spacing-h1: -0.01em;
+  --letter-spacing-h2: -0.005em;
+  --letter-spacing-h3: 0em;
+  --letter-spacing-label: 0.04em;
 
   /* --- Spaziatura (base 4) --------------------------------------------- */
   --space-3xsmall: 0.25rem;
@@ -94,10 +104,9 @@
   --space-2xlarge: 4rem;
   --space-3xlarge: 6rem;
 
-  /* --- Raggi: il moderno è morbido -------------------------------------- */
-  --radius-small: 10px;   /* campi, bottoni, badge, filtri: non più pillole */
-  --radius-medium: 14px;  /* card */
-  --radius-large: 18px;   /* pannelli, hero visual */
+  /* --- Raggi: due soli valori, non tre sfumature dello stesso mezzo ------ */
+  --radius-crisp: 4px;    /* tutto ciò che è ripetuto: bottoni, campi, card, badge — tagliato con precisione */
+  --radius-soft: 28px;    /* solo il momento singolo per pagina: hero visual, pannello CTA finale, menu, footer */
   --radius-pill: 999px;   /* solo cerchi veri: pallini, avatar, icone rotonde */
 
   /* --- Bordi e focus ---------------------------------------------------- */
@@ -106,12 +115,9 @@
   --focus-ring-width: 3px;
   --focus-ring-offset: 2px;
 
-  /* --- Ombre fredde ------------------------------------------------------ */
-  --shadow-small: 0 1px 2px rgba(14, 27, 44, 0.06);
-  --shadow-medium: 0 12px 32px rgba(14, 27, 44, 0.10);
-  --shadow-large: 0 24px 64px rgba(14, 27, 44, 0.14);
-  --shadow-glow: 0 8px 30px rgba(94, 162, 255, 0.40);
-  --shadow-card-hover: 0 20px 48px rgba(29, 78, 216, 0.18);
+  /* --- Ombre: solo su ciò che galleggia davvero -------------------------- */
+  --shadow-lift: 0 10px 24px rgba(38, 34, 32, 0.12);   /* hover di una card interattiva */
+  --shadow-float: 0 20px 48px rgba(38, 34, 32, 0.20);  /* elementi davvero sospesi: menu, bottone WhatsApp, pannello hero */
 
   /* --- Layout ------------------------------------------------------------ */
   --container-width: 75rem;                /* 1200 */
@@ -127,6 +133,7 @@
   --layer-menu: 200;
   --layer-back-to-top: 90;
   --layer-preloader: 300;
+  --layer-chrome: 400; /* grana e cursore custom: sempre sopra tutto, mai cliccabili */
 
   /* --- Motion ------------------------------------------------------------ */
   --duration-fast: 150ms;
@@ -137,5 +144,62 @@
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-menu: cubic-bezier(0.32, 0.72, 0, 1); /* scatto iOS: parte forte, atterra morbido */
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* --- Sempre scuro, non legato al tema: lo schermo del laptop nel preloader
+     deve restare uno schermo scuro a prescindere dalla pagina. ------------- */
+  --color-screen-dark: #131C2B;
+
+}
+
+/* ==========================================================================
+   Tema scuro — variante per pagine singole (D56), non sostituisce il tema
+   chiaro di D50: si applica solo dove serve, con `body.theme-dark`. Stessa
+   famiglia di colori (terracotta, mare, macchia), ruoli invertiti — lo scuro
+   diventa la base, non l'eccezione. `--color-surface-inverse` cambia di
+   significato apposta: prima era "il pannello scuro raro" (CTA, footer),
+   ora è "il pannello chiaro raro" sulla stessa manciata di elementi, senza
+   toccare una riga delle regole dei componenti che lo usano — la cascata fa
+   il lavoro. Contrasti AA ricalcolati da zero per questa combinazione il
+   23/09/2026 (script Python inline, stesso metodo di tokens.css principale).
+   ========================================================================== */
+body.theme-dark {
+
+  --color-background: #0E1420;             /* quasi nero, tinto di blu — un solo tono, ovunque */
+  --color-background-warm: #0E1420;        /* niente lavaggi diversi: stesso tono del fondo */
+  --color-surface: #0E1420;                /* le card non hanno più un tono proprio: le disegna il bordo */
+  --color-surface-alt: #0E1420;            /* stesso motivo: zero fasce a tono diverso */
+  --color-surface-inverse: #FAF6EE;        /* il pannello CHIARO raro: CTA, footer, manifesto */
+
+  --color-text: #EAEFF4;                   /* 15.93 su sfondo */
+  --color-text-muted: #9BAAB8;             /* 7.75 su sfondo, 6.11 su surface */
+  --color-text-inverse: #0E1420;           /* testo scuro sopra pannelli chiari e bottoni blu */
+  --color-text-inverse-muted: #6B5F53;     /* muto ma leggibile sul pannello chiaro */
+
+  --color-border: #3B5070;                 /* più marcato: le card non hanno più un tono proprio, deve bastare lui */
+  --color-border-strong: #4C6488;
+
+  --color-accent: #6C9BFF;                 /* blu vivo: l'accento primario, 6.82 su sfondo */
+  --color-accent-hover: #8FB4FF;           /* 8.90 su sfondo */
+  --color-accent-active: #4C8DFF;
+  --color-accent-soft: #16273D;            /* fondi, badge — blu scurito */
+  --color-accent-glow: #2151A6;            /* accento dentro i pannelli chiari (surface-inverse): 6.98 su carta */
+
+  --color-sea: #9C8CF5;                    /* viola-blu secondario, 6.57 su sfondo */
+  --color-sea-soft: #1E1B3A;
+
+  --gradient-hero: linear-gradient(100deg, #6C9BFF 10%, #9C8CF5 90%);
+
+  --color-success: #4CAF7A;
+  --color-warning: #E0A840;
+  --color-error: #E2685A;
+  --color-error-soft: #3A1B16;
+
+  --color-overlay: rgba(6, 9, 15, 0.72);
+
+  /* Tema scuro dormiente (D56, non applicato a nessuna pagina da D59): se
+     riattivato, i titoli restano sans invece del Fraunces serif di base
+     (D71) — scelta presa quando questo tema era attivo, mai riverificata
+     col nuovo pairing. */
+  --font-heading: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
 
 }

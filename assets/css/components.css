@@ -1,32 +1,15 @@
 /* ==========================================================================
    Mockly — componenti
-   Identità "bottega digitale": bianco, blu, carta millimetrata invece di
-   blob sfumati, segni disegnati a mano invece di testo in sfumatura.
+   Identità "pietra e luce": carta calda, terracotta, segni disegnati a mano
+   invece di testo in sfumatura o glow diffuso.
    BEM per esteso. Stati is- + ARIA. Mobile-first.
    Questo file supporta sia il markup rivoluzionato (hero, demo-viewer,
    bento) sia le classi delle pagine non ancora migrate (seam, promise-list).
    ========================================================================== */
 
-/* Compatibilità pagine vecchie: la cucitura diventa una pill in sfumatura. */
-/* Firma: un tratto disegnato a mano al posto di una barra in sfumatura —
-   coerente con "scritto a mano", non un gradiente che fa tutti i siti. */
-.section__seam {
-  display: block;
-  width: 4.5rem;
-  height: 10px;
-  margin-top: var(--space-small);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 10'%3E%3Cpath d='M2 6.6C14 2 23 9 35 5C47 1 58 8.2 70 3.4' fill='none' stroke='%231D4ED8' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-
 .call-to-action__seam,
 .site-footer__seam {
   display: none;
-}
-
-.section__seam + .section__title {
-  margin-top: var(--space-small);
 }
 
 .promise-list__item::before,
@@ -47,7 +30,7 @@
   padding: 0.95rem 1.7rem;
   min-height: 3rem;
   border: var(--border-width-medium) solid transparent;
-  border-radius: var(--radius-small);
+  border-radius: var(--radius-crisp);
   font-family: var(--font-heading);
   font-size: 1rem;
   font-weight: var(--font-weight-bold);
@@ -83,7 +66,7 @@
   background-color: var(--color-accent);
   border-color: var(--color-accent);
   color: var(--color-text-inverse);
-  box-shadow: 0 10px 24px rgba(29, 78, 216, 0.28);
+  box-shadow: 0 10px 24px rgba(46, 92, 217, 0.28);
 }
 
 .button--primary:hover {
@@ -91,7 +74,6 @@
   border-color: var(--color-accent-hover);
   color: var(--color-text-inverse);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-glow);
 }
 
 .button--primary:active {
@@ -104,14 +86,13 @@
   background-color: var(--color-surface);
   border-color: var(--color-border);
   color: var(--color-text);
-  box-shadow: var(--shadow-small);
 }
 
 .button--secondary:hover {
   border-color: var(--color-text);
   color: var(--color-text);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-medium);
+  box-shadow: var(--shadow-lift);
 }
 
 .button--ghost {
@@ -173,6 +154,7 @@
 .button-group {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-xsmall);
 }
 
@@ -206,8 +188,8 @@
   display: block;
   height: 100%;
   width: 0%;
-  background: var(--gradient-brand);
-  box-shadow: 0 0 8px rgba(29, 78, 216, 0.45);
+  background: var(--gradient-hero); /* l'unico gradiente del sito, qui e solo qui */
+  box-shadow: 0 0 8px rgba(46, 92, 217, 0.45);
   transition: width 120ms linear;
 }
 
@@ -218,29 +200,241 @@
 }
 
 /* ==========================================================================
+   Manifesto — una pausa scura a piena larghezza fra "Chi siamo" e "Prezzi",
+   solo in home: una frase sola, enorme, invece di un'altra sezione con
+   card. La tipografia grande fa il lavoro che altrove fanno le foto.
+   Il nome del sito sbiadito dietro è un filigrana, non un logo da copiare:
+   stessa tecnica del numero enorme sbiadito nelle hero interne
+   (.hero__ghost-stat), applicata a una parola invece che a una cifra.
+   ========================================================================== */
+.manifesto {
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--space-3xlarge);
+  background-color: var(--color-surface-inverse);
+  color: var(--color-text-inverse);
+}
+
+.manifesto__ghost {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 0;
+  margin: 0;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(7rem, 4rem + 16vw, 22rem);
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.06);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+.manifesto__text {
+  position: relative;
+  z-index: 1;
+  max-width: 44rem;
+  margin-inline: auto;
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 1.3rem + 2.2vw, 3rem);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+
+.manifesto__text .hero__mark {
+  font-weight: var(--font-weight-bold);
+}
+
+/* ==========================================================================
+   Grana — texture fissa su tutta la pagina, non decorazione di una sezione
+   sola. Materiali reali hanno una grana, uno sfondo piatto no: è la firma
+   "carta e pietra" applicata letteralmente, non solo nel nome dei colori.
+   Statica (nessuna animazione): costa un compositing layer, non un ciclo JS.
+   ========================================================================== */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: var(--layer-chrome);
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+@media print {
+  .grain {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Cornice — il bordo esterno resta squadrato di suo: è il bordo vero dello
+   schermo, che squadrato lo è sempre, non c'è nulla da arrotondare lì. La
+   "finestra" interna che lascia intravedere il sito, invece, ha gli angoli
+   arrotondati su tutti e quattro i lati — come lo schermo dentro la scocca
+   squadrata di un laptop. Un solo elemento fisso, senza bordo: un riquadro
+   con gli angoli tondi (.viewport-frame) e un'ombra enorme che lo circonda
+   fino a riempire tutto lo schermo — dove il riquadro è tondo, l'ombra lo
+   segue e lascia intravedere il sito vero; dove non c'è riquadro (il resto
+   dello schermo, sempre squadrato) resta piena di blu.
+   ========================================================================== */
+.viewport-frame {
+  --frame-thickness: 7px;
+  position: fixed;
+  inset: var(--frame-thickness);
+  z-index: 95;
+  pointer-events: none;
+  border-radius: var(--radius-soft);
+  box-shadow: 0 0 0 100vmax var(--color-accent);
+  transition: inset 700ms var(--ease-spring), border-radius 700ms var(--ease-spring);
+}
+
+@media (max-width: 47.99em) {
+  .viewport-frame {
+    --frame-thickness: 4px;
+    border-radius: var(--radius-crisp);
+  }
+}
+
+@media print {
+  .viewport-frame {
+    display: none;
+  }
+}
+
+/*
+ * Solo in home, dietro al preloader: la cornice parte tutta aperta (invisibile,
+ * nessun margine blu) e si chiude sul suo riquadro finale nello stesso istante
+ * in cui il preloader sparisce — la finestra si assembla davanti a chi guarda,
+ * invece di esserci già stata per tutti i 3,5s dietro il laptop. Nascosta
+ * sotto il preloader per tutta la durata: nessun salto visibile. Gated dietro
+ * "scripting: enabled" cosi senza JS la cornice resta subito nella posizione
+ * giusta, mai bloccata aperta.
+ */
+@media (scripting: enabled) {
+  .viewport-frame.is-opening {
+    inset: 0;
+    border-radius: 0;
+  }
+}
+
+/*
+ * Il solo cambio di spessore (4-7px) è troppo sottile per notarsi ai bordi
+ * dello schermo, lontano da dove si guarda. Un lampo di luce lungo il bordo
+ * interno della finestra, proprio nel momento in cui scatta al suo posto,
+ * si vede — non è decorazione a sé, segna l'istante preciso dell'assemblaggio.
+ * `.is-settled-flash` viene aggiunta da init_preloader nello stesso momento
+ * in cui toglie `.is-opening`, e tolta da sola a fine animazione.
+ * Elemento dedicato (::after) invece di animare il box-shadow enorme che fa
+ * già il lavoro della cornice: animare due ombre nella stessa dichiarazione,
+ * una delle quali usa 100vmax, risulta bloccato al primo fotogramma in
+ * Chromium — verificato campionando il valore durante l'animazione, mai
+ * cambiava. Una sola opacità su un elemento a sé, sempre animabile.
+ */
+.viewport-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 60px 16px rgba(108, 155, 255, 0.9);
+  opacity: 0;
+}
+
+.viewport-frame.is-settled-flash::after {
+  animation: frame-flash-glow 900ms var(--ease-out);
+}
+
+@keyframes frame-flash-glow {
+  0% {
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .viewport-frame.is-settled-flash::after {
+    animation: none;
+  }
+}
+
+/* ==========================================================================
    Intestazione — vetro bianco
    ========================================================================== */
 
+/* Sospesa: non più attaccata ai bordi dello schermo. Margine su tutti e
+   quattro i lati, centrata, angoli arrotondati su tutto il perimetro —
+   dentro alla cornice (.viewport-frame) invece che incollata sopra di lei,
+   che ora si vede intera su tutti e quattro i lati invece che solo tre.
+   Vetro liquido: più sfocatura, più saturazione di quello che sta sotto
+   (come il materiale "vetro" di iOS), un filo chiaro in cima che imita il
+   riflesso di un bordo di vetro vero. Non è un asset preso da nessuna
+   parte: sfocatura e saturazione sono proprietà CSS generiche. */
 .site-header {
   position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
+  top: var(--space-small);
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - var(--space-large) * 2);
+  max-width: var(--container-width);
   z-index: var(--layer-header);
-  background-color: rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: var(--border-width-hairline) solid transparent;
+  background-color: rgba(255, 255, 255, 0.55);
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1));
+  backdrop-filter: blur(20px) saturate(1.6);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
+  border: var(--border-width-hairline) solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius-soft);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    var(--shadow-float);
   transition:
     border-color var(--duration-base) var(--ease-out),
     box-shadow var(--duration-base) var(--ease-out),
     background-color var(--duration-base) var(--ease-out);
 }
 
+@media (max-width: 47.99em) {
+  .site-header {
+    top: var(--space-2xsmall);
+    width: calc(100% - var(--space-medium) * 2);
+    border-radius: var(--radius-crisp);
+  }
+}
+
+/* Vetro liquido vero: un filtro SVG (rumore procedurale + spostamento,
+   .liquid-glass nel markup) piega davvero i pixel dietro l'intestazione
+   invece di limitarsi a sfocarli — lo stesso principio del materiale
+   "Liquid Glass" di iOS, tecnica generica (feDisplacementMap), non un
+   asset preso da nessuna parte. Solo Chromium espone i filtri SVG dentro
+   backdrop-filter: gli altri browser restano sulla sfocatura qui sopra,
+   già di suo un vetro credibile — mai né rotto né invisibile. */
+@supports (backdrop-filter: url("#liquid-glass")) {
+  .site-header {
+    backdrop-filter: url("#liquid-glass") blur(6px) saturate(1.7);
+    -webkit-backdrop-filter: url("#liquid-glass") blur(6px) saturate(1.7);
+  }
+}
+
+@media (prefers-reduced-motion: reduce), (prefers-reduced-transparency: reduce) {
+  .site-header {
+    backdrop-filter: blur(20px) saturate(1.6) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(1.6) !important;
+  }
+}
+
 .site-header.is-scrolled {
   background-color: rgba(255, 255, 255, 0.94);
   border-bottom-color: var(--color-border);
-  box-shadow: var(--shadow-small);
+  box-shadow: var(--shadow-lift);
 }
 
 .site-header__inner {
@@ -250,6 +444,7 @@
   gap: var(--space-small);
   min-height: var(--header-height);
 }
+
 
 .site-header__logo {
   display: inline-flex;
@@ -288,7 +483,7 @@
   position: relative;
   display: block;
   padding: 0.5rem 0.65rem;
-  border-radius: var(--radius-small);
+  border-radius: var(--radius-crisp);
   color: var(--color-text-muted);
   font-size: var(--font-size-small);
   font-weight: var(--font-weight-medium);
@@ -395,8 +590,8 @@
   padding: var(--space-small) var(--space-medium) calc(var(--space-medium) + env(safe-area-inset-bottom, 0px));
   overflow-y: auto;
   background-color: var(--color-surface);
-  border-radius: var(--radius-large) 0 0 var(--radius-large);
-  box-shadow: var(--shadow-large);
+  border-radius: var(--radius-soft) 0 0 var(--radius-soft);
+  box-shadow: var(--shadow-float);
   transform: translateX(100%);
   visibility: hidden;
   transition:
@@ -486,7 +681,7 @@
   justify-content: space-between;
   gap: var(--space-small);
   padding: var(--space-xsmall) var(--space-small);
-  border-radius: var(--radius-small);
+  border-radius: var(--radius-crisp);
   color: var(--color-text);
   font-family: var(--font-heading);
   font-size: 1.15rem;
@@ -576,18 +771,6 @@
   width: 100%;
 }
 
-.site-header__panel-note {
-  margin: 0;
-  max-width: none;
-  padding: var(--space-small);
-  background-color: var(--color-background-warm);
-  border-radius: var(--radius-small);
-  color: var(--color-text-muted);
-  font-size: var(--font-size-small);
-  line-height: var(--line-height-small);
-  text-align: center;
-}
-
 @media (min-width: 80em) {
   .site-header__navigation,
   .site-header__action {
@@ -602,7 +785,13 @@
 }
 
 .page-body {
-  padding-top: var(--header-height);
+  padding-top: calc(var(--header-height) + var(--space-large));
+}
+
+@media (max-width: 47.99em) {
+  .page-body {
+    padding-top: calc(var(--header-height) + var(--space-medium));
+  }
 }
 
 /* ==========================================================================
@@ -622,7 +811,7 @@
   padding: 0;
   min-height: 0;
   border-radius: var(--radius-pill);
-  box-shadow: 0 12px 28px rgba(29, 78, 216, 0.4);
+  box-shadow: 0 12px 28px rgba(46, 92, 217, 0.4);
 }
 
 .whatsapp-bar__icon {
@@ -660,7 +849,7 @@
   background-color: var(--color-surface);
   border: var(--border-width-hairline) solid var(--color-border);
   border-radius: var(--radius-pill);
-  box-shadow: var(--shadow-medium);
+  box-shadow: var(--shadow-float);
   color: var(--color-accent);
   opacity: 0;
   visibility: hidden;
@@ -726,7 +915,7 @@
   opacity: 0;
   background: radial-gradient(
     480px circle at var(--spot-x, 50%) var(--spot-y, 50%),
-    rgba(94, 162, 255, 0.20),
+    rgba(108, 155, 255, 0.20),
     transparent 70%
   );
   transition: opacity var(--duration-base) var(--ease-out);
@@ -739,46 +928,41 @@
   gap: var(--space-xlarge);
 }
 
-.hero__eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2xsmall);
-  padding: var(--space-2xsmall) var(--space-small);
-  background-color: var(--color-surface);
-  border: var(--border-width-hairline) solid var(--color-border);
-  border-radius: var(--radius-small);
-  box-shadow: var(--shadow-small);
-  color: var(--color-text-muted);
-  font-family: var(--font-mono);
-  font-size: var(--font-size-label);
-  font-weight: var(--font-weight-medium);
-  letter-spacing: var(--letter-spacing-label);
-  text-transform: uppercase;
-}
-
-.hero__eyebrow-dot {
-  width: 0.55em;
-  height: 0.55em;
-  border-radius: var(--radius-pill);
-  background-color: var(--color-success);
-  box-shadow: 0 0 0 4px rgba(31, 107, 67, 0.15);
-  animation: eyebrow-pulse 2.4s ease-in-out infinite;
-}
-
-@keyframes eyebrow-pulse {
-  0%,
-  100% {
-    box-shadow: 0 0 0 3px rgba(31, 107, 67, 0.18);
-  }
-
-  50% {
-    box-shadow: 0 0 0 7px rgba(31, 107, 67, 0.06);
-  }
-}
-
 .hero__title {
   margin-top: var(--space-small);
-  max-width: 14ch;
+  max-width: 22ch;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.hero__content--centered {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.hero__content--centered .hero__title,
+.hero__content--centered .hero__text,
+.hero__content--centered .hero__beat {
+  margin-inline: auto;
+}
+
+.hero__content--centered .hero__actions {
+  justify-content: center;
+}
+
+/* Ritmo a battute brevi prima del titolo grande: tre respiri corti invece
+   di un'unica frase, l'ultimo nell'accento. Non un'etichetta, fa parte
+   della lettura. */
+.hero__beat {
+  font-family: var(--font-heading);
+  font-size: clamp(1.125rem, 0.95rem + 0.9vw, 1.5rem);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-muted);
+}
+
+.hero__beat .hero__mark {
+  color: var(--color-accent);
+  font-weight: var(--font-weight-bold);
 }
 
 /*
@@ -796,34 +980,74 @@
   background-repeat: repeat-x;
   background-position: 0 100%;
   background-size: 170px 14px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 170 14'%3E%3Cpath d='M2 9.5C34 2.5 68 12 100 6C124 1.5 148 10 168 5' fill='none' stroke='%231D4ED8' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 170 14'%3E%3Cpath d='M2 9.5C34 2.5 68 12 100 6C124 1.5 148 10 168 5' fill='none' stroke='%232E5CD9' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E");
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
 
+/* .call-to-action__title non è più qui: il pannello è tornato chiaro da
+   D66, l'accento scuro (accent-glow) sopra un fondo bianco cade sotto AA
+   (2.7) — resta sul colore di base di .hero__mark, pensato per sfondo
+   chiaro. */
 .surface-inverse .hero__mark,
-.call-to-action__title .hero__mark {
+.manifesto__text .hero__mark {
   color: var(--color-accent-glow);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 170 14'%3E%3Cpath d='M2 9.5C34 2.5 68 12 100 6C124 1.5 148 10 168 5' fill='none' stroke='%235EA2FF' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 170 14'%3E%3Cpath d='M2 9.5C34 2.5 68 12 100 6C124 1.5 148 10 168 5' fill='none' stroke='%236C9BFF' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 
 /* Nel titolo dell'hero il tratto a mano sotto la parola resta troppo simile
-   a una riga da template: qui resta solo il colore pieno, senza segno. */
+   a una riga da template: qui resta solo il colore pieno, senza segno. Va
+   a capo su due righe apposta (D32): niente animazione di comparsa qui,
+   il clip-path su un elemento spezzato su più righe non si taglia pulito. */
 .hero__title .hero__mark {
   padding-bottom: 0;
   background-image: none;
+  clip-path: none !important;
+  transition: none !important;
+}
+
+/* Si scrive da sé: l'accento non compare con un fade come tutto il resto,
+   si "disegna" da sinistra a destra quando entra nello schermo — la stessa
+   idea di "scritto a mano" resa letterale, non un'altra tendina che sale.
+   Vedi init_mark_draw in main.js. `inline-block` non è decorativo: un
+   clip-path su un elemento `inline` che va a capo su due righe risulta
+   rotto in Chromium anche a taglio zero (la seconda riga smette di
+   disegnarsi, non solo durante la transizione) — da inline-block la frase
+   resta un unico blocco, al più scende tutta a capo, mai spezzata a metà. */
+[data-draw] {
+  display: inline-block;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 900ms var(--ease-out);
+}
+
+[data-draw].is-drawn {
+  clip-path: inset(0 0 0 0);
+}
+
+@media (scripting: none) {
+  [data-draw] {
+    clip-path: inset(0 0 0 0);
+  }
 }
 
 .hero__text {
   margin-top: var(--space-medium);
+  margin-inline: auto;
   max-width: 52ch;
   font-size: var(--font-size-lead);
   line-height: var(--line-height-lead);
   color: var(--color-text-muted);
+  text-align: center;
 }
 
 .hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-medium);
   margin-top: var(--space-large);
+  text-align: center;
 }
 
 .hero__microcopy {
@@ -876,8 +1100,8 @@ body.is-loaded .hero__stagger {
   aspect-ratio: 8 / 5;
   background-color: var(--color-background-warm);
   border: var(--border-width-hairline) solid var(--color-border);
-  border-radius: var(--radius-large);
-  box-shadow: var(--shadow-large);
+  border-radius: var(--radius-soft);
+  box-shadow: var(--shadow-float);
   --reveal-pct: 38%;
 }
 
@@ -923,7 +1147,6 @@ body.is-loaded .hero__stagger {
   background-color: var(--color-surface);
   border: var(--border-width-hairline) solid var(--color-accent);
   border-radius: var(--radius-pill);
-  box-shadow: var(--shadow-medium);
 }
 
 .hero__reveal-control {
@@ -958,7 +1181,7 @@ body.is-loaded .hero__stagger {
   border-radius: var(--radius-pill);
   background-color: var(--color-accent);
   border: 3px solid var(--color-surface);
-  box-shadow: var(--shadow-medium);
+  box-shadow: var(--shadow-lift);
   cursor: grab;
 }
 
@@ -968,7 +1191,7 @@ body.is-loaded .hero__stagger {
   border-radius: var(--radius-pill);
   background-color: var(--color-accent);
   border: 3px solid var(--color-surface);
-  box-shadow: var(--shadow-medium);
+  box-shadow: var(--shadow-lift);
   cursor: grab;
 }
 
@@ -985,66 +1208,24 @@ body.is-loaded .hero__stagger {
   }
 }
 
-.hero__trust {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2xsmall) var(--space-medium);
-  margin-top: var(--space-large);
-  padding-top: var(--space-medium);
-  border-top: var(--border-width-hairline) solid var(--color-border);
-}
-
-.hero__trust-item {
+/* Azione secondaria: un link, non un secondo bottone identico al primo —
+   la gerarchia è dell'azione vera (WhatsApp), non di due scatole uguali. */
+.hero__demo-link {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2xsmall);
-  color: var(--color-text-muted);
-  font-size: var(--font-size-small);
-  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  font-weight: var(--font-weight-semibold);
+  padding-bottom: 0.1em;
+  background-repeat: repeat-x;
+  background-position: 0 100%;
+  background-size: 130px 11px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 130 11'%3E%3Cpath d='M2 7.6C26 2 52 9.2 76 4.6C94 1.2 112 8 128 3.8' fill='none' stroke='%232E5CD9' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E");
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-out);
 }
 
-.hero__trust-item::before {
-  content: "✓";
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.35rem;
-  height: 1.35rem;
-  border-radius: var(--radius-pill);
-  background-color: var(--color-accent-soft);
+.hero__demo-link:hover {
   color: var(--color-accent-hover);
-  font-size: 0.8rem;
-  font-weight: var(--font-weight-bold);
-}
-
-/* ==========================================================================
-   Hero home: testo centrato, con dei "oggettini" intorno che richiamano
-   sito e gestionale — al posto della trama a puntini, tolta perché troppo
-   simile a un template.
-   ========================================================================== */
-
-.hero__content--centered {
-  position: relative;
-  margin-inline: auto;
-  text-align: center;
-}
-
-.hero__content--centered .hero__eyebrow,
-.hero__content--centered .hero__title,
-.hero__content--centered .hero__text {
-  margin-inline: auto;
-}
-
-.hero__content--centered .hero__title {
-  max-width: 16ch;
-}
-
-.hero__content--centered .hero__actions {
-  justify-content: center;
-}
-
-.hero__content--centered .hero__trust {
-  justify-content: center;
 }
 
 /* ==========================================================================
@@ -1068,8 +1249,8 @@ body.is-loaded .hero__stagger {
 .hero__ghost-stat {
   position: absolute;
   top: 50%;
-  right: clamp(-0.5rem, 4vw, 2rem);
-  transform: translateY(-54%);
+  left: 50%;
+  transform: translate(-50%, -54%);
   z-index: 0;
   font-family: var(--font-mono);
   font-size: clamp(5.5rem, 20vw, 11rem);
@@ -1083,27 +1264,28 @@ body.is-loaded .hero__stagger {
 
 .hero__title-page {
   max-width: 20ch;
+  margin-inline: auto;
+  text-align: center;
 }
 
-@media (min-width: 64em) {
-  .hero__ghost-stat {
-    right: clamp(1rem, 8vw, 5rem);
-  }
+/* Pagine di servizio (404, cookie, grazie, privacy): titolo semplice, senza
+   classe propria — centrato come tutte le altre hero. */
+.hero > .container > h1 {
+  max-width: 20ch;
+  margin-inline: auto;
+  text-align: center;
 }
 
-/* Vecchio markup hero ancora in giro: lo fa sembrare nuovo senza toccarlo. */
+/* Kicker di pagina: solo testo, niente pillola — un indizio, non un badge. */
 .hero__label {
-  display: inline-block;
+  display: block;
   margin-bottom: var(--space-small);
-  padding: var(--space-3xsmall) var(--space-small);
-  background-color: var(--color-accent-soft);
-  border-radius: var(--radius-small);
   color: var(--color-accent-hover);
   font-family: var(--font-mono);
   font-size: var(--font-size-label);
   font-weight: var(--font-weight-medium);
   letter-spacing: var(--letter-spacing-label);
-  text-transform: uppercase;
+  text-align: center;
 }
 
 @media (min-width: 64em) {
@@ -1193,14 +1375,14 @@ body.is-loaded .hero__stagger {
 }
 
 .pl-screen {
-  background-color: var(--color-surface-inverse);
-  border-radius: var(--radius-large) var(--radius-large) 3px 3px;
+  background-color: var(--color-screen-dark);
+  border-radius: var(--radius-soft) var(--radius-soft) 3px 3px;
   padding: var(--space-2xsmall);
-  box-shadow: var(--shadow-large);
+  box-shadow: var(--shadow-float);
 }
 
 .pl-screen__inner {
-  background-image: linear-gradient(160deg, #17335F 0%, var(--color-surface-inverse) 100%);
+  background-image: linear-gradient(160deg, #0B111C 0%, var(--color-screen-dark) 100%);
   border-radius: 4px;
   aspect-ratio: 16 / 10;
   position: relative;
@@ -1221,7 +1403,7 @@ body.is-loaded .hero__stagger {
 .pl-file span {
   font-family: var(--font-mono);
   font-size: 0.7rem;
-  color: var(--color-text-inverse-muted);
+  color: #D7CDB4;
 }
 
 .pl-file-icon {
@@ -1234,10 +1416,10 @@ body.is-loaded .hero__stagger {
 
 .pl-base {
   height: 14px;
-  background-image: linear-gradient(180deg, #1A2C52, var(--color-surface-inverse));
+  background-image: linear-gradient(180deg, #0B111C, var(--color-screen-dark));
   border-radius: 0 0 10px 10px;
   margin-inline: -6px;
-  box-shadow: 0 10px 24px rgba(14, 27, 44, 0.2);
+  box-shadow: 0 10px 24px rgba(38, 34, 32, 0.2);
 }
 
 .pl-base::before {
@@ -1246,7 +1428,7 @@ body.is-loaded .hero__stagger {
   width: 70px;
   height: 6px;
   margin-inline: auto;
-  background-color: var(--color-surface-inverse);
+  background-color: var(--color-screen-dark);
   border-radius: 0 0 6px 6px;
 }
 
@@ -1403,7 +1585,7 @@ body.is-loaded .hero__stagger {
   padding: var(--space-medium);
   background-color: var(--color-surface);
   border: var(--border-width-hairline) solid var(--color-border);
-  border-radius: var(--radius-medium);
+  border-radius: var(--radius-crisp);
 }
 
 .promise-list__title {
@@ -1470,6 +1652,8 @@ body.is-loaded .hero__stagger {
 .project-card {
   --spot-x: 50%;
   --spot-y: 50%;
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
 }
 
 .bento__card::after,
@@ -1481,14 +1665,14 @@ body.is-loaded .hero__stagger {
   inset: 0;
   z-index: 1;
   border-radius: inherit;
-  background: radial-gradient(280px circle at var(--spot-x) var(--spot-y), rgba(29, 78, 216, 0.16), transparent 65%);
+  background: radial-gradient(280px circle at var(--spot-x) var(--spot-y), rgba(46, 92, 217, 0.16), transparent 65%);
   opacity: 0;
   transition: opacity var(--duration-base) var(--ease-out);
   pointer-events: none;
 }
 
 .bento__card--dark::after {
-  background: radial-gradient(280px circle at var(--spot-x) var(--spot-y), rgba(94, 162, 255, 0.22), transparent 65%);
+  background: radial-gradient(280px circle at var(--spot-x) var(--spot-y), rgba(108, 155, 255, 0.22), transparent 65%);
 }
 
 .bento__card.is-spotlit::after,
@@ -1503,10 +1687,13 @@ body.is-loaded .hero__stagger {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding: var(--space-large);
   background-color: var(--color-surface);
-  border: var(--border-width-hairline) solid var(--color-border);
-  border-radius: var(--radius-large);
+  border: none;
+  border-left: 3px solid var(--color-border-strong);
+  border-radius: 0;
+  text-align: center;
   transition:
     transform var(--duration-base) var(--ease-out),
     box-shadow var(--duration-base) var(--ease-out),
@@ -1514,20 +1701,20 @@ body.is-loaded .hero__stagger {
 }
 
 .bento__card:hover {
-  transform: translateY(-5px);
-  border-color: var(--color-border-strong);
-  box-shadow: var(--shadow-card-hover);
+  transform: perspective(800px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateY(-5px);
+  border-left-color: var(--color-accent);
+  box-shadow: var(--shadow-lift);
 }
 
 .bento__card--dark {
   background-color: var(--color-surface-inverse);
-  border-color: var(--color-surface-inverse);
+  border-left-color: var(--color-accent-glow);
   color: var(--color-text-inverse);
 }
 
 .bento__card--dark:hover {
-  border-color: var(--color-surface-inverse);
-  box-shadow: var(--shadow-large);
+  border-left-color: var(--color-accent-glow);
+  box-shadow: var(--shadow-lift);
 }
 
 .bento__card--dark .bento__description {
@@ -1540,7 +1727,6 @@ body.is-loaded .hero__stagger {
   font-family: var(--font-mono);
   font-size: var(--font-size-label);
   letter-spacing: var(--letter-spacing-label);
-  text-transform: uppercase;
 }
 
 .bento__card--dark .bento__label {
@@ -1581,8 +1767,10 @@ body.is-loaded .hero__stagger {
 
 .bento__points li {
   display: flex;
+  justify-content: center;
   gap: var(--space-2xsmall);
   align-items: flex-start;
+  text-align: left;
 }
 
 .bento__points li::before {
@@ -1616,8 +1804,9 @@ body.is-loaded .hero__stagger {
   flex-direction: column;
   padding: var(--space-large);
   background-color: var(--color-surface);
-  border: var(--border-width-hairline) solid var(--color-border);
-  border-radius: var(--radius-large);
+  border: none;
+  border-left: 3px solid var(--color-border-strong);
+  border-radius: 0;
   transition:
     transform var(--duration-base) var(--ease-out),
     box-shadow var(--duration-base) var(--ease-out),
@@ -1625,13 +1814,13 @@ body.is-loaded .hero__stagger {
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--color-border-strong);
-  box-shadow: var(--shadow-card-hover);
+  transform: perspective(800px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateY(-5px);
+  border-left-color: var(--color-accent);
+  box-shadow: var(--shadow-lift);
 }
 
 .product-card:focus-within {
-  border-color: var(--color-accent);
+  border-left-color: var(--color-accent);
 }
 
 .product-card__label {
@@ -1641,7 +1830,6 @@ body.is-loaded .hero__stagger {
   font-size: var(--font-size-label);
   font-weight: var(--font-weight-medium);
   letter-spacing: var(--letter-spacing-label);
-  text-transform: uppercase;
 }
 
 .product-card__title {
@@ -1666,8 +1854,11 @@ body.is-loaded .hero__stagger {
 }
 
 @media (min-width: 64em) {
+  /* Due prodotti paralleli, non due scatole a specchio: larghezze diverse,
+     ma sullo stesso livello — non più una scesa sotto l'altra. */
   .bento {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1.15fr 0.85fr;
+    align-items: stretch;
   }
 }
 
@@ -1681,16 +1872,33 @@ body.is-loaded .hero__stagger {
   flex-direction: column;
   padding: var(--space-large);
   background-color: var(--color-surface);
-  border: var(--border-width-hairline) solid var(--color-border);
-  border-radius: var(--radius-large);
+  border: none;
+  border-left: 3px solid var(--color-border-strong);
+  border-radius: 0;
   transition:
     transform var(--duration-base) var(--ease-out),
-    box-shadow var(--duration-base) var(--ease-out);
+    box-shadow var(--duration-base) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
 }
 
 .price-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-medium);
+  transform: perspective(800px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateY(-4px);
+  border-left-color: var(--color-accent);
+  box-shadow: var(--shadow-lift);
+}
+
+.price-card--featured {
+  border-left-color: var(--color-accent);
+}
+
+.price-card__badge {
+  display: block;
+  margin-bottom: var(--space-2xsmall);
+  color: var(--color-accent-hover);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-label);
 }
 
 .price-card__plan {
@@ -1700,6 +1908,14 @@ body.is-loaded .hero__stagger {
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-h3);
   letter-spacing: -0.01em;
+}
+
+.price-card__price {
+  margin-bottom: var(--space-medium);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-lead);
+  font-weight: var(--font-weight-medium);
 }
 
 .price-card__include-list {
@@ -1724,6 +1940,40 @@ body.is-loaded .hero__stagger {
 }
 
 /* ==========================================================================
+   Griglia di fatti — non un confronto, una lista di cose vere. Niente card
+   attorno: un solo elemento in un riquadro non aveva senso quando restava
+   l'unico rimasto dopo che il resto del confronto era stato tolto (D46).
+   ========================================================================== */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: var(--space-medium) var(--space-large);
+}
+
+.feature-grid__item {
+  position: relative;
+  padding-left: 2rem;
+  color: var(--color-text);
+}
+
+.feature-grid__item::before {
+  content: "✓";
+  position: absolute;
+  top: 0.05em;
+  left: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-accent-soft);
+  color: var(--color-accent-hover);
+  font-size: 0.78rem;
+  font-weight: var(--font-weight-bold);
+}
+
+/* ==========================================================================
    Tabella piani
    ========================================================================== */
 
@@ -1731,7 +1981,7 @@ body.is-loaded .hero__stagger {
   position: relative;
   overflow-x: auto;
   border: var(--border-width-hairline) solid var(--color-border);
-  border-radius: var(--radius-medium);
+  border-radius: var(--radius-crisp);
   background-color: var(--color-surface);
 }
 
@@ -1810,8 +2060,9 @@ body.is-loaded .hero__stagger {
   flex-direction: column;
   overflow: hidden;
   background-color: var(--color-surface);
-  border: var(--border-width-hairline) solid var(--color-border);
-  border-radius: var(--radius-large);
+  border: none;
+  border-left: 3px solid var(--color-border-strong);
+  border-radius: 0;
   transition:
     transform var(--duration-base) var(--ease-out),
     box-shadow var(--duration-base) var(--ease-out),
@@ -1819,13 +2070,13 @@ body.is-loaded .hero__stagger {
 }
 
 .project-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--color-border-strong);
-  box-shadow: var(--shadow-medium);
+  transform: perspective(800px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateY(-5px);
+  border-left-color: var(--color-accent);
+  box-shadow: var(--shadow-lift);
 }
 
 .project-card:focus-within {
-  border-color: var(--color-accent);
+  border-left-color: var(--color-accent);
 }
 
 .project-card__media {
@@ -1859,7 +2110,6 @@ body.is-loaded .hero__stagger {
   font-family: var(--font-mono);
   font-size: var(--font-size-label);
   letter-spacing: var(--letter-spacing-label);
-  text-transform: uppercase;
   text-align: center;
   background-image: repeating-linear-gradient(
     135deg,
@@ -1884,7 +2134,6 @@ body.is-loaded .hero__stagger {
   font-size: var(--font-size-label);
   font-weight: var(--font-weight-medium);
   letter-spacing: var(--letter-spacing-label);
-  text-transform: uppercase;
 }
 
 .project-card__title {
@@ -1930,13 +2179,12 @@ body.is-loaded .hero__stagger {
 .badge {
   display: inline-block;
   padding: var(--space-3xsmall) var(--space-small);
-  border-radius: var(--radius-small);
+  border-radius: var(--radius-crisp);
   font-family: var(--font-mono);
   font-size: 0.6875rem;
   font-weight: var(--font-weight-medium);
   letter-spacing: var(--letter-spacing-label);
   line-height: 1.4;
-  text-transform: uppercase;
 }
 
 .badge--demo {
@@ -1961,9 +2209,14 @@ body.is-loaded .hero__stagger {
    Filtri
    ========================================================================== */
 
+.filter-group + .text-label {
+  text-align: center;
+}
+
 .filter-group {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-2xsmall);
   margin-bottom: var(--space-large);
 }
@@ -1973,7 +2226,7 @@ body.is-loaded .hero__stagger {
   min-height: 2.75rem;
   background-color: var(--color-surface);
   border: var(--border-width-hairline) solid var(--color-border);
-  border-radius: var(--radius-small);
+  border-radius: var(--radius-crisp);
   color: var(--color-text);
   font-size: var(--font-size-small);
   font-weight: var(--font-weight-semibold);
@@ -1996,49 +2249,43 @@ body.is-loaded .hero__stagger {
 }
 
 /* ==========================================================================
-   Passi — timeline calda
+   Passi — una linea blu, non più un riquadro con un pallino dentro
+   Il cerchio numerato su sfondo bianco era la card SaaS più classica del
+   sito. Ora un tratto verticale blu segna il passo, il numero vero (1, 2,
+   3 — non più 01/02 con lo zero finto) siede sopra la linea, il titolo e
+   il testo stanno a destra. Niente più box: la gerarchia la fa il segno,
+   non la scatola.
    ========================================================================== */
 
 .step-list {
   display: grid;
-  gap: var(--space-small);
+  gap: var(--space-large);
   counter-reset: step;
 }
 
 .step-list__item {
   position: relative;
   display: grid;
-  grid-template-columns: 3.2rem 1fr;
-  gap: var(--space-medium);
-  padding: var(--space-medium);
-  background-color: var(--color-surface);
-  border: var(--border-width-hairline) solid var(--color-border);
-  border-radius: var(--radius-medium);
+  grid-template-columns: 2.75rem 1fr;
+  align-items: start;
+  column-gap: var(--space-medium);
+  padding-left: var(--space-medium);
+  border-left: 3px solid var(--color-accent);
   counter-increment: step;
-  transition:
-    transform var(--duration-base) var(--ease-out),
-    box-shadow var(--duration-base) var(--ease-out);
+  transition: border-color var(--duration-base) var(--ease-out);
 }
 
 .step-list__item:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-medium);
+  border-left-color: var(--color-accent-hover);
 }
 
 .step-list__item::before {
-  content: counter(step, decimal-leading-zero);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 3.2rem;
-  height: 3.2rem;
-  background: linear-gradient(140deg, var(--color-accent-soft), #F2F6FE);
-  border: var(--border-width-hairline) solid var(--color-border);
-  border-radius: var(--radius-pill);
-  color: var(--color-accent-hover);
+  content: counter(step);
+  color: var(--color-accent);
   font-family: var(--font-mono);
-  font-size: var(--font-size-small);
-  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
 }
 
 .step-list__title {
@@ -2065,6 +2312,17 @@ body.is-loaded .hero__stagger {
    Confronto onesto
    ========================================================================== */
 
+#chi-siamo > .container > p,
+#onesta > .container > p,
+#dove-siamo > .container > p,
+#codice-a-mano > .container > p,
+#siamo-giovani > .container > h3,
+#siamo-giovani > .container > p.push-small {
+  max-width: 60ch;
+  margin-inline: auto;
+  text-align: center;
+}
+
 .balance {
   display: grid;
   gap: var(--space-medium);
@@ -2075,24 +2333,25 @@ body.is-loaded .hero__stagger {
   padding: var(--space-large);
   background-color: var(--color-surface);
   border: var(--border-width-hairline) solid var(--color-border);
-  border-radius: var(--radius-large);
+  border-radius: var(--radius-crisp);
+  text-align: center;
 }
 
 .balance__column--gain {
-  background: linear-gradient(160deg, #F2F6FE, var(--color-surface) 70%);
+  background-color: var(--color-accent-soft);
   border-color: var(--color-accent-soft);
 }
 
 .balance__title {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: var(--space-2xsmall);
   margin-bottom: var(--space-2xsmall);
   font-family: var(--font-mono);
   font-size: var(--font-size-label);
   font-weight: var(--font-weight-medium);
   letter-spacing: var(--letter-spacing-label);
-  text-transform: uppercase;
 }
 
 .balance__column--gain .balance__title {
@@ -2121,7 +2380,7 @@ body.is-loaded .hero__stagger {
 .accordion__item {
   background-color: var(--color-surface);
   border: var(--border-width-hairline) solid var(--color-border);
-  border-radius: var(--radius-medium);
+  border-radius: var(--radius-crisp);
   transition:
     border-color var(--duration-fast) var(--ease-out),
     box-shadow var(--duration-fast) var(--ease-out);
@@ -2133,7 +2392,6 @@ body.is-loaded .hero__stagger {
 
 .accordion__item.is-open {
   border-color: var(--color-accent);
-  box-shadow: var(--shadow-medium);
 }
 
 .accordion__heading {
@@ -2154,7 +2412,7 @@ body.is-loaded .hero__stagger {
   padding: var(--space-small) var(--space-medium);
   background-color: transparent;
   border: 0;
-  border-radius: var(--radius-medium);
+  border-radius: var(--radius-crisp);
   color: var(--color-text);
   font-family: var(--font-heading);
   font-size: 1.1rem;
@@ -2244,8 +2502,7 @@ body.is-loaded .hero__stagger {
   padding: var(--space-large);
   background-color: var(--color-surface);
   border: var(--border-width-hairline) solid var(--color-border);
-  border-radius: var(--radius-large);
-  box-shadow: var(--shadow-medium);
+  border-radius: var(--radius-crisp);
 }
 
 .form__field {
@@ -2275,7 +2532,7 @@ body.is-loaded .hero__stagger {
   min-height: 3rem;
   background-color: var(--color-surface);
   border: var(--border-width-hairline) solid var(--color-border-strong);
-  border-radius: var(--radius-small);
+  border-radius: var(--radius-crisp);
   font-size: 1rem;
   transition:
     border-color var(--duration-fast) var(--ease-out),
@@ -2287,7 +2544,13 @@ body.is-loaded .hero__stagger {
 .form__select:focus {
   outline: none;
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.18);
+  box-shadow: 0 0 0 3px rgba(46, 92, 217, 0.18);
+}
+
+body.theme-dark .form__input:focus,
+body.theme-dark .form__textarea:focus,
+body.theme-dark .form__select:focus {
+  box-shadow: 0 0 0 3px rgba(108, 155, 255, 0.25);
 }
 
 .form__textarea {
@@ -2334,7 +2597,7 @@ body.is-loaded .hero__stagger {
 .form__status {
   display: none;
   padding: var(--space-xsmall) var(--space-small);
-  border-radius: var(--radius-small);
+  border-radius: var(--radius-crisp);
   font-size: var(--font-size-small);
   line-height: var(--line-height-small);
 }
@@ -2402,10 +2665,38 @@ body.is-loaded .hero__stagger {
   background-color: var(--color-background-warm);
   border: var(--border-width-hairline) solid var(--color-border);
   border-left: var(--border-width-medium) solid var(--color-accent);
-  border-radius: 0 var(--radius-small) var(--radius-small) 0;
+  border-radius: 0 var(--radius-crisp) var(--radius-crisp) 0;
   color: var(--color-text-muted);
   font-size: var(--font-size-small);
   line-height: var(--line-height-small);
+}
+
+/* La nota di chiusura degli abbonamenti (siti-web.html) segue i tre prezzi,
+   ora centrati: resta centrata anche lei invece di restare a sinistra.
+   Stesso trattamento per la nota "E se serve altro?" di gestionali.html. */
+#assistenza .note,
+#cosa .note,
+#tempi .note,
+#team .note {
+  max-width: 60ch;
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* Il paragrafo-guida sopra le fasce orarie di risposta (contatti.html):
+   stesso trattamento delle altre intro, centrato sulla pagina. */
+#tempi > .container > .text-lead {
+  max-width: 60ch;
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* Modificatore riusabile per le note di chiusura fuori da una sezione con
+   id proprio (dove non ha senso un selettore per id). */
+.note--centered {
+  max-width: 60ch;
+  margin-inline: auto;
+  text-align: center;
 }
 
 .note__title {
@@ -2428,10 +2719,11 @@ body.is-loaded .hero__stagger {
   position: relative;
   overflow: hidden;
   padding: clamp(2rem, 1.4rem + 4vw, 4rem);
-  background-color: var(--color-surface-inverse);
-  border-radius: var(--radius-large);
-  color: var(--color-text-inverse);
-  box-shadow: var(--shadow-large);
+  background-color: var(--color-surface);
+  border: var(--border-width-hairline) solid var(--color-border);
+  border-radius: var(--radius-soft);
+  color: var(--color-text);
+  box-shadow: var(--shadow-float);
 }
 
 .call-to-action__panel::before {
@@ -2439,7 +2731,7 @@ body.is-loaded .hero__stagger {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background-image: radial-gradient(circle, rgba(94, 162, 255, 0.35) 1.5px, transparent 1.5px);
+  background-image: radial-gradient(circle, rgba(108, 155, 255, 0.35) 1.5px, transparent 1.5px);
   background-size: 26px 26px;
   -webkit-mask-image: radial-gradient(ellipse 60% 70% at 85% 10%, #000 30%, transparent 75%);
   mask-image: radial-gradient(ellipse 60% 70% at 85% 10%, #000 30%, transparent 75%);
@@ -2453,22 +2745,27 @@ body.is-loaded .hero__stagger {
 .call-to-action__title {
   position: relative;
   max-width: 22ch;
-  color: var(--color-text-inverse);
+  margin-inline: auto;
+  color: var(--color-text);
+  text-align: center;
 }
 
 .call-to-action__text {
   position: relative;
   margin-top: var(--space-medium);
+  margin-inline: auto;
   max-width: 52ch;
   font-size: var(--font-size-lead);
   line-height: var(--line-height-lead);
-  color: var(--color-text-inverse-muted);
+  color: var(--color-text-muted);
+  text-align: center;
 }
 
 .call-to-action__actions {
   position: relative;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-xsmall);
   margin-top: var(--space-large);
 }
@@ -2476,24 +2773,19 @@ body.is-loaded .hero__stagger {
 .call-to-action__note {
   position: relative;
   margin-top: var(--space-small);
-  color: var(--color-text-inverse-muted);
+  color: var(--color-text-muted);
   font-size: var(--font-size-small);
   line-height: var(--line-height-small);
+  text-align: center;
 }
 
-/* Compatibilità con il vecchio markup a due colonne. */
+/* Una sola colonna centrata, non più testo a sinistra e bottoni a destra:
+   la stessa composizione del pannello della home, ovunque. */
 .call-to-action__inner {
   position: relative;
   display: grid;
+  justify-items: center;
   gap: var(--space-large);
-}
-
-@media (min-width: 48em) {
-  .call-to-action__inner {
-    grid-template-columns: 1.4fr 1fr;
-    align-items: center;
-    gap: var(--space-xlarge);
-  }
 }
 
 /* ==========================================================================
@@ -2506,7 +2798,7 @@ body.is-loaded .hero__stagger {
   color: var(--color-text-inverse-muted);
   font-size: var(--font-size-small);
   line-height: var(--line-height-small);
-  border-radius: var(--radius-large) var(--radius-large) 0 0;
+  border-radius: var(--radius-soft) var(--radius-soft) 0 0;
 }
 
 .site-footer__seam {
@@ -2535,7 +2827,6 @@ body.is-loaded .hero__stagger {
   font-size: var(--font-size-label);
   font-weight: var(--font-weight-medium);
   letter-spacing: var(--letter-spacing-label);
-  text-transform: uppercase;
 }
 
 .site-footer__link-list {
@@ -2593,11 +2884,13 @@ body.is-loaded .hero__stagger {
 .person-card {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: var(--space-2xsmall);
   padding: var(--space-large);
   background-color: var(--color-surface);
   border: var(--border-width-hairline) solid var(--color-border);
-  border-radius: var(--radius-large);
+  border-radius: var(--radius-crisp);
+  text-align: center;
   transition:
     transform var(--duration-base) var(--ease-out),
     box-shadow var(--duration-base) var(--ease-out);
@@ -2605,22 +2898,29 @@ body.is-loaded .hero__stagger {
 
 .person-card:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-medium);
+  box-shadow: var(--shadow-lift);
 }
 
 .person-card__avatar {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 6.5rem;
+  height: 6.5rem;
   margin-bottom: var(--space-2xsmall);
-  background: var(--gradient-glow);
+  overflow: hidden;
+  background-color: var(--color-accent);
   border-radius: var(--radius-pill);
   color: var(--color-text-inverse);
   font-family: var(--font-heading);
-  font-size: var(--font-size-h4);
+  font-size: var(--font-size-h3);
   font-weight: var(--font-weight-extrabold);
+}
+
+.person-card__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .person-card__name {
@@ -2634,7 +2934,6 @@ body.is-loaded .hero__stagger {
   font-family: var(--font-mono);
   font-size: var(--font-size-label);
   letter-spacing: var(--letter-spacing-label);
-  text-transform: uppercase;
 }
 
 .person-card__text {
@@ -2646,6 +2945,7 @@ body.is-loaded .hero__stagger {
 .person-card__link-list {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-xsmall);
   margin-top: auto;
   padding-top: var(--space-xsmall);
@@ -2670,7 +2970,7 @@ body.is-loaded .hero__stagger {
   padding: var(--space-small) var(--space-medium);
   background-color: var(--color-surface);
   border: var(--border-width-hairline) solid var(--color-border);
-  border-radius: var(--radius-medium);
+  border-radius: var(--radius-crisp);
   text-decoration: none;
   min-width: 0;
   transition:
@@ -2682,7 +2982,7 @@ body.is-loaded .hero__stagger {
 .price-strip__item:hover {
   transform: translateX(4px);
   border-color: var(--color-accent);
-  box-shadow: var(--shadow-medium);
+  box-shadow: var(--shadow-lift);
 }
 
 .price-strip__name {
@@ -2718,3 +3018,75 @@ body.is-loaded .hero__stagger {
     transform: translateY(-4px);
   }
 }
+
+/* ==========================================================================
+   Tema scuro — correzioni mirate (D56)
+   Alcune regole erano scritte assumendo che ".surface-inverse" fosse sempre
+   il pannello scuro raro (velature bianche translucide per leggersi sopra
+   lo scuro): un tratto rgba(255,255,255,...) scritto a mano, non un token,
+   perché non poteva esserlo nel tema con un solo verso. Ora che
+   .theme-dark inverte quel significato (surface-inverse diventa il pannello
+   CHIARO raro), quelle stesse velature vanno scurite, non più schiarite.
+   L'header (non è dentro .surface-inverse, è la barra fissa in alto) ha lo
+   stesso problema per conto suo: il vetro smerigliato era bianco fisso.
+   ========================================================================== */
+body.theme-dark .site-header {
+  background-color: rgba(14, 20, 32, 0.82);
+}
+
+body.theme-dark .site-header.is-scrolled {
+  background-color: rgba(14, 20, 32, 0.94);
+}
+
+body.theme-dark .surface-inverse .button--ghost {
+  border-color: rgba(38, 34, 32, 0.3);
+}
+
+body.theme-dark .surface-inverse .button--ghost:hover {
+  background-color: rgba(38, 34, 32, 0.08);
+}
+
+body.theme-dark .manifesto__ghost {
+  color: rgba(38, 34, 32, 0.07);
+}
+
+body.theme-dark .bento__card--dark .bento__points li::before {
+  background-color: rgba(38, 34, 32, 0.1);
+}
+
+body.theme-dark .site-footer__disclaimer,
+body.theme-dark .site-footer__legal {
+  border-top-color: rgba(38, 34, 32, 0.14);
+}
+
+/* Terracotta rimasta scritta a mano in alcuni bagliori/ombre (D50-52): sul
+   tema scuro diventano blu, per restare coerenti con il nuovo accento
+   invece di lasciare un bagliore arancione fuori posto (D57). */
+body.theme-dark .button--primary {
+  box-shadow: 0 10px 24px rgba(108, 155, 255, 0.28);
+}
+
+body.theme-dark .scroll-progress__bar {
+  box-shadow: 0 0 8px rgba(108, 155, 255, 0.45);
+}
+
+body.theme-dark .whatsapp-bar__button {
+  box-shadow: 0 12px 28px rgba(108, 155, 255, 0.4);
+}
+
+body.theme-dark .hero__spotlight {
+  background: radial-gradient(480px circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(108, 155, 255, 0.22), transparent 70%);
+}
+
+body.theme-dark .bento__card::after {
+  background: radial-gradient(280px circle at var(--spot-x) var(--spot-y), rgba(108, 155, 255, 0.18), transparent 65%);
+}
+
+body.theme-dark .call-to-action__panel::before {
+  background-image: radial-gradient(circle, rgba(108, 155, 255, 0.3) 1.5px, transparent 1.5px);
+}
+
+body.theme-dark .bento__card--dark::after {
+  background: radial-gradient(280px circle at var(--spot-x) var(--spot-y), rgba(33, 81, 166, 0.22), transparent 65%);
+}
+

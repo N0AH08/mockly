@@ -7,7 +7,7 @@
   <title>Portfolio: 1 lavoro reale, 12 demo e uno strumento | Mockly</title>
   <meta name="description" content="Il museo della Tonnara di Flumentorgiu &egrave; una commessa vera. Le altre dodici demo di settore e il configuratore live li abbiamo costruiti noi.">
   <link rel="canonical" href="https://mockly.it/portfolio.html">
-  <meta name="theme-color" content="#FFFFFF">
+  <meta name="theme-color" content="#FAF6EE">
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="it_IT">
@@ -18,13 +18,13 @@
   <meta property="og:image" content="https://mockly.it/assets/img/og-cover.png">
   <meta name="twitter:card" content="summary_large_image">
 
-  <link rel="stylesheet" href="assets/css/fonts.css?v=20260923b">
+  <link rel="stylesheet" href="assets/css/fonts.css?v=20260925a">
 
   <link rel="icon" href="assets/img/favicon.png" type="image/png">
 
-  <link rel="stylesheet" href="assets/css/tokens.css?v=20260923b">
-  <link rel="stylesheet" href="assets/css/base.css?v=20260923b">
-  <link rel="stylesheet" href="assets/css/components.css?v=20260923h">
+  <link rel="stylesheet" href="assets/css/tokens.css?v=20260925a">
+  <link rel="stylesheet" href="assets/css/base.css?v=20260924d">
+  <link rel="stylesheet" href="assets/css/components.css?v=20260925e">
 
   <link rel="preload" as="image" href="assets/img/projects/tonnara-hero.webp" fetchpriority="high">
 
@@ -75,61 +75,61 @@
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "Lo Zen - demo di settore, spaghetteria",
+          "name": "Il Faro - demo di settore, spaghetteria",
           "url": "https://mockly-website.github.io/Spaghetteria-Lo-Zen/"
         },
         {
           "@type": "ListItem",
           "position": 4,
-          "name": "Trattoria da Gabriele - demo di settore, trattoria",
+          "name": "Trattoria del Pozzo - demo di settore, trattoria",
           "url": "https://mockly-website.github.io/trattoriadagabrielle/"
         },
         {
           "@type": "ListItem",
           "position": 5,
-          "name": "La Brace - demo di settore, ristorante",
+          "name": "Ristorante Su Camine - demo di settore, ristorante",
           "url": "https://mockly-website.github.io/labrace/"
         },
         {
           "@type": "ListItem",
           "position": 6,
-          "name": "Ta Matete - demo di settore, bistrot",
+          "name": "Bistrot L'Incontro - demo di settore, bistrot",
           "url": "https://mockly-website.github.io/tamatete/"
         },
         {
           "@type": "ListItem",
           "position": 7,
-          "name": "Trattoria Portixedda - demo di settore, trattoria di pesce",
+          "name": "Trattoria Il Porticciolo - demo di settore, trattoria di pesce",
           "url": "https://mockly-website.github.io/trattoria-portixedda/"
         },
         {
           "@type": "ListItem",
           "position": 8,
-          "name": "E Sono Ancora Quà - demo di settore, pizzeria e bisteccheria",
+          "name": "Pizzeria Il Forno Antico - demo di settore, pizzeria e bisteccheria",
           "url": "https://mockly-website.github.io/Pizzeria-e-sono-ancora-qu-/"
         },
         {
           "@type": "ListItem",
           "position": 9,
-          "name": "Cocco & Dessì - demo di settore, ristorante e pizzeria",
+          "name": "Ristorante Il Loggiato - demo di settore, ristorante e pizzeria",
           "url": "https://mockly-website.github.io/coccoedessi/"
         },
         {
           "@type": "ListItem",
           "position": 10,
-          "name": "Golden Wok - demo di settore, ristorante buffet asiatico",
+          "name": "Il Dragone d'Oro - demo di settore, ristorante buffet asiatico",
           "url": "https://mockly-website.github.io/goldenwok/"
         },
         {
           "@type": "ListItem",
           "position": 11,
-          "name": "Al PeCo - demo di settore, ristorante e cerimonie",
+          "name": "Il Cortile - demo di settore, ristorante e cerimonie",
           "url": "https://mockly-website.github.io/alpeco/"
         },
         {
           "@type": "ListItem",
           "position": 12,
-          "name": "SaSida Country - demo di settore, matrimoni",
+          "name": "Sa Sida Country - demo di settore, matrimoni",
           "url": "https://mockly-website.github.io/sasida/"
         },
         {
@@ -151,6 +151,17 @@
 
 <body class="page-body">
 
+  <div class="grain" aria-hidden="true"></div>
+  <div class="viewport-frame" aria-hidden="true"></div>
+
+  <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+    <filter id="liquid-glass" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.008 0.012" numOctaves="2" seed="7" result="noise"></feTurbulence>
+      <feGaussianBlur in="noise" stdDeviation="2" result="soft-noise"></feGaussianBlur>
+      <feDisplacementMap in="SourceGraphic" in2="soft-noise" scale="16" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+    </filter>
+  </svg>
+
   <div class="scroll-progress" aria-hidden="true"><span class="scroll-progress__bar" data-scroll-progress></span></div>
 
   <a class="skip-link" href="#contenuto">Salta al contenuto</a>
@@ -158,7 +169,7 @@
 
   <header class="site-header">
     <div class="container site-header__inner">
-      <a class="site-header__logo" href="index.html">
+        <a class="site-header__logo" href="index.html">
         <img class="site-header__logo-icon" src="assets/img/logo-mockly-icon.png" alt="" width="519" height="348">
         Mockly
       </a>
@@ -209,9 +220,6 @@
 
       <div class="site-header__panel-foot">
         <a class="button button--primary" href="https://wa.me/393517578080" aria-label="Scrivici su WhatsApp al 351 757 8080">Scrivici su WhatsApp</a>
-        <p class="site-header__panel-note">
-          Oristano, Sardegna — veniamo di persona entro 20 km.
-        </p>
       </div>
     </div>
   </header>
@@ -244,16 +252,14 @@
       </div>
     </section>
 
-    <section class="section section--alt" id="lavoro-reale">
+    <section class="section" id="lavoro-reale">
       <div class="container">
-        <div class="section__header">
-          <p class="section__label">01 / Lavoro reale</p>
-          <span class="section__seam" aria-hidden="true"></span>
+        <div class="section__header reveal">
           <h2 class="section__title section__title--wide">Il museo della Tonnara di Flumentorgiu</h2>
         </div>
 
         <div class="card-grid">
-          <div class="project-card">
+          <div class="project-card reveal">
             <div class="project-card__media">
               <img class="project-card__image" src="assets/img/projects/tonnara-hero.webp"
                    alt="Home del sito della Tonnara di Flumentorgiu con le foto d&rsquo;archivio della tonnara"
@@ -280,19 +286,16 @@
 
     <section class="section">
       <div class="container">
-        <div class="section__header">
-          <p class="section__label">02 / Demo di settore</p>
-          <span class="section__seam" aria-hidden="true"></span>
+        <div class="section__header reveal">
           <h2 class="section__title section__title--wide">Dodici demo. Apri quella del tuo mestiere.</h2>
+          <p class="section__intro">
+            Sono siti completi e navigabili: menu, foto, form, mappa, tutto funzionante. Quello che non &egrave; vero
+            sono i locali. Nomi, piatti, prezzi e storie sono inventati da noi per avere un sito realistico su cui
+            lavorare. Se apri quella del tuo settore, vedi esattamente il tipo di sito che ti consegneremmo.
+          </p>
         </div>
 
-        <p class="section__intro">
-          Sono siti completi e navigabili: menu, foto, form, mappa, tutto funzionante. Quello che non &egrave; vero
-          sono i locali. Nomi, piatti, prezzi e storie sono inventati da noi per avere un sito realistico su cui
-          lavorare. Se apri quella del tuo settore, vedi esattamente il tipo di sito che ti consegneremmo.
-        </p>
-
-        <div class="filter-group" data-filter-group role="group" aria-label="Filtra i progetti per settore">
+        <div class="filter-group reveal" data-filter-group role="group" aria-label="Filtra i progetti per settore">
           <button class="filter-group__button" type="button" data-filter="tutti" aria-pressed="true">Tutti</button>
           <button class="filter-group__button" type="button" data-filter="pizzeria" aria-pressed="false">Pizzeria</button>
           <button class="filter-group__button" type="button" data-filter="trattoria" aria-pressed="false">Trattoria</button>
@@ -305,7 +308,7 @@
         <p class="text-label"><span data-filter-count>13 progetti</span></p>
 
         <ul class="card-grid card-grid--3 push-medium" id="progetti">
-          <li class="project-card" data-sector="pizzeria">
+          <li class="project-card reveal" style="--reveal-delay: 0ms;" data-sector="pizzeria">
             <div class="project-card__media">
               <img class="project-card__image" src="assets/img/projects/forno-nero-hero.webp"
                    alt="Home della demo Forno Nero: nome della pizzeria sopra la foto di un forno a legna acceso" width="1440" height="900" loading="lazy">
@@ -323,187 +326,187 @@
               </p>
             </div>
           </li>
-          <li class="project-card" data-more data-sector="ristorante">
+          <li class="project-card reveal" style="--reveal-delay: 90ms;" data-more data-sector="ristorante">
             <div class="project-card__media">
               <img class="project-card__image" src="assets/img/projects/lo-zen-hero.webp"
-                   alt="Home della demo Lo Zen: il nome del locale in due stili di carattere sopra uno sfondo chiaro" width="1440" height="813" loading="lazy">
+                   alt="Home della demo del Faro: il nome del locale in due stili di carattere sopra uno sfondo chiaro" width="1440" height="900" loading="lazy">
             </div>
             <div class="project-card__body">
               <span class="badge badge--demo">Demo di settore &mdash; locale non reale</span>
               <p class="project-card__sector">Spaghetteria, ambientata a Oristano</p>
-              <h3 class="project-card__title">Lo Zen</h3>
+              <h3 class="project-card__title">Il Faro</h3>
               <p class="project-card__summary">Menu con foto piatto per piatto, pagina dedicata alla storia del locale, recensioni raccolte in un&rsquo;unica pagina, pulsante WhatsApp per prenotare.</p>
               <p class="project-card__summary"><strong>Se il tuo punto di forza &egrave; la storia più che il menu, guarda dove la mettiamo: prima ancora del cibo.</strong></p>
               <p class="project-card__action">
                 <a class="project-card__link" href="https://mockly-website.github.io/Spaghetteria-Lo-Zen/" target="_blank" rel="noopener"
-                   aria-label="Apri la demo di Lo Zen in una nuova scheda">Apri la demo</a>
+                   aria-label="Apri la demo del Faro in una nuova scheda">Apri la demo</a>
                 <span class="project-card__external-note">(si apre in una nuova scheda)</span>
               </p>
             </div>
           </li>
-          <li class="project-card" data-more data-sector="trattoria">
+          <li class="project-card reveal" style="--reveal-delay: 180ms;" data-more data-sector="trattoria">
             <div class="project-card__media">
               <img class="project-card__image" src="assets/img/projects/trattoria-gabriele-hero.webp"
-                   alt="Home della demo Trattoria da Gabriele: sala con travi a vista e tavoli in legno" width="1440" height="813" loading="lazy">
+                   alt="Home della demo Trattoria del Pozzo: sala con travi a vista e tavoli in legno" width="1440" height="900" loading="lazy">
             </div>
             <div class="project-card__body">
               <span class="badge badge--demo">Demo di settore &mdash; locale non reale</span>
               <p class="project-card__sector">Trattoria, ambientata a Oristano</p>
-              <h3 class="project-card__title">Trattoria da Gabriele</h3>
+              <h3 class="project-card__title">Trattoria del Pozzo</h3>
               <p class="project-card__summary">Menu con il prezzo accanto a ogni piatto, galleria fotografica della sala, recensioni dei clienti, banner cookie conforme al GDPR.</p>
               <p class="project-card__summary"><strong>Se lavori con i prezzi in vista, guarda come restano leggibili anche su schermo piccolo.</strong></p>
               <p class="project-card__action">
                 <a class="project-card__link" href="https://mockly-website.github.io/trattoriadagabrielle/" target="_blank" rel="noopener"
-                   aria-label="Apri la demo di Trattoria da Gabriele in una nuova scheda">Apri la demo</a>
+                   aria-label="Apri la demo di Trattoria del Pozzo in una nuova scheda">Apri la demo</a>
                 <span class="project-card__external-note">(si apre in una nuova scheda)</span>
               </p>
             </div>
           </li>
-          <li class="project-card" data-sector="ristorante">
+          <li class="project-card reveal" style="--reveal-delay: 0ms;" data-sector="ristorante">
             <div class="project-card__media">
               <img class="project-card__image" src="assets/img/projects/la-brace-hero.webp"
-                   alt="Home della demo La Brace: sala interna con archi in pietra e tavoli apparecchiati" width="1440" height="813" loading="lazy">
+                   alt="Home della demo Ristorante Su Camine: sala interna con archi in pietra e tavoli apparecchiati" width="1440" height="900" loading="lazy">
             </div>
             <div class="project-card__body">
               <span class="badge badge--demo">Demo di settore &mdash; locale non reale</span>
               <p class="project-card__sector">Ristorante, ambientato a Oristano</p>
-              <h3 class="project-card__title">La Brace</h3>
+              <h3 class="project-card__title">Ristorante Su Camine</h3>
               <p class="project-card__summary">Menu diviso per capitoli invece che in un&rsquo;unica lista lunga, effetto parallax nelle foto di sala, recensioni e carta dei vini.</p>
               <p class="project-card__summary"><strong>Se il menu &egrave; lungo, guarda come lo spezziamo in capitoli invece di farlo scorrere all&rsquo;infinito.</strong></p>
               <p class="project-card__action">
                 <a class="project-card__link" href="https://mockly-website.github.io/labrace/" target="_blank" rel="noopener"
-                   aria-label="Apri la demo di La Brace in una nuova scheda">Apri la demo</a>
+                   aria-label="Apri la demo di Ristorante Su Camine in una nuova scheda">Apri la demo</a>
                 <span class="project-card__external-note">(si apre in una nuova scheda)</span>
               </p>
             </div>
           </li>
-          <li class="project-card" data-more data-sector="bistrot">
+          <li class="project-card reveal" style="--reveal-delay: 90ms;" data-more data-sector="bistrot">
             <div class="project-card__media">
               <img class="project-card__image" src="assets/img/projects/ta-matete-hero.webp"
-                   alt="Home della demo Ta Matete con il selettore di lingua in alto a destra" width="1440" height="813" loading="lazy">
+                   alt="Home della demo Bistrot L'Incontro con il selettore di lingua in alto a destra" width="1440" height="900" loading="lazy">
             </div>
             <div class="project-card__body">
               <span class="badge badge--demo">Demo di settore &mdash; locale non reale</span>
               <p class="project-card__sector">Bistrot, ambientato a Oristano</p>
-              <h3 class="project-card__title">Ta Matete</h3>
+              <h3 class="project-card__title">Bistrot L'Incontro</h3>
               <p class="project-card__summary">Sito in quattro lingue (italiano, inglese, francese, spagnolo), pensato per chi lavora molto con turisti.</p>
               <p class="project-card__summary"><strong>Se hai clienti stranieri, guarda come cambia lingua senza cambiare pagina.</strong></p>
               <p class="project-card__action">
                 <a class="project-card__link" href="https://mockly-website.github.io/tamatete/" target="_blank" rel="noopener"
-                   aria-label="Apri la demo di Ta Matete in una nuova scheda">Apri la demo</a>
+                   aria-label="Apri la demo di Bistrot L'Incontro in una nuova scheda">Apri la demo</a>
                 <span class="project-card__external-note">(si apre in una nuova scheda)</span>
               </p>
             </div>
           </li>
-          <li class="project-card" data-sector="trattoria">
+          <li class="project-card reveal" style="--reveal-delay: 180ms;" data-sector="trattoria">
             <div class="project-card__media">
               <img class="project-card__image" src="assets/img/projects/trattoria-portixedda-hero.webp"
-                   alt="Home della demo Trattoria Portixedda con punteggio e recensioni in evidenza" width="1440" height="813" loading="lazy">
+                   alt="Home della demo Trattoria Il Porticciolo con punteggio e recensioni in evidenza" width="1440" height="900" loading="lazy">
             </div>
             <div class="project-card__body">
               <span class="badge badge--demo">Demo di settore &mdash; locale non reale</span>
               <p class="project-card__sector">Trattoria di pesce, ambientata a Oristano</p>
-              <h3 class="project-card__title">Trattoria Portixedda</h3>
+              <h3 class="project-card__title">Trattoria Il Porticciolo</h3>
               <p class="project-card__summary">Punteggio e numero di recensioni in evidenza gi&agrave; nell&rsquo;hero, orari e indirizzo sempre visibili, prenotazione con TheFork.</p>
               <p class="project-card__summary"><strong>Se le recensioni sono il tuo punto di forza, guarda dove le mettiamo: prima ancora di scorrere la pagina.</strong></p>
               <p class="project-card__action">
                 <a class="project-card__link" href="https://mockly-website.github.io/trattoria-portixedda/" target="_blank" rel="noopener"
-                   aria-label="Apri la demo di Trattoria Portixedda in una nuova scheda">Apri la demo</a>
+                   aria-label="Apri la demo di Trattoria Il Porticciolo in una nuova scheda">Apri la demo</a>
                 <span class="project-card__external-note">(si apre in una nuova scheda)</span>
               </p>
             </div>
           </li>
-          <li class="project-card" data-more data-sector="pizzeria">
+          <li class="project-card reveal" style="--reveal-delay: 0ms;" data-more data-sector="pizzeria">
             <div class="project-card__media">
               <img class="project-card__image" src="assets/img/projects/e-sono-ancora-qua-hero.webp"
-                   alt="Home della demo E Sono Ancora Qu&agrave; con i pulsanti per chiamare o prenotare" width="1440" height="813" loading="lazy">
+                   alt="Home della demo Pizzeria Il Forno Antico con i pulsanti per chiamare o prenotare" width="1440" height="900" loading="lazy">
             </div>
             <div class="project-card__body">
               <span class="badge badge--demo">Demo di settore &mdash; locale non reale</span>
               <p class="project-card__sector">Pizzeria e bisteccheria, ambientata a Sardara</p>
-              <h3 class="project-card__title">E Sono Ancora Qu&agrave;</h3>
+              <h3 class="project-card__title">Pizzeria Il Forno Antico</h3>
               <p class="project-card__summary">Menu diviso fra pizza e carne, sezione eventi con musica dal vivo, pulsanti diretti per chiamare o prenotare.</p>
               <p class="project-card__summary"><strong>Se offri pi&ugrave; di una cosa (pizza e carne, in questo caso), guarda come restano due menu distinti invece di uno confuso.</strong></p>
               <p class="project-card__action">
                 <a class="project-card__link" href="https://mockly-website.github.io/Pizzeria-e-sono-ancora-qu-/" target="_blank" rel="noopener"
-                   aria-label="Apri la demo di E Sono Ancora Qu&agrave; in una nuova scheda">Apri la demo</a>
+                   aria-label="Apri la demo di Pizzeria Il Forno Antico in una nuova scheda">Apri la demo</a>
                 <span class="project-card__external-note">(si apre in una nuova scheda)</span>
               </p>
             </div>
           </li>
-          <li class="project-card" data-sector="pizzeria ristorante">
+          <li class="project-card reveal" style="--reveal-delay: 90ms;" data-sector="pizzeria ristorante">
             <div class="project-card__media">
               <img class="project-card__image" src="assets/img/projects/cocco-dessi-hero.webp"
-                   alt="Home della demo Cocco &amp; Dess&igrave; con il bancone bar sullo sfondo" width="1440" height="813" loading="lazy">
+                   alt="Home della demo Ristorante Il Loggiato con il bancone bar sullo sfondo" width="1440" height="900" loading="lazy">
             </div>
             <div class="project-card__body">
               <span class="badge badge--demo">Demo di settore &mdash; locale non reale</span>
               <p class="project-card__sector">Ristorante e pizzeria storico, ambientato a Oristano</p>
-              <h3 class="project-card__title">Cocco &amp; Dess&igrave;</h3>
+              <h3 class="project-card__title">Ristorante Il Loggiato</h3>
               <p class="project-card__summary">Carta dei vini filtrabile per categoria, oltre quaranta pizze in menu, una storia che parte dal 1925.</p>
               <p class="project-card__summary"><strong>Se hai una carta vini lunga, guarda come si filtra invece di scorrerla tutta.</strong></p>
               <p class="project-card__action">
                 <a class="project-card__link" href="https://mockly-website.github.io/coccoedessi/" target="_blank" rel="noopener"
-                   aria-label="Apri la demo di Cocco &amp; Dess&igrave; in una nuova scheda">Apri la demo</a>
+                   aria-label="Apri la demo di Ristorante Il Loggiato in una nuova scheda">Apri la demo</a>
                 <span class="project-card__external-note">(si apre in una nuova scheda)</span>
               </p>
             </div>
           </li>
-          <li class="project-card" data-sector="ristorante">
+          <li class="project-card reveal" style="--reveal-delay: 180ms;" data-sector="ristorante">
             <div class="project-card__media">
               <img class="project-card__image" src="assets/img/projects/golden-wok-hero.webp"
-                   alt="Home della demo Golden Wok con il bancone del buffet in primo piano" width="1440" height="813" loading="lazy">
+                   alt="Home della demo del Dragone d'Oro con il bancone del buffet in primo piano" width="1440" height="900" loading="lazy">
             </div>
             <div class="project-card__body">
               <span class="badge badge--demo">Demo di settore &mdash; locale non reale</span>
               <p class="project-card__sector">Ristorante buffet asiatico, ambientato a Cagliari</p>
-              <h3 class="project-card__title">Golden Wok</h3>
+              <h3 class="project-card__title">Il Dragone d'Oro</h3>
               <p class="project-card__summary">Prezzi diversi per pranzo e cena mostrati subito, punteggio Google in evidenza, indirizzo e galleria fotografica del buffet.</p>
               <p class="project-card__summary"><strong>Se il prezzo cambia in base all&rsquo;orario, guarda come lo mettiamo chiaro fin dall&rsquo;inizio, senza farlo scoprire al tavolo.</strong></p>
               <p class="project-card__action">
                 <a class="project-card__link" href="https://mockly-website.github.io/goldenwok/" target="_blank" rel="noopener"
-                   aria-label="Apri la demo di Golden Wok in una nuova scheda">Apri la demo</a>
+                   aria-label="Apri la demo del Dragone d'Oro in una nuova scheda">Apri la demo</a>
                 <span class="project-card__external-note">(si apre in una nuova scheda)</span>
               </p>
             </div>
           </li>
-          <li class="project-card" data-more data-sector="ristorante eventi">
+          <li class="project-card reveal" style="--reveal-delay: 0ms;" data-more data-sector="ristorante eventi">
             <div class="project-card__media">
               <img class="project-card__image" src="assets/img/projects/al-peco-hero.webp"
-                   alt="Home della demo Al PeCo con un piatto in primo piano sullo sfondo scuro" width="1440" height="813" loading="lazy">
+                   alt="Home della demo del Cortile con un piatto in primo piano sullo sfondo scuro" width="1440" height="900" loading="lazy">
             </div>
             <div class="project-card__body">
               <span class="badge badge--demo">Demo di settore &mdash; locale non reale</span>
               <p class="project-card__sector">Ristorante con cerimonie, ambientato a Oristano</p>
-              <h3 class="project-card__title">Al PeCo</h3>
+              <h3 class="project-card__title">Il Cortile</h3>
               <p class="project-card__summary">Sezione dedicata a cerimonie ed eventi con form per richiedere un preventivo, prenotazione tramite TheFork.</p>
               <p class="project-card__summary"><strong>Se oltre ai coperti normali organizzi anche eventi, guarda come teniamo le due cose separate senza far sparire l&rsquo;una nell&rsquo;altra.</strong></p>
               <p class="project-card__action">
                 <a class="project-card__link" href="https://mockly-website.github.io/alpeco/" target="_blank" rel="noopener"
-                   aria-label="Apri la demo di Al PeCo in una nuova scheda">Apri la demo</a>
+                   aria-label="Apri la demo del Cortile in una nuova scheda">Apri la demo</a>
                 <span class="project-card__external-note">(si apre in una nuova scheda)</span>
               </p>
             </div>
           </li>
-          <li class="project-card" data-sector="eventi">
+          <li class="project-card reveal" style="--reveal-delay: 90ms;" data-sector="eventi">
             <div class="project-card__media">
               <img class="project-card__image" src="assets/img/projects/sa-sida-hero.webp"
-                   alt="Home della demo SaSida Country: uliveto allestito per un matrimonio" width="1440" height="900" loading="lazy">
+                   alt="Home della demo Sa Sida Country: uliveto allestito per un matrimonio" width="1440" height="900" loading="lazy">
             </div>
             <div class="project-card__body">
               <span class="badge badge--demo">Demo di settore &mdash; locale non reale</span>
               <p class="project-card__sector">Location per matrimoni ed eventi</p>
-              <h3 class="project-card__title">SaSida Country</h3>
+              <h3 class="project-card__title">Sa Sida Country</h3>
               <p class="project-card__summary">Video di apertura a tutto schermo, galleria dedicata ai matrimoni, form preventivo per gli sposi.</p>
               <p class="project-card__summary"><strong>Guarda quanto pesa un video in apertura e come si fa perch&eacute; non blocchi il telefono.</strong></p>
               <p class="project-card__action">
                 <a class="project-card__link" href="https://mockly-website.github.io/sasida/" target="_blank" rel="noopener"
-                   aria-label="Apri la demo di SaSida Country in una nuova scheda">Apri la demo</a>
+                   aria-label="Apri la demo di Sa Sida Country in una nuova scheda">Apri la demo</a>
                 <span class="project-card__external-note">(si apre in una nuova scheda)</span>
               </p>
             </div>
           </li>
-          <li class="project-card" data-more data-sector="trattoria">
+          <li class="project-card reveal" style="--reveal-delay: 180ms;" data-more data-sector="trattoria">
             <div class="project-card__media">
               <p class="project-card__placeholder">Anteprima su richiesta</p>
             </div>
@@ -518,7 +521,7 @@
               </p>
             </div>
           </li>
-          <li class="project-card" data-sector="altro">
+          <li class="project-card reveal" style="--reveal-delay: 0ms;" data-sector="altro">
             <div class="project-card__media">
               <img class="project-card__image" src="assets/img/projects/sito-demo-hero.webp"
                    alt="Pannello del configuratore con l&rsquo;anteprima di un sito aggiornata in tempo reale" width="1440" height="900" loading="lazy">
@@ -542,13 +545,13 @@
           <button class="button button--ghost" type="button" data-show-more>Scopri di più</button>
         </p>
 
-        <p class="push-large">
+        <p class="push-large reveal">
           <a class="button button--primary" href="https://wa.me/393517578080?text=Ciao%20Mockly%2C%20ho%20un%20locale%20e%20vorrei%20vedere%20la%20demo%20del%20mio%20settore." aria-label="Scrivici su WhatsApp al 351 757 8080">Chiedi la demo del tuo settore</a>
         </p>
       </div>
     </section>
 
-    <section class="call-to-action call-to-action--inverse surface-inverse is-highlighted">
+    <section class="call-to-action is-highlighted">
       <div class="container">
         <span class="call-to-action__seam" aria-hidden="true"></span>
         <div class="call-to-action__inner">
@@ -612,7 +615,6 @@
             <li><a class="site-footer__link" href="mailto:mockly.website@gmail.com" aria-label="Scrivi a mockly.website@gmail.com">mockly.website@gmail.com</a></li>
             <li><a class="site-footer__link" href="https://www.instagram.com/mockly.site/" target="_blank" rel="noopener">Instagram: @mockly.site</a></li>
           </ul>
-          <p class="push-xsmall">Oristano, Sardegna — veniamo di persona entro 20 km</p>
         </div>
       </div>
 
@@ -634,6 +636,6 @@
     <svg class="back-to-top__icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 16V4m0 0 6 6m-6-6L4 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
 
-  <script src="assets/js/main.js?v=20260923c"></script>
+  <script src="assets/js/main.js?v=20260924g"></script>
 </body>
 </html>

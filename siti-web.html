@@ -7,7 +7,7 @@
   <title>Siti web di ogni tipo, costruiti sul tuo lavoro | Mockly</title>
   <meta name="description" content="Vetrina, aziendali, e-commerce, multilingua: ogni sito è costruito sul tuo lavoro. Preventivo scritto entro 48 ore, bozza in una settimana, online in due.">
   <link rel="canonical" href="https://mockly.it/siti-web.html">
-  <meta name="theme-color" content="#FFFFFF">
+  <meta name="theme-color" content="#FAF6EE">
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="it_IT">
@@ -18,13 +18,13 @@
   <meta property="og:image" content="https://mockly.it/assets/img/og-cover.png">
   <meta name="twitter:card" content="summary_large_image">
 
-  <link rel="stylesheet" href="assets/css/fonts.css?v=20260923b">
+  <link rel="stylesheet" href="assets/css/fonts.css?v=20260925a">
 
   <link rel="icon" href="assets/img/favicon.png" type="image/png">
 
-  <link rel="stylesheet" href="assets/css/tokens.css?v=20260923b">
-  <link rel="stylesheet" href="assets/css/base.css?v=20260923b">
-  <link rel="stylesheet" href="assets/css/components.css?v=20260923h">
+  <link rel="stylesheet" href="assets/css/tokens.css?v=20260925a">
+  <link rel="stylesheet" href="assets/css/base.css?v=20260924d">
+  <link rel="stylesheet" href="assets/css/components.css?v=20260925e">
 
   <script type="application/ld+json">
   {
@@ -135,6 +135,17 @@
 
 <body class="page-body">
 
+  <div class="grain" aria-hidden="true"></div>
+  <div class="viewport-frame" aria-hidden="true"></div>
+
+  <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+    <filter id="liquid-glass" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.008 0.012" numOctaves="2" seed="7" result="noise"></feTurbulence>
+      <feGaussianBlur in="noise" stdDeviation="2" result="soft-noise"></feGaussianBlur>
+      <feDisplacementMap in="SourceGraphic" in2="soft-noise" scale="16" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+    </filter>
+  </svg>
+
   <div class="scroll-progress" aria-hidden="true"><span class="scroll-progress__bar" data-scroll-progress></span></div>
 
   <!-- NESSUN PREZZO PUBBLICO QUI: i siti sono custom, il prezzo sta solo nel preventivo. Tempi: preventivo 48 h, bozza 1 settimana dai materiali, online 2 settimane dopo la revisione. -->
@@ -143,7 +154,7 @@
 
   <header class="site-header">
     <div class="container site-header__inner">
-      <a class="site-header__logo" href="index.html">
+        <a class="site-header__logo" href="index.html">
         <img class="site-header__logo-icon" src="assets/img/logo-mockly-icon.png" alt="" width="519" height="348">
         Mockly
       </a>
@@ -194,9 +205,6 @@
 
       <div class="site-header__panel-foot">
         <a class="button button--primary" href="https://wa.me/393517578080" aria-label="Scrivici su WhatsApp al 351 757 8080">Scrivici su WhatsApp</a>
-        <p class="site-header__panel-note">
-          Oristano, Sardegna — veniamo di persona entro 20 km.
-        </p>
       </div>
     </div>
   </header>
@@ -239,15 +247,12 @@
     <section class="section section--tight" id="tipi">
       <div class="container">
         <div class="section__header">
-          <p class="section__label">01 / I tipi</p>
-          <span class="section__seam" aria-hidden="true"></span>
           <h2 class="section__title section__title--wide">Cinque tipi, non cinque pacchetti</h2>
+          <p class="section__intro">
+            Sono punti di partenza, non gabbie: il tuo sito prende quello che serve da ciascuno e il
+            prezzo resta unico, scritto nel preventivo.
+          </p>
         </div>
-
-        <p class="section__intro">
-          Sono punti di partenza, non gabbie: il tuo sito prende quello che serve da ciascuno e il
-          prezzo resta unico, scritto nel preventivo.
-        </p>
 
         <ul class="card-grid card-grid--3">
           <li class="product-card">
@@ -297,27 +302,20 @@
     </section>
 
     <!-- ── Cosa c'è dentro ──────────────────────────────────────────── -->
-    <section class="section section--warm" id="dentro">
+    <section class="section" id="dentro">
       <div class="container">
         <div class="section__header">
-          <p class="section__label">02 / Cosa c'è dentro</p>
-          <span class="section__seam" aria-hidden="true"></span>
           <h2 class="section__title section__title--wide">La base è sempre questa</h2>
         </div>
 
-        <ul class="card-grid">
-          <li class="price-card">
-            <h3 class="price-card__plan">Sempre dentro</h3>
-            <ul class="price-card__include-list">
-              <li class="price-card__include">Pensato per il telefono prima che per il computer</li>
-              <li class="price-card__include">Veloce anche con poca rete: niente pesi inutili</li>
-              <li class="price-card__include">Pulsante WhatsApp con il messaggio già scritto dentro, e pulsante Chiama</li>
-              <li class="price-card__include">Menu con i 14 allergeni indicati piatto per piatto, se fai da mangiare</li>
-              <li class="price-card__include">Le tue foto, tagliate e alleggerite; i testi scritti da noi e corretti da te</li>
-              <li class="price-card__include">Dati strutturati per Google: attività, indirizzo, orari, telefono</li>
-              <li class="price-card__include">Dominio intestato a te e file del sito consegnati</li>
-            </ul>
-          </li>
+        <ul class="feature-grid">
+          <li class="feature-grid__item">Pensato per il telefono prima che per il computer</li>
+          <li class="feature-grid__item">Veloce anche con poca rete: niente pesi inutili</li>
+          <li class="feature-grid__item">Pulsante WhatsApp con il messaggio già scritto dentro, e pulsante Chiama</li>
+          <li class="feature-grid__item">Menu con i 14 allergeni indicati piatto per piatto, se fai da mangiare</li>
+          <li class="feature-grid__item">Le tue foto, tagliate e alleggerite; i testi scritti da noi e corretti da te</li>
+          <li class="feature-grid__item">Dati strutturati per Google: attività, indirizzo, orari, telefono</li>
+          <li class="feature-grid__item">Dominio intestato a te e file del sito consegnati</li>
         </ul>
       </div>
     </section>
@@ -326,8 +324,6 @@
     <section class="section" id="tempi">
       <div class="container">
         <div class="section__header">
-          <p class="section__label">03 / Tempi</p>
-          <span class="section__seam" aria-hidden="true"></span>
           <h2 class="section__title section__title--wide">Date scritte, non promesse</h2>
         </div>
 
@@ -360,12 +356,20 @@
       </div>
     </section>
 
+    <!-- ── Manifesto ────────────────────────────────────────────────── -->
+    <div class="manifesto">
+      <p class="manifesto__ghost" aria-hidden="true">Mockly</p>
+      <div class="container">
+        <p class="manifesto__text reveal">
+          Lo vedi prima di pagarlo. Non un mockup: <span class="hero__mark" data-draw>il sito vero</span>.
+        </p>
+      </div>
+    </div>
+
     <!-- ── Assistenza ───────────────────────────────────────────────── -->
-    <section class="section section--warm" id="assistenza">
+    <section class="section" id="assistenza">
       <div class="container">
         <div class="section__header">
-          <p class="section__label">04 / Dopo l'online</p>
-          <span class="section__seam" aria-hidden="true"></span>
           <h2 class="section__title section__title--wide">L'assistenza, semplice</h2>
           <p class="section__intro">
             Il sito resta tuo e resta acceso. Se vuoi non pensarci più, c'è l'assistenza mensile:
@@ -373,160 +377,56 @@
           </p>
         </div>
 
-        <div class="price-strip">
-          <div class="price-strip__item">
-            <span class="price-strip__name">Acceso — resta online e funziona</span>
-            <span class="price-strip__value">19,99 €/mese</span>
-          </div>
-          <div class="price-strip__item">
-            <span class="price-strip__name">Aggiornato — contenuti sempre freschi</span>
-            <span class="price-strip__value">29,99 €/mese</span>
-          </div>
-          <div class="price-strip__item">
-            <span class="price-strip__name">Seguito — evoluzione continua</span>
-            <span class="price-strip__value">39,99 €/mese</span>
-          </div>
-        </div>
-
-        <ul class="bento__points push-medium">
-          <li>Hosting, sicurezza, backup e dominio sempre in ordine</li>
-          <li>Modifiche su richiesta via WhatsApp, anche con una foto del menu scritta a penna</li>
-          <li>Ore che si accumulano se un mese non ci chiami; dopo la durata minima del piano, disdetta con 30 giorni di preavviso, senza penali</li>
+        <ul class="card-grid card-grid--3 push-large">
+          <li class="price-card">
+            <p class="price-card__plan">Acceso</p>
+            <p class="price-card__price">19,99 €/mese</p>
+            <ul class="price-card__include-list">
+              <li class="price-card__include">Hosting, sicurezza, backup e dominio sempre in ordine</li>
+              <li class="price-card__include">Avviso se il sito va giù</li>
+              <li class="price-card__include">2 micro-modifiche all'anno</li>
+              <li class="price-card__include">Rispondiamo entro 3 giorni lavorativi</li>
+              <li class="price-card__include">Durata minima 6 mesi, poi disdetta con 30 giorni di preavviso</li>
+            </ul>
+          </li>
+          <li class="price-card price-card--featured">
+            <p class="price-card__badge">Il più scelto</p>
+            <p class="price-card__plan">Aggiornato</p>
+            <p class="price-card__price">29,99 €/mese</p>
+            <ul class="price-card__include-list">
+              <li class="price-card__include">Tutto quello di Acceso</li>
+              <li class="price-card__include">1 ora di lavoro al mese, fino a 3 accumulabili</li>
+              <li class="price-card__include">Testi, foto, menu e orari aggiornati su richiesta</li>
+              <li class="price-card__include">Controllo della scheda Google ogni 3 mesi</li>
+              <li class="price-card__include">Rispondiamo entro 48 ore, durata minima 12 mesi</li>
+            </ul>
+          </li>
+          <li class="price-card">
+            <p class="price-card__plan">Seguito</p>
+            <p class="price-card__price">39,99 €/mese</p>
+            <ul class="price-card__include-list">
+              <li class="price-card__include">Tutto quello di Aggiornato</li>
+              <li class="price-card__include">3 ore di lavoro al mese, fino a 9 accumulabili</li>
+              <li class="price-card__include">Cambio foto di stagione e revisione testi a inizio stagione</li>
+              <li class="price-card__include">Una piccola aggiunta al sito ogni trimestre</li>
+              <li class="price-card__include">Rispondiamo entro 24 ore, durata minima 12 mesi</li>
+            </ul>
+          </li>
         </ul>
 
-        <div class="accordion push-large">
-          <div class="accordion__item">
-            <h3 class="accordion__heading">
-              <button class="accordion__trigger" type="button" id="assistenza-trigger" aria-expanded="false" aria-controls="assistenza-panel">
-                Vedi piani e regole per intero, voce per voce
-                <span class="accordion__icon" aria-hidden="true"></span>
-              </button>
-            </h3>
-            <div class="accordion__panel" id="assistenza-panel" role="region" aria-labelledby="assistenza-trigger" hidden>
-              <div class="plan-table__scroll" tabindex="0" role="group" aria-label="Tabella dei tre piani di abbonamento, scorre in orizzontale">
-                <table class="plan-table">
-                  <caption class="plan-table__caption">Abbonamenti — si paga ogni mese</caption>
-                  <thead>
-                    <tr>
-                      <th scope="col" class="plan-table__cell--feature"><span class="visually-hidden">Voce</span></th>
-                      <th scope="col">Acceso</th>
-                      <th scope="col" class="is-featured">Aggiornato</th>
-                      <th scope="col">Seguito</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row" class="plan-table__cell--feature">Prezzo</th>
-                      <td class="plan-table__cell--plan"><strong>19,99 €/mese</strong></td>
-                      <td class="plan-table__cell--plan is-featured"><strong>29,99 €/mese</strong></td>
-                      <td class="plan-table__cell--plan"><strong>39,99 €/mese</strong></td>
-                    </tr>
-                    <tr>
-                      <th scope="row" class="plan-table__cell--feature">Hosting, sicurezza, dominio</th>
-                      <td class="plan-table__cell--plan"><span class="plan-table__check" role="img" aria-label="incluso">✓</span></td>
-                      <td class="plan-table__cell--plan is-featured"><span class="plan-table__check" role="img" aria-label="incluso">✓</span></td>
-                      <td class="plan-table__cell--plan"><span class="plan-table__check" role="img" aria-label="incluso">✓</span></td>
-                    </tr>
-                    <tr>
-                      <th scope="row" class="plan-table__cell--feature">Backup settimanale</th>
-                      <td class="plan-table__cell--plan"><span class="plan-table__check" role="img" aria-label="incluso">✓</span></td>
-                      <td class="plan-table__cell--plan is-featured"><span class="plan-table__check" role="img" aria-label="incluso">✓</span></td>
-                      <td class="plan-table__cell--plan"><span class="plan-table__check" role="img" aria-label="incluso">✓</span></td>
-                    </tr>
-                    <tr>
-                      <th scope="row" class="plan-table__cell--feature">Avviso se il sito va giù</th>
-                      <td class="plan-table__cell--plan"><span class="plan-table__check" role="img" aria-label="incluso">✓</span></td>
-                      <td class="plan-table__cell--plan is-featured"><span class="plan-table__check" role="img" aria-label="incluso">✓</span></td>
-                      <td class="plan-table__cell--plan"><span class="plan-table__check" role="img" aria-label="incluso">✓</span></td>
-                    </tr>
-                    <tr>
-                      <th scope="row" class="plan-table__cell--feature">Micro-modifiche comprese</th>
-                      <td class="plan-table__cell--plan">2 all'anno</td>
-                      <td class="plan-table__cell--plan is-featured"><span class="plan-table__dash" role="img" aria-label="non previsto">—</span></td>
-                      <td class="plan-table__cell--plan"><span class="plan-table__dash" role="img" aria-label="non previsto">—</span></td>
-                    </tr>
-                    <tr>
-                      <th scope="row" class="plan-table__cell--feature">Ore di lavoro al mese</th>
-                      <td class="plan-table__cell--plan">0</td>
-                      <td class="plan-table__cell--plan is-featured">1 h</td>
-                      <td class="plan-table__cell--plan">3 h</td>
-                    </tr>
-                    <tr>
-                      <th scope="row" class="plan-table__cell--feature">Ore che si accumulano</th>
-                      <td class="plan-table__cell--plan"><span class="plan-table__dash" role="img" aria-label="non previsto">—</span></td>
-                      <td class="plan-table__cell--plan is-featured">fino a 3 h su 3 mesi</td>
-                      <td class="plan-table__cell--plan">fino a 9 h su 3 mesi</td>
-                    </tr>
-                    <tr>
-                      <th scope="row" class="plan-table__cell--feature">Menu, prezzi, orari, foto aggiornati</th>
-                      <td class="plan-table__cell--plan"><span class="plan-table__dash" role="img" aria-label="non incluso">—</span></td>
-                      <td class="plan-table__cell--plan is-featured"><span class="plan-table__check" role="img" aria-label="incluso">✓</span></td>
-                      <td class="plan-table__cell--plan"><span class="plan-table__check" role="img" aria-label="incluso">✓</span></td>
-                    </tr>
-                    <tr>
-                      <th scope="row" class="plan-table__cell--feature">Controllo scheda Google</th>
-                      <td class="plan-table__cell--plan"><span class="plan-table__dash" role="img" aria-label="non incluso">—</span></td>
-                      <td class="plan-table__cell--plan is-featured">ogni 3 mesi</td>
-                      <td class="plan-table__cell--plan">ogni 3 mesi</td>
-                    </tr>
-                    <tr>
-                      <th scope="row" class="plan-table__cell--feature">Cambio foto di stagione</th>
-                      <td class="plan-table__cell--plan"><span class="plan-table__dash" role="img" aria-label="non incluso">—</span></td>
-                      <td class="plan-table__cell--plan is-featured"><span class="plan-table__dash" role="img" aria-label="non incluso">—</span></td>
-                      <td class="plan-table__cell--plan"><span class="plan-table__check" role="img" aria-label="incluso">✓</span></td>
-                    </tr>
-                    <tr>
-                      <th scope="row" class="plan-table__cell--feature">Una piccola aggiunta ogni trimestre</th>
-                      <td class="plan-table__cell--plan"><span class="plan-table__dash" role="img" aria-label="non incluso">—</span></td>
-                      <td class="plan-table__cell--plan is-featured"><span class="plan-table__dash" role="img" aria-label="non incluso">—</span></td>
-                      <td class="plan-table__cell--plan"><span class="plan-table__check" role="img" aria-label="incluso">✓</span></td>
-                    </tr>
-                    <tr>
-                      <th scope="row" class="plan-table__cell--feature">Revisione testi a inizio stagione</th>
-                      <td class="plan-table__cell--plan"><span class="plan-table__dash" role="img" aria-label="non incluso">—</span></td>
-                      <td class="plan-table__cell--plan is-featured"><span class="plan-table__dash" role="img" aria-label="non incluso">—</span></td>
-                      <td class="plan-table__cell--plan"><span class="plan-table__check" role="img" aria-label="incluso">✓</span></td>
-                    </tr>
-                    <tr>
-                      <th scope="row" class="plan-table__cell--feature">Ti rispondiamo entro</th>
-                      <td class="plan-table__cell--plan"><strong>3 giorni lavorativi</strong></td>
-                      <td class="plan-table__cell--plan is-featured"><strong>48 ore</strong></td>
-                      <td class="plan-table__cell--plan"><strong>24 ore</strong></td>
-                    </tr>
-                    <tr>
-                      <th scope="row" class="plan-table__cell--feature">Durata minima</th>
-                      <td class="plan-table__cell--plan"><strong>6 mesi</strong></td>
-                      <td class="plan-table__cell--plan is-featured"><strong>12 mesi</strong></td>
-                      <td class="plan-table__cell--plan"><strong>12 mesi</strong></td>
-                    </tr>
-                    <tr>
-                      <th scope="row" class="plan-table__cell--feature">Preavviso di disdetta</th>
-                      <td class="plan-table__cell--plan">30 giorni</td>
-                      <td class="plan-table__cell--plan is-featured">30 giorni</td>
-                      <td class="plan-table__cell--plan">30 giorni</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <p class="note push-medium">
-                Nessuno dei tre piani include rifacimento grafico, pagine nuove, lingue nuove, gestione
-                dei social, articoli o campagne a pagamento. Il secondo sito, dopo 6 mesi di abbonamento
-                attivo, ha il 15% di sconto. Se attivi l'abbonamento entro 30 giorni dalla consegna del
-                sito, i primi due mesi sono compresi.
-              </p>
-            </div>
-          </div>
-        </div>
+        <p class="note push-medium">
+          Nessuno dei tre piani include rifacimento grafico, pagine nuove, lingue nuove, gestione dei
+          social, articoli o campagne a pagamento. Il secondo sito, dopo 6 mesi di abbonamento attivo, ha
+          il 15% di sconto. Se attivi l'abbonamento entro 30 giorni dalla consegna del sito, i primi due
+          mesi sono compresi.
+        </p>
       </div>
     </section>
 
     <!-- ── FAQ ──────────────────────────────────────────────────────── -->
-    <section class="section section--alt" id="faq">
+    <section class="section" id="faq">
       <div class="container container--narrow">
         <div class="section__header">
-          <p class="section__label">05 / Domande</p>
-          <span class="section__seam" aria-hidden="true"></span>
           <h2 class="section__title section__title--wide">Domande prima di comprare</h2>
         </div>
 
@@ -631,7 +531,7 @@
     </section>
 
     <!-- ── Chiusura ─────────────────────────────────────────────────── -->
-    <section class="call-to-action call-to-action--inverse surface-inverse is-highlighted">
+    <section class="call-to-action is-highlighted">
       <div class="container">
         <span class="call-to-action__seam" aria-hidden="true"></span>
 
@@ -697,7 +597,6 @@
             <li><a class="site-footer__link" href="mailto:mockly.website@gmail.com" aria-label="Scrivi a mockly.website@gmail.com">mockly.website@gmail.com</a></li>
             <li><a class="site-footer__link" href="https://www.instagram.com/mockly.site/" target="_blank" rel="noopener">Instagram: @mockly.site</a></li>
           </ul>
-          <p class="push-xsmall">Oristano, Sardegna — veniamo di persona entro 20 km</p>
         </div>
       </div>
 
@@ -719,6 +618,6 @@
     <svg class="back-to-top__icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 16V4m0 0 6 6m-6-6L4 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
 
-  <script src="assets/js/main.js?v=20260923c"></script>
+  <script src="assets/js/main.js?v=20260924g"></script>
 </body>
 </html>

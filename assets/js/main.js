@@ -43,6 +43,8 @@
     var preloader = document.querySelector("[data-preloader]");
     if (!preloader) return;
 
+    var frame = document.querySelector("[data-viewport-frame]");
+
     var already_seen = false;
     try {
       already_seen = window.sessionStorage.getItem("mockly_preloader_seen") === "1";
@@ -52,6 +54,7 @@
 
     if (already_seen || prefers_reduced_motion()) {
       preloader.classList.add("is-hidden");
+      if (frame) frame.classList.remove("is-opening");
       return;
     }
 
@@ -63,6 +66,18 @@
 
     window.setTimeout(function () {
       preloader.classList.add("is-hidden");
+      /* La cornice si chiude nello stesso istante: dietro al preloader per
+         tutta la durata, il salto non si vede — si vede solo il risultato,
+         la finestra che si assembla mentre il sito compare. Il solo
+         cambio di spessore è troppo sottile ai bordi dello schermo, quindi
+         un lampo di luce lungo il bordo interno segna il momento preciso. */
+      if (frame) {
+        frame.classList.remove("is-opening");
+        frame.classList.add("is-settled-flash");
+        window.setTimeout(function () {
+          frame.classList.remove("is-settled-flash");
+        }, 900);
+      }
       try {
         window.sessionStorage.setItem("mockly_preloader_seen", "1");
       } catch (error) {
@@ -134,7 +149,11 @@
 
   /* ------------------------------------------------------------------ *
    * Firma: il faretto blu segue il puntatore su ogni card del sito,
-   * invece del solito sollevamento con ombra che hanno tutti.
+   * invece del solito sollevamento con ombra che hanno tutti — e la card
+   * si inclina verso il punto dove sta il faretto, come se la luce ci
+   * cadesse sopra davvero, non due effetti indipendenti messi insieme.
+   * Inclinazione piccola apposta (max ~5deg): una card che si piega di
+   * più sembra un plugin, non un dettaglio.
    * ------------------------------------------------------------------ */
 
   function init_card_spotlight() {
@@ -143,11 +162,20 @@
     if (prefers_reduced_motion()) return;
     if (!window.matchMedia("(pointer: fine)").matches) return;
 
+    var max_tilt = 5;
+
     Array.prototype.forEach.call(cards, function (card) {
       function set_spot(event) {
         var rect = card.getBoundingClientRect();
-        card.style.setProperty("--spot-x", event.clientX - rect.left + "px");
-        card.style.setProperty("--spot-y", event.clientY - rect.top + "px");
+        var x = event.clientX - rect.left;
+        var y = event.clientY - rect.top;
+        card.style.setProperty("--spot-x", x + "px");
+        card.style.setProperty("--spot-y", y + "px");
+
+        var ratio_x = x / rect.width - 0.5;
+        var ratio_y = y / rect.height - 0.5;
+        card.style.setProperty("--tilt-x", (ratio_y * -2 * max_tilt).toFixed(2) + "deg");
+        card.style.setProperty("--tilt-y", (ratio_x * 2 * max_tilt).toFixed(2) + "deg");
       }
 
       card.addEventListener("mouseenter", function (event) {
@@ -157,6 +185,8 @@
       card.addEventListener("mousemove", set_spot);
       card.addEventListener("mouseleave", function () {
         card.classList.remove("is-spotlit");
+        card.style.setProperty("--tilt-x", "0deg");
+        card.style.setProperty("--tilt-y", "0deg");
       });
     });
   }
@@ -189,6 +219,49 @@
 
     Array.prototype.forEach.call(items, function (item) {
       observer.observe(item);
+    });
+  }
+
+  /* ------------------------------------------------------------------ *
+   * L'accento si disegna da sé quando entra nello schermo, invece di
+   * comparire con un fade: [data-draw] parte tagliato a zero larghezza
+   * (clip-path in components.css) e questa funzione toglie il taglio
+   * quando l'elemento diventa visibile, una volta sola.
+   * ------------------------------------------------------------------ */
+
+  function init_mark_draw() {
+    var marks = document.querySelectorAll("[data-draw]");
+    if (!marks.length) return;
+
+    if (prefers_reduced_motion() || !("IntersectionObserver" in window)) {
+      Array.prototype.forEach.call(marks, function (mark) {
+        mark.classList.add("is-drawn");
+      });
+      return;
+    }
+
+    /* Non si osserva lo span stesso: partendo con clip-path a larghezza
+       zero, un elemento tagliato così non risulta mai "intersecante" per
+       IntersectionObserver — resterebbe tagliato per sempre, un blocco che
+       si autoalimenta. Si osserva il paragrafo/titolo che lo contiene,
+       mai clippato, e si scopre il segno quando quello entra in vista. */
+    var observer = new IntersectionObserver(
+      function (entries) {
+        Array.prototype.forEach.call(entries, function (entry) {
+          if (!entry.isIntersecting) return;
+          var marks_in_view = entry.target.querySelectorAll("[data-draw]");
+          Array.prototype.forEach.call(marks_in_view, function (mark) {
+            mark.classList.add("is-drawn");
+          });
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.6 }
+    );
+
+    Array.prototype.forEach.call(marks, function (mark) {
+      var container = mark.closest("p, h1, h2, h3") || mark.parentElement;
+      observer.observe(container);
     });
   }
 
@@ -231,6 +304,51 @@
   }
 
   /* ------------------------------------------------------------------ *
+   * Vetro liquido dell'intestazione: la distorsione del filtro SVG
+   * risponde al puntatore invece di restare fissa — più intensa vicino
+   * al cursore, come se il vetro si piegasse davvero sotto il dito.
+   * Solo dove il filtro è supportato (Chromium) e con mouse fine.
+   * ------------------------------------------------------------------ */
+
+  function init_liquid_glass() {
+    var header = document.querySelector(".site-header");
+    var displace = document.querySelector('[data-liquid-scale]');
+    if (!header || !displace) return;
+    if (prefers_reduced_motion()) return;
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+    if (typeof CSS === "undefined" || !CSS.supports || !CSS.supports("backdrop-filter", 'url("#liquid-glass")')) return;
+
+    var base_scale = 16;
+    var max_scale = 26;
+    var is_ticking = false;
+    var last_event = null;
+
+    function update_state() {
+      var rect = header.getBoundingClientRect();
+      var mid_x = rect.width / 2;
+      var distance = Math.abs(last_event.clientX - rect.left - mid_x) / mid_x;
+      var scale = base_scale + (max_scale - base_scale) * (1 - Math.min(distance, 1));
+      displace.setAttribute("scale", scale.toFixed(1));
+      is_ticking = false;
+    }
+
+    header.addEventListener(
+      "pointermove",
+      function (event) {
+        last_event = event;
+        if (is_ticking) return;
+        is_ticking = true;
+        window.requestAnimationFrame(update_state);
+      },
+      { passive: true }
+    );
+
+    header.addEventListener("pointerleave", function () {
+      displace.setAttribute("scale", base_scale);
+    });
+  }
+
+  /* ------------------------------------------------------------------ *
    * Bottoni magnetici: si spostano un poco verso il puntatore.
    * ------------------------------------------------------------------ */
 
@@ -240,11 +358,15 @@
     if (prefers_reduced_motion()) return;
     if (!window.matchMedia("(pointer: fine)").matches) return;
 
+    var max_offset = 7;
+
     Array.prototype.forEach.call(items, function (item) {
       item.addEventListener("mousemove", function (event) {
         var rect = item.getBoundingClientRect();
-        var offset_x = (event.clientX - rect.left - rect.width / 2) * 0.22;
-        var offset_y = (event.clientY - rect.top - rect.height / 2) * 0.32;
+        var offset_x = (event.clientX - rect.left - rect.width / 2) * 0.1;
+        var offset_y = (event.clientY - rect.top - rect.height / 2) * 0.14;
+        offset_x = Math.max(-max_offset, Math.min(max_offset, offset_x));
+        offset_y = Math.max(-max_offset, Math.min(max_offset, offset_y));
         item.style.transform = "translate(" + offset_x.toFixed(1) + "px, " + offset_y.toFixed(1) + "px)";
       });
 
@@ -721,7 +843,9 @@
   init_scroll_progress();
   init_card_spotlight();
   init_reveal();
+  init_mark_draw();
   init_hero_spotlight();
+  init_liquid_glass();
   init_magnetic_buttons();
   init_hero_reveal();
   init_mobile_menu();

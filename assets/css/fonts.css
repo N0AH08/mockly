@@ -3,15 +3,24 @@
    nemmeno l'indirizzo IP di chi visita — esce verso terzi solo per mostrare
    il testo in pagina. Vedi cookie.html e privacy.html.
 
-   Plus Jakarta Sans è un variable font: un solo file copre tutti i pesi da
-   400 a 800 (invece di uno per peso), per questo il font-weight qui sotto è
-   un intervallo, non un numero singolo.
+   Fraunces e Space Grotesk sono variable font: un solo file copre l'intero
+   intervallo di pesi (e, per Fraunces, anche l'optical size), per questo il
+   font-weight qui sotto è un intervallo, non un numero singolo. Fraunces è
+   nei titoli, Space Grotesk nel corpo del testo (D71).
    ========================================================================== */
 
 @font-face {
-  font-family: "Plus Jakarta Sans";
-  src: url("../fonts/plus-jakarta-sans.woff2") format("woff2");
-  font-weight: 400 800;
+  font-family: "Fraunces";
+  src: url("../fonts/fraunces.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("../fonts/space-grotesk.woff2") format("woff2");
+  font-weight: 300 700;
   font-style: normal;
   font-display: swap;
 }

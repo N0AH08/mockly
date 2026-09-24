@@ -7,7 +7,7 @@
   <title>Contatti: WhatsApp, email, telefono | Mockly</title>
   <meta name="description" content="Scrivici su WhatsApp al 351 757 8080. Siamo a scuola la mattina, rispondiamo nel pomeriggio, entro sera. Lavoriamo soprattutto in Sardegna.">
   <link rel="canonical" href="https://mockly.it/contatti.html">
-  <meta name="theme-color" content="#FFFFFF">
+  <meta name="theme-color" content="#FAF6EE">
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="it_IT">
@@ -18,13 +18,13 @@
   <meta property="og:image" content="https://mockly.it/assets/img/og-cover.png">
   <meta name="twitter:card" content="summary_large_image">
 
-  <link rel="stylesheet" href="assets/css/fonts.css?v=20260923b">
+  <link rel="stylesheet" href="assets/css/fonts.css?v=20260925a">
 
   <link rel="icon" href="assets/img/favicon.png" type="image/png">
 
-  <link rel="stylesheet" href="assets/css/tokens.css?v=20260923b">
-  <link rel="stylesheet" href="assets/css/base.css?v=20260923b">
-  <link rel="stylesheet" href="assets/css/components.css?v=20260923h">
+  <link rel="stylesheet" href="assets/css/tokens.css?v=20260925a">
+  <link rel="stylesheet" href="assets/css/base.css?v=20260924d">
+  <link rel="stylesheet" href="assets/css/components.css?v=20260925e">
 
   <script type="application/ld+json">
   {
@@ -159,7 +159,7 @@
         "name": "Lavorate solo a Oristano?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Lavoriamo soprattutto in Sardegna: di persona veniamo entro venti chilometri da Oristano, dove studiamo — Cabras, Santa Giusta, Marrubiu, Terralba, e la costa. Nel resto dell'isola lavoriamo su WhatsApp e videochiamata, e l'obiettivo è arrivare presto anche fuori dalla Sardegna."
+          "text": "No: lavoriamo per tutta la Sardegna, soprattutto su WhatsApp e videochiamata, quindi la distanza conta poco. Studiamo all'ITIS Othoca di Oristano, ma il lavoro non si ferma lì, e l'obiettivo è arrivare presto anche fuori dalla Sardegna."
         }
       }
     ]
@@ -169,13 +169,24 @@
 
 <body class="page-body">
 
+  <div class="grain" aria-hidden="true"></div>
+  <div class="viewport-frame" aria-hidden="true"></div>
+
+  <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+    <filter id="liquid-glass" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.008 0.012" numOctaves="2" seed="7" result="noise"></feTurbulence>
+      <feGaussianBlur in="noise" stdDeviation="2" result="soft-noise"></feGaussianBlur>
+      <feDisplacementMap in="SourceGraphic" in2="soft-noise" scale="16" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+    </filter>
+  </svg>
+
   <div class="scroll-progress" aria-hidden="true"><span class="scroll-progress__bar" data-scroll-progress></span></div>
 
   <a class="skip-link" href="#contenuto">Salta al contenuto</a>
 
   <header class="site-header">
     <div class="container site-header__inner">
-      <a class="site-header__logo" href="index.html">
+        <a class="site-header__logo" href="index.html">
         <img class="site-header__logo-icon" src="assets/img/logo-mockly-icon.png" alt="" width="519" height="348">
         Mockly
       </a>
@@ -226,9 +237,6 @@
 
       <div class="site-header__panel-foot">
         <a class="button button--primary" href="https://wa.me/393517578080" aria-label="Scrivici su WhatsApp al 351 757 8080">Scrivici su WhatsApp</a>
-        <p class="site-header__panel-note">
-          Oristano, Sardegna — veniamo di persona entro 20 km.
-        </p>
       </div>
     </div>
   </header>
@@ -245,7 +253,7 @@
     </nav>
 
     <section class="hero hero--page">
-      <span class="hero__ghost-stat" aria-hidden="true">20KM</span>
+      <span class="hero__ghost-stat" aria-hidden="true">3</span>
       <div class="container">
         <p class="hero__label">Contatti</p>
         <h1 class="hero__title-page">Scrivici.</h1>
@@ -259,14 +267,12 @@
 
     <section class="section section--tight">
       <div class="container">
-        <div class="section__header">
-          <p class="section__label">01 / I tre modi per raggiungerci</p>
-          <span class="section__seam" aria-hidden="true"></span>
+        <div class="section__header reveal">
           <h2 class="section__title section__title--wide">Scegli quello che ti viene comodo</h2>
         </div>
 
         <ul class="card-grid card-grid--3">
-          <li class="product-card">
+          <li class="product-card reveal">
             <p class="product-card__label">Il pi&ugrave; veloce</p>
             <h3 class="product-card__title">WhatsApp</h3>
             <p class="product-card__price">351 757 8080</p>
@@ -279,7 +285,7 @@
             </p>
           </li>
 
-          <li class="product-card">
+          <li class="product-card reveal" style="--reveal-delay: 90ms;">
             <p class="product-card__label">Se preferisci la voce</p>
             <h3 class="product-card__title">Telefono</h3>
             <p class="product-card__price">+39 351 757 8080</p>
@@ -292,7 +298,7 @@
             </p>
           </li>
 
-          <li class="product-card">
+          <li class="product-card reveal" style="--reveal-delay: 180ms;">
             <p class="product-card__label">Per le cose scritte</p>
             <h3 class="product-card__title">Email</h3>
             <p class="product-card__price">mockly.website@gmail.com</p>
@@ -306,46 +312,43 @@
       </div>
     </section>
 
-    <section class="section section--alt" id="tempi">
+    <section class="section" id="tempi">
       <div class="container">
-        <div class="section__header">
-          <p class="section__label">02 / Quando rispondiamo</p>
-          <span class="section__seam" aria-hidden="true"></span>
+        <div class="section__header reveal">
           <h2 class="section__title section__title--wide">Che risposta aspettarti, e quando</h2>
+          <p class="text-lead">
+            Siamo studenti: la mattina siamo a scuola e il telefono &egrave; in tasca, spento o muto. Non ti
+            raccontiamo che rispondiamo entro cinque minuti.
+          </p>
         </div>
 
-        <p class="text-lead">
-          Siamo studenti: la mattina siamo a scuola e il telefono &egrave; in tasca, spento o muto. Non ti
-          raccontiamo che rispondiamo entro cinque minuti.
-        </p>
-
         <ul class="promise-list push-large">
-          <li class="promise-list__item">
+          <li class="promise-list__item reveal">
             <h3 class="promise-list__title">WhatsApp</h3>
             <p class="promise-list__text">Leggiamo nel pomeriggio e rispondiamo in giornata, dal luned&igrave; al sabato.</p>
           </li>
-          <li class="promise-list__item">
+          <li class="promise-list__item reveal" style="--reveal-delay: 60ms;">
             <h3 class="promise-list__title">Email</h3>
             <p class="promise-list__text">Entro un giorno lavorativo.</p>
           </li>
-          <li class="promise-list__item">
+          <li class="promise-list__item reveal" style="--reveal-delay: 120ms;">
             <h3 class="promise-list__title">Chiamate perse</h3>
             <p class="promise-list__text">Richiamiamo entro sera.</p>
           </li>
-          <li class="promise-list__item">
+          <li class="promise-list__item reveal" style="--reveal-delay: 180ms;">
             <h3 class="promise-list__title">Domenica</h3>
             <p class="promise-list__text">
               Rispondiamo il luned&igrave;. Se hai un&rsquo;urgenza vera perch&eacute; il sito &egrave; gi&ugrave;, scrivi
               &ldquo;URGENTE&rdquo; su WhatsApp e guardiamo subito.
             </p>
           </li>
-          <li class="promise-list__item">
+          <li class="promise-list__item reveal" style="--reveal-delay: 240ms;">
             <h3 class="promise-list__title">Preventivo</h3>
             <p class="promise-list__text">Entro 48 ore dalla chiacchierata, scritto.</p>
           </li>
         </ul>
 
-        <p class="note push-large">
+        <p class="note push-large reveal">
           Se sei un cliente con abbonamento attivo, i tempi sono quelli del tuo piano: 24 ore con il Seguito,
           48 con l&rsquo;Aggiornato, 3 giorni lavorativi con l&rsquo;Acceso.
         </p>
@@ -356,35 +359,28 @@
 
     <section class="section" id="dove-siamo">
       <div class="container container--narrow">
-        <div class="section__header">
-          <p class="section__label">03 / Dove siamo</p>
-          <span class="section__seam" aria-hidden="true"></span>
+        <div class="section__header reveal">
           <h2 class="section__title section__title--wide">Sardegna, soprattutto</h2>
         </div>
 
-        <p>
+        <p class="reveal">
           Lavoriamo per tutta l&rsquo;isola, di solito su WhatsApp e videochiamata. Non abbiamo un ufficio con la
-          targa: entro 20 km da Oristano &mdash; dove studiamo &mdash; veniamo noi da te senza costi, quando il
-          locale &egrave; chiuso o fra un servizio e l&rsquo;altro. Cabras, Santa Giusta, Marrubiu, Terralba, Bosa:
-          si arriva.
+          targa: studiamo all&rsquo;ITIS Othoca di Oristano, ma il lavoro va dove serve, non solo l&igrave; intorno.
         </p>
         <!-- TODO: indirizzo postale o sede legale da mettere nei dati strutturati e nel footer.
              Oggi c e solo "Oristano, Sardegna" e dipende anche dalla P.IVA, docs/99-aperte.md #9. -->
       </div>
     </section>
 
-    <section class="section section--alt" id="modulo">
+    <section class="section" id="modulo">
       <div class="container container--narrow">
-        <div class="section__header">
-          <p class="section__label">04 / Il modulo</p>
-          <span class="section__seam" aria-hidden="true"></span>
+        <div class="section__header reveal">
           <h2 class="section__title section__title--wide">Oppure scrivici da qui</h2>
+          <p class="section__intro">
+            Compilalo in trenta secondi. Ti rispondiamo sulla mail che ci lasci. Se hai fretta, WhatsApp &egrave;
+            pi&ugrave; veloce.
+          </p>
         </div>
-
-        <p class="section__intro">
-          Compilalo in trenta secondi. Ti rispondiamo sulla mail che ci lasci. Se hai fretta, WhatsApp &egrave;
-          pi&ugrave; veloce.
-        </p>
 
         <!-- TODO: endpoint del modulo (Formspree o equivalente), docs/99-aperte.md #1.
              Finche action resta vuoto, main.js blocca l invio e rimanda a WhatsApp ed email. -->
@@ -466,13 +462,11 @@
 
     <section class="section" id="faq">
       <div class="container container--narrow">
-        <div class="section__header">
-          <p class="section__label">05 / Domande frequenti</p>
-          <span class="section__seam" aria-hidden="true"></span>
+        <div class="section__header reveal">
           <h2 class="section__title section__title--wide">Le dieci domande che ci fanno davvero</h2>
         </div>
 
-        <div class="accordion">
+        <div class="accordion reveal">
           <div class="accordion__item">
             <h3 class="accordion__heading">
               <button class="accordion__trigger" type="button" id="faq-trigger-1" aria-expanded="false" aria-controls="faq-panel-1">
@@ -632,9 +626,9 @@
             </h3>
             <div class="accordion__panel" id="faq-panel-10" role="region" aria-labelledby="faq-trigger-10" hidden>
               <p>
-                Lavoriamo soprattutto in Sardegna: di persona veniamo entro venti chilometri da Oristano, dove
-                studiamo &mdash; Cabras, Santa Giusta, Marrubiu, Terralba, e la costa. Nel resto dell&rsquo;isola
-                lavoriamo su WhatsApp e videochiamata, e l&rsquo;obiettivo &egrave; arrivare presto anche fuori dalla Sardegna.
+                No: lavoriamo per tutta la Sardegna, soprattutto su WhatsApp e videochiamata, quindi la
+                distanza conta poco. Studiamo all&rsquo;ITIS Othoca di Oristano, ma il lavoro non si ferma
+                l&igrave;, e l&rsquo;obiettivo &egrave; arrivare presto anche fuori dalla Sardegna.
               </p>
             </div>
           </div>
@@ -645,7 +639,7 @@
       </div>
     </section>
 
-    <section class="call-to-action call-to-action--inverse surface-inverse is-highlighted">
+    <section class="call-to-action is-highlighted">
       <div class="container">
         <span class="call-to-action__seam" aria-hidden="true"></span>
         <div class="call-to-action__inner">
@@ -710,7 +704,6 @@
             <li><a class="site-footer__link" href="mailto:mockly.website@gmail.com" aria-label="Scrivi a mockly.website@gmail.com">mockly.website@gmail.com</a></li>
             <li><a class="site-footer__link" href="https://www.instagram.com/mockly.site/" target="_blank" rel="noopener">Instagram: @mockly.site</a></li>
           </ul>
-          <p class="push-xsmall">Oristano, Sardegna — veniamo di persona entro 20 km</p>
         </div>
       </div>
 
@@ -732,6 +725,6 @@
     <svg class="back-to-top__icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 16V4m0 0 6 6m-6-6L4 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
 
-  <script src="assets/js/main.js?v=20260923c"></script>
+  <script src="assets/js/main.js?v=20260924g"></script>
 </body>
 </html>

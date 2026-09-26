@@ -43,6 +43,10 @@
     var preloader = document.querySelector("[data-preloader]");
     if (!preloader) return;
 
+    // La cornice (solo da tablet in su, vedi components.css) si apre/chiude
+    // in sincrono col preloader. Su telefono questo elemento non esiste o
+    // è nascosto: le righe sotto non fanno nulla di visibile, ma restano
+    // innocue.
     var frame = document.querySelector("[data-viewport-frame]");
 
     var already_seen = false;
@@ -66,18 +70,20 @@
 
     window.setTimeout(function () {
       preloader.classList.add("is-hidden");
-      /* La cornice si chiude nello stesso istante: dietro al preloader per
-         tutta la durata, il salto non si vede — si vede solo il risultato,
-         la finestra che si assembla mentre il sito compare. Il solo
-         cambio di spessore è troppo sottile ai bordi dello schermo, quindi
-         un lampo di luce lungo il bordo interno segna il momento preciso. */
+
+      // La cornice scatta al suo posto nello stesso istante: `is-settling`
+      // accende la transizione solo per questo momento, `is-settled-flash`
+      // fa il lampo di luce sul bordo. Entrambe si tolgono da sole dopo.
       if (frame) {
+        frame.classList.add("is-settling");
         frame.classList.remove("is-opening");
         frame.classList.add("is-settled-flash");
         window.setTimeout(function () {
           frame.classList.remove("is-settled-flash");
+          frame.classList.remove("is-settling");
         }, 900);
       }
+
       try {
         window.sessionStorage.setItem("mockly_preloader_seen", "1");
       } catch (error) {
@@ -300,51 +306,6 @@
 
     hero.addEventListener("pointerleave", function () {
       spotlight.style.opacity = "0";
-    });
-  }
-
-  /* ------------------------------------------------------------------ *
-   * Vetro liquido dell'intestazione: la distorsione del filtro SVG
-   * risponde al puntatore invece di restare fissa — più intensa vicino
-   * al cursore, come se il vetro si piegasse davvero sotto il dito.
-   * Solo dove il filtro è supportato (Chromium) e con mouse fine.
-   * ------------------------------------------------------------------ */
-
-  function init_liquid_glass() {
-    var header = document.querySelector(".site-header");
-    var displace = document.querySelector('[data-liquid-scale]');
-    if (!header || !displace) return;
-    if (prefers_reduced_motion()) return;
-    if (!window.matchMedia("(pointer: fine)").matches) return;
-    if (typeof CSS === "undefined" || !CSS.supports || !CSS.supports("backdrop-filter", 'url("#liquid-glass")')) return;
-
-    var base_scale = 16;
-    var max_scale = 26;
-    var is_ticking = false;
-    var last_event = null;
-
-    function update_state() {
-      var rect = header.getBoundingClientRect();
-      var mid_x = rect.width / 2;
-      var distance = Math.abs(last_event.clientX - rect.left - mid_x) / mid_x;
-      var scale = base_scale + (max_scale - base_scale) * (1 - Math.min(distance, 1));
-      displace.setAttribute("scale", scale.toFixed(1));
-      is_ticking = false;
-    }
-
-    header.addEventListener(
-      "pointermove",
-      function (event) {
-        last_event = event;
-        if (is_ticking) return;
-        is_ticking = true;
-        window.requestAnimationFrame(update_state);
-      },
-      { passive: true }
-    );
-
-    header.addEventListener("pointerleave", function () {
-      displace.setAttribute("scale", base_scale);
     });
   }
 
@@ -845,7 +806,6 @@
   init_reveal();
   init_mark_draw();
   init_hero_spotlight();
-  init_liquid_glass();
   init_magnetic_buttons();
   init_hero_reveal();
   init_mobile_menu();

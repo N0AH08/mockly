@@ -20,6 +20,7 @@
 
 /* ==========================================================================
    Bottone — pill calda
+   I tre stili: --primary (pieno), --secondary (bordo), --ghost (solo testo).
    ========================================================================== */
 
 .button {
@@ -273,69 +274,74 @@
 }
 
 /* ==========================================================================
-   Cornice — il bordo esterno resta squadrato di suo: è il bordo vero dello
-   schermo, che squadrato lo è sempre, non c'è nulla da arrotondare lì. La
-   "finestra" interna che lascia intravedere il sito, invece, ha gli angoli
-   arrotondati su tutti e quattro i lati — come lo schermo dentro la scocca
-   squadrata di un laptop. Un solo elemento fisso, senza bordo: un riquadro
-   con gli angoli tondi (.viewport-frame) e un'ombra enorme che lo circonda
-   fino a riempire tutto lo schermo — dove il riquadro è tondo, l'ombra lo
-   segue e lascia intravedere il sito vero; dove non c'è riquadro (il resto
-   dello schermo, sempre squadrato) resta piena di blu.
+   Cornice — il riquadro blu intorno alla pagina.
+   Solo da tablet in su (min-width: 48em). Su telefono è nascosta (display:
+   none): a quella larghezza non aggiunge niente e aveva dato più problemi
+   (vedi D75/D76/D78 in AGENTS.md) di quanti ne valesse la pena.
    ========================================================================== */
+
+/* Di base è nascosta: si mostra solo dentro il media query qui sotto. */
 .viewport-frame {
-  --frame-thickness: 7px;
-  position: fixed;
-  inset: var(--frame-thickness);
-  z-index: 95;
-  pointer-events: none;
-  border-radius: var(--radius-soft);
-  box-shadow: 0 0 0 100vmax var(--color-accent);
-  transition: inset 700ms var(--ease-spring), border-radius 700ms var(--ease-spring);
+  display: none;
 }
 
-@media (max-width: 47.99em) {
+@media (min-width: 48em) {
   .viewport-frame {
-    --frame-thickness: 4px;
-    border-radius: var(--radius-crisp);
+    display: block;
+    position: fixed;
+    top: 7px;
+    left: 7px;
+    pointer-events: none; /* non deve mai bloccare i click sul sito sotto */
+    z-index: 95; /* sotto l'intestazione (100), sopra il resto */
+    border-radius: var(--radius-soft);
+
+    /* Larghezza/altezza scritte due volte: la seconda riga (dvh/dvw) è il
+       valore giusto sui browser che la capiscono, la prima è il fallback
+       per quelli più vecchi. */
+    width: calc(100vw - 14px);
+    height: calc(100vh - 14px);
+    width: calc(100dvw - 14px);
+    height: calc(100dvh - 14px);
+
+    /* Il trucco: un'ombra enorme (100vmax) che riempie tutto lo schermo
+       intorno al riquadro. Dove il riquadro è vuoto si vede il blu
+       dell'ombra, dentro il riquadro si vede il sito. */
+    box-shadow: 0 0 0 100vmax var(--color-accent);
   }
 }
 
-@media print {
-  .viewport-frame {
-    display: none;
+/* Animazione di apertura, solo in home: la cornice parte a schermo intero
+   (nascosta dietro al preloader) e si "chiude" sul suo riquadro finale nello
+   stesso istante in cui il preloader sparisce. `.is-settling` accende la
+   transizione solo per quel momento — il resto del tempo la cornice segue
+   il viewport all'istante, senza ritardo (vedi D78: un ritardo qui creava
+   una fascia scoperta durante lo scroll su Safari). */
+@media (min-width: 48em) {
+  .viewport-frame.is-settling {
+    transition:
+      top 700ms var(--ease-spring),
+      left 700ms var(--ease-spring),
+      width 700ms var(--ease-spring),
+      height 700ms var(--ease-spring),
+      border-radius 700ms var(--ease-spring);
+  }
+
+  @media (scripting: enabled) {
+    .viewport-frame.is-opening {
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      width: 100dvw;
+      height: 100dvh;
+      border-radius: 0;
+    }
   }
 }
 
-/*
- * Solo in home, dietro al preloader: la cornice parte tutta aperta (invisibile,
- * nessun margine blu) e si chiude sul suo riquadro finale nello stesso istante
- * in cui il preloader sparisce — la finestra si assembla davanti a chi guarda,
- * invece di esserci già stata per tutti i 3,5s dietro il laptop. Nascosta
- * sotto il preloader per tutta la durata: nessun salto visibile. Gated dietro
- * "scripting: enabled" cosi senza JS la cornice resta subito nella posizione
- * giusta, mai bloccata aperta.
- */
-@media (scripting: enabled) {
-  .viewport-frame.is-opening {
-    inset: 0;
-    border-radius: 0;
-  }
-}
-
-/*
- * Il solo cambio di spessore (4-7px) è troppo sottile per notarsi ai bordi
- * dello schermo, lontano da dove si guarda. Un lampo di luce lungo il bordo
- * interno della finestra, proprio nel momento in cui scatta al suo posto,
- * si vede — non è decorazione a sé, segna l'istante preciso dell'assemblaggio.
- * `.is-settled-flash` viene aggiunta da init_preloader nello stesso momento
- * in cui toglie `.is-opening`, e tolta da sola a fine animazione.
- * Elemento dedicato (::after) invece di animare il box-shadow enorme che fa
- * già il lavoro della cornice: animare due ombre nella stessa dichiarazione,
- * una delle quali usa 100vmax, risulta bloccato al primo fotogramma in
- * Chromium — verificato campionando il valore durante l'animazione, mai
- * cambiava. Una sola opacità su un elemento a sé, sempre animabile.
- */
+/* Il lampo di luce quando la cornice scatta al suo posto: un elemento a
+   parte (::after) invece di animare l'ombra enorme sopra, perché Chromium
+   non riesce ad animare due ombre insieme in quel modo (trovato in D70). */
 .viewport-frame::after {
   content: "";
   position: absolute;
@@ -350,15 +356,9 @@
 }
 
 @keyframes frame-flash-glow {
-  0% {
-    opacity: 0;
-  }
-  35% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
+  0% { opacity: 0; }
+  35% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -367,18 +367,23 @@
   }
 }
 
+@media print {
+  .viewport-frame {
+    display: none;
+  }
+}
+
 /* ==========================================================================
-   Intestazione — vetro bianco
+   Intestazione — vetro trasparente
    ========================================================================== */
 
-/* Sospesa: non più attaccata ai bordi dello schermo. Margine su tutti e
-   quattro i lati, centrata, angoli arrotondati su tutto il perimetro —
-   dentro alla cornice (.viewport-frame) invece che incollata sopra di lei,
-   che ora si vede intera su tutti e quattro i lati invece che solo tre.
-   Vetro liquido: più sfocatura, più saturazione di quello che sta sotto
-   (come il materiale "vetro" di iOS), un filo chiaro in cima che imita il
-   riflesso di un bordo di vetro vero. Non è un asset preso da nessuna
-   parte: sfocatura e saturazione sono proprietà CSS generiche. */
+/* Sospesa: non attaccata a nessun bordo dello schermo, né su telefono né su
+   desktop — margine uguale su tutti e quattro i lati, centrata, angoli
+   arrotondati su tutto il perimetro. Davvero trasparente, non un pannello
+   bianco smerigliato: pochissimo velo di colore, solo una sfocatura leggera
+   per restare leggibile sopra qualunque contenuto scorra sotto — niente
+   "vetro liquido" a distorcere i pixel, la trasparenza è il punto, non un
+   effetto sopra un fondo comunque opaco. */
 .site-header {
   position: fixed;
   top: var(--space-small);
@@ -387,15 +392,12 @@
   width: calc(100% - var(--space-large) * 2);
   max-width: var(--container-width);
   z-index: var(--layer-header);
-  background-color: rgba(255, 255, 255, 0.55);
-  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1));
-  backdrop-filter: blur(20px) saturate(1.6);
-  -webkit-backdrop-filter: blur(20px) saturate(1.6);
-  border: var(--border-width-hairline) solid rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: var(--border-width-hairline) solid rgba(255, 255, 255, 0.35);
   border-radius: var(--radius-soft);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.8),
-    var(--shadow-float);
+  box-shadow: var(--shadow-float);
   transition:
     border-color var(--duration-base) var(--ease-out),
     box-shadow var(--duration-base) var(--ease-out),
@@ -404,35 +406,20 @@
 
 @media (max-width: 47.99em) {
   .site-header {
-    top: var(--space-2xsmall);
+    top: var(--space-small);
     width: calc(100% - var(--space-medium) * 2);
     border-radius: var(--radius-crisp);
   }
 }
 
-/* Vetro liquido vero: un filtro SVG (rumore procedurale + spostamento,
-   .liquid-glass nel markup) piega davvero i pixel dietro l'intestazione
-   invece di limitarsi a sfocarli — lo stesso principio del materiale
-   "Liquid Glass" di iOS, tecnica generica (feDisplacementMap), non un
-   asset preso da nessuna parte. Solo Chromium espone i filtri SVG dentro
-   backdrop-filter: gli altri browser restano sulla sfocatura qui sopra,
-   già di suo un vetro credibile — mai né rotto né invisibile. */
-@supports (backdrop-filter: url("#liquid-glass")) {
-  .site-header {
-    backdrop-filter: url("#liquid-glass") blur(6px) saturate(1.7);
-    -webkit-backdrop-filter: url("#liquid-glass") blur(6px) saturate(1.7);
-  }
-}
-
 @media (prefers-reduced-motion: reduce), (prefers-reduced-transparency: reduce) {
   .site-header {
-    backdrop-filter: blur(20px) saturate(1.6) !important;
-    -webkit-backdrop-filter: blur(20px) saturate(1.6) !important;
+    background-color: rgba(255, 255, 255, 0.85);
   }
 }
 
 .site-header.is-scrolled {
-  background-color: rgba(255, 255, 255, 0.94);
+  background-color: rgba(255, 255, 255, 0.75);
   border-bottom-color: var(--color-border);
   box-shadow: var(--shadow-lift);
 }
@@ -721,10 +708,9 @@
   color: var(--color-accent-hover);
 }
 
-/* Entrata in sequenza: testa, voci, fondo. Ritardi corti: tutto si assesta
+/* Entrata in sequenza: testa, poi voci. Ritardi corti: tutto si assesta
    entro ~600ms, altrimenti sembra lag invece che animazione. */
-.site-header__panel-head,
-.site-header__panel-foot {
+.site-header__panel-head {
   opacity: 0;
   transition: opacity var(--duration-base) var(--ease-out);
 }
@@ -732,11 +718,6 @@
 .site-header__panel.is-open .site-header__panel-head {
   opacity: 1;
   transition-delay: 60ms;
-}
-
-.site-header__panel.is-open .site-header__panel-foot {
-  opacity: 1;
-  transition-delay: 280ms;
 }
 
 .site-header__panel-list > li {
@@ -759,17 +740,6 @@
 .site-header__panel.is-open .site-header__panel-list > li:nth-child(5) { transition-delay: 180ms; }
 .site-header__panel.is-open .site-header__panel-list > li:nth-child(6) { transition-delay: 205ms; }
 .site-header__panel.is-open .site-header__panel-list > li:nth-child(7) { transition-delay: 230ms; }
-
-.site-header__panel-foot {
-  display: grid;
-  gap: var(--space-small);
-  margin-top: auto;
-  padding-top: var(--space-small);
-}
-
-.site-header__panel-foot .button {
-  width: 100%;
-}
 
 @media (min-width: 80em) {
   .site-header__navigation,
@@ -966,42 +936,26 @@
 }
 
 /*
- * Firma: un cerchio disegnato a mano invece del testo in sfumatura blu —
- * l'elemento più riconoscibile di "fatto da un tool AI" in questo periodo.
- * Colore pieno, non trasparente: l'enfasi la fa il segno sotto, che si
- * disegna da sé quando la pagina è pronta (stesso timing di .hero__stagger).
- * Su sfondo scuro (surface-inverse, CTA) il colore cambia da solo perché
- * usa currentColor sia per il testo sia per il tratto della SVG.
+ * Firma: colore pieno sull'accento, senza segno sotto — il tratto disegnato
+ * a mano (uno spesso 5px su un'onda di 14px) copriva le discendenti di
+ * lettere come "p"/"g" alle dimensioni piccole di un telefono, illeggibile.
+ * L'enfasi resta nel colore, che cambia da solo su sfondo scuro perché usa
+ * currentColor.
  */
 .hero__mark {
   display: inline;
-  padding-bottom: 0.04em;
   color: var(--color-accent);
-  background-repeat: repeat-x;
-  background-position: 0 100%;
-  background-size: 170px 14px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 170 14'%3E%3Cpath d='M2 9.5C34 2.5 68 12 100 6C124 1.5 148 10 168 5' fill='none' stroke='%232E5CD9' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E");
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
 }
 
-/* .call-to-action__title non è più qui: il pannello è tornato chiaro da
-   D66, l'accento scuro (accent-glow) sopra un fondo bianco cade sotto AA
-   (2.7) — resta sul colore di base di .hero__mark, pensato per sfondo
-   chiaro. */
 .surface-inverse .hero__mark,
 .manifesto__text .hero__mark {
   color: var(--color-accent-glow);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 170 14'%3E%3Cpath d='M2 9.5C34 2.5 68 12 100 6C124 1.5 148 10 168 5' fill='none' stroke='%236C9BFF' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 
-/* Nel titolo dell'hero il tratto a mano sotto la parola resta troppo simile
-   a una riga da template: qui resta solo il colore pieno, senza segno. Va
-   a capo su due righe apposta (D32): niente animazione di comparsa qui,
-   il clip-path su un elemento spezzato su più righe non si taglia pulito. */
+/* Il titolo dell'hero va a capo su due righe apposta (D32): niente
+   animazione di comparsa qui, il clip-path su un elemento spezzato su più
+   righe non si taglia pulito in Chromium (D69). */
 .hero__title .hero__mark {
-  padding-bottom: 0;
-  background-image: none;
   clip-path: none !important;
   transition: none !important;
 }
@@ -1215,12 +1169,10 @@ body.is-loaded .hero__stagger {
   align-items: center;
   color: var(--color-text);
   font-weight: var(--font-weight-semibold);
-  padding-bottom: 0.1em;
-  background-repeat: repeat-x;
-  background-position: 0 100%;
-  background-size: 130px 11px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 130 11'%3E%3Cpath d='M2 7.6C26 2 52 9.2 76 4.6C94 1.2 112 8 128 3.8' fill='none' stroke='%232E5CD9' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E");
-  text-decoration: none;
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
   transition: color var(--duration-fast) var(--ease-out);
 }
 
@@ -1573,6 +1525,7 @@ body.is-loaded .hero__stagger {
 
 /* ==========================================================================
    Fascia promesse + griglie vecchie
+   .promise-list: le tre righe "Prezzo onesto / Tutto tuo / ..." in chi-siamo.
    ========================================================================== */
 
 .promise-list {
@@ -1632,6 +1585,7 @@ body.is-loaded .hero__stagger {
 
 /* ==========================================================================
    Bento servizi + card prodotto
+   Le due card "Due prodotti" (Siti web / Gestionali) nella home.
    ========================================================================== */
 
 .bento {
@@ -1864,6 +1818,7 @@ body.is-loaded .hero__stagger {
 
 /* ==========================================================================
    Card prezzo
+   Le tre card degli abbonamenti in siti-web.html#assistenza.
    ========================================================================== */
 
 .price-card {
@@ -1975,6 +1930,7 @@ body.is-loaded .hero__stagger {
 
 /* ==========================================================================
    Tabella piani
+   La tabella comparativa completa dei tre abbonamenti, usata in privacy.html.
    ========================================================================== */
 
 .plan-table__scroll {
@@ -2052,6 +2008,7 @@ body.is-loaded .hero__stagger {
 
 /* ==========================================================================
    Card progetto
+   Le card del portfolio, una per demo o lavoro reale.
    ========================================================================== */
 
 .project-card {
@@ -2174,6 +2131,7 @@ body.is-loaded .hero__stagger {
 
 /* ==========================================================================
    Etichetta
+   I badge colorati sulle card (demo, lavoro reale, in lavorazione).
    ========================================================================== */
 
 .badge {
@@ -2207,6 +2165,7 @@ body.is-loaded .hero__stagger {
 
 /* ==========================================================================
    Filtri
+   I bottoni per filtrare il portfolio per tipo di locale.
    ========================================================================== */
 
 .filter-group + .text-label {
@@ -2310,6 +2269,7 @@ body.is-loaded .hero__stagger {
 
 /* ==========================================================================
    Confronto onesto
+   Paragrafi centrati sotto un titolo, riusati in più pagine (chi-siamo, gestionali).
    ========================================================================== */
 
 #chi-siamo > .container > p,
@@ -2494,6 +2454,7 @@ body.is-loaded .hero__stagger {
 
 /* ==========================================================================
    Modulo
+   Il modulo di contatto di contatti.html.
    ========================================================================== */
 
 .form {
@@ -2611,6 +2572,7 @@ body.theme-dark .form__select:focus {
 
 /* ==========================================================================
    Briciole di pane
+   Il percorso "Home / Pagina" in cima ad alcune pagine interne.
    ========================================================================== */
 
 .breadcrumb {
@@ -2658,6 +2620,7 @@ body.theme-dark .form__select:focus {
 
 /* ==========================================================================
    Nota
+   Box con un bordo blu a sinistra, per un'informazione da far notare.
    ========================================================================== */
 
 .note {
@@ -2879,6 +2842,7 @@ body.theme-dark .form__select:focus {
 
 /* ==========================================================================
    Scheda persona
+   Le tre card del team in chi-siamo.html (Noah, Adriano, Simone).
    ========================================================================== */
 
 .person-card {
@@ -2954,6 +2918,7 @@ body.theme-dark .form__select:focus {
 
 /* ==========================================================================
    Striscia prezzi home
+   Le righe "nome del piano → prezzo" nella sezione Prezzi della home.
    ========================================================================== */
 
 .price-strip {

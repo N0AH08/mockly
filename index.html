@@ -24,7 +24,7 @@
 
   <link rel="stylesheet" href="assets/css/tokens.css?v=20260925a">
   <link rel="stylesheet" href="assets/css/base.css?v=20260924d">
-  <link rel="stylesheet" href="assets/css/components.css?v=20260925e">
+  <link rel="stylesheet" href="assets/css/components.css?v=20260926b">
 
   <link rel="preload" as="image" href="assets/img/projects/esempio-generico-hero.webp" fetchpriority="high">
 
@@ -140,25 +140,6 @@
   <div class="grain" aria-hidden="true"></div>
   <div class="viewport-frame is-opening" aria-hidden="true" data-viewport-frame></div>
 
-  <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
-    <filter id="liquid-glass" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
-      <feTurbulence type="fractalNoise" baseFrequency="0.008 0.012" numOctaves="2" seed="7" result="noise"></feTurbulence>
-      <feGaussianBlur in="noise" stdDeviation="2" result="soft-noise"></feGaussianBlur>
-      <feDisplacementMap in="SourceGraphic" in2="soft-noise" scale="16" xChannelSelector="R" yChannelSelector="G" data-liquid-scale result="displaced"></feDisplacementMap>
-      <!-- Frangia di colore ai bordi della distorsione: i tre canali si spostano
-           di un pixel ciascuno in direzioni diverse invece di restare
-           sovrapposti — lo stesso scarto cromatico che si vede su un vetro
-           vero, non solo un vetro sfocato in scala di grigi. -->
-      <feColorMatrix in="displaced" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="red"></feColorMatrix>
-      <feOffset in="red" dx="1" dy="0.5" result="red-shift"></feOffset>
-      <feColorMatrix in="displaced" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="green"></feColorMatrix>
-      <feColorMatrix in="displaced" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="blue"></feColorMatrix>
-      <feOffset in="blue" dx="-1" dy="-0.5" result="blue-shift"></feOffset>
-      <feBlend in="red-shift" in2="green" mode="screen" result="rg"></feBlend>
-      <feBlend in="rg" in2="blue-shift" mode="screen"></feBlend>
-    </filter>
-  </svg>
-
   <div class="preloader" id="preloader" data-preloader aria-hidden="true">
     <div class="pl-scene">
       <div class="pl-laptop">
@@ -189,6 +170,7 @@
 
   <a class="skip-link" href="#contenuto">Salta al contenuto</a>
 
+  <!-- Intestazione: uguale su tutte le pagine (logo, menu, bottone WhatsApp). -->
   <header class="site-header">
     <div class="container site-header__inner">
         <a class="site-header__logo" href="index.html">
@@ -196,6 +178,7 @@
         Mockly
       </a>
 
+      <!-- Menu orizzontale (visibile da 1280px in su, sotto resta solo l'hamburger) -->
       <nav class="site-header__navigation" aria-label="Menu principale">
         <ul class="site-header__navigation-list">
           <li><a class="site-header__navigation-link is-current" href="index.html" aria-current="page">Home</a></li>
@@ -213,6 +196,7 @@
         </a>
       </div>
 
+      <!-- Hamburger: apre il pannello sotto i 1280px -->
       <button class="site-header__toggle" type="button" aria-label="Apri il menu" aria-expanded="false" aria-controls="menu-principale">
         <span class="site-header__toggle-bar" aria-hidden="true"></span>
         <span class="site-header__toggle-bar" aria-hidden="true"></span>
@@ -220,8 +204,10 @@
       </button>
     </div>
 
+    <!-- Velo scuro, chiude il menu se ci clicchi sopra -->
     <div class="site-header__overlay"></div>
 
+    <!-- Pannello del menu (telefono/tablet) -->
     <div class="site-header__panel" id="menu-principale" role="dialog" aria-modal="true" aria-label="Menu">
       <div class="site-header__panel-head">
         <p class="site-header__panel-brand"><img class="site-header__logo-icon" src="assets/img/logo-mockly-icon.png" alt="" width="519" height="348">Mockly</p>
@@ -229,6 +215,7 @@
           <svg class="site-header__close-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         </button>
       </div>
+      <!-- Menu, versione telefono -->
       <nav aria-label="Menu principale su telefono">
         <ul class="site-header__panel-list">
           <li><a class="site-header__panel-link is-current" href="index.html" aria-current="page">Home</a></li>
@@ -239,10 +226,6 @@
           <li><a class="site-header__panel-link" href="contatti.html">Contatti</a></li>
         </ul>
       </nav>
-
-      <div class="site-header__panel-foot">
-        <a class="button button--primary" href="https://wa.me/393517578080" aria-label="Scrivici su WhatsApp al 351 757 8080">Scrivici su WhatsApp</a>
-      </div>
     </div>
   </header>
 
@@ -631,6 +614,7 @@
 
   </main>
 
+  <!-- Piè di pagina: uguale su tutte le pagine. -->
   <footer class="site-footer">
     <div class="container">
       <span class="site-footer__seam" aria-hidden="true"></span>
@@ -691,6 +675,6 @@
     <svg class="back-to-top__icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 16V4m0 0 6 6m-6-6L4 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
 
-  <script src="assets/js/main.js?v=20260924g"></script>
+  <script src="assets/js/main.js?v=20260926a"></script>
 </body>
 </html>

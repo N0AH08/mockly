@@ -7,7 +7,7 @@
   <title>Siti web di ogni tipo, costruiti sul tuo lavoro | Mockly</title>
   <meta name="description" content="Vetrina, aziendali, e-commerce, multilingua: ogni sito è costruito sul tuo lavoro. Preventivo scritto entro 48 ore, bozza in una settimana, online in due.">
   <link rel="canonical" href="https://mockly.it/siti-web.html">
-  <meta name="theme-color" content="#FAF6EE">
+  <meta name="theme-color" content="#0A0F16">
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="it_IT">
@@ -18,13 +18,13 @@
   <meta property="og:image" content="https://mockly.it/assets/img/og-cover.png">
   <meta name="twitter:card" content="summary_large_image">
 
-  <link rel="stylesheet" href="assets/css/fonts.css?v=20260925a">
+  <link rel="stylesheet" href="assets/css/fonts.css?v=20260930a">
 
   <link rel="icon" href="assets/img/favicon.png" type="image/png">
 
-  <link rel="stylesheet" href="assets/css/tokens.css?v=20260925a">
-  <link rel="stylesheet" href="assets/css/base.css?v=20260924d">
-  <link rel="stylesheet" href="assets/css/components.css?v=20260926b">
+  <link rel="stylesheet" href="assets/css/tokens.css?v=20260930b">
+  <link rel="stylesheet" href="assets/css/base.css?v=20260930a">
+  <link rel="stylesheet" href="assets/css/components.css?v=20260930k">
 
   <script type="application/ld+json">
   {
@@ -93,7 +93,7 @@
         "name": "Fate anche e-commerce?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Sì: catalogo, schede prodotto, pagamenti con carta e contrassegno, spedizioni e email d'ordine automatiche. Quello che non facciamo è il magazzino collegato in tempo reale ai corrieri: per quello serve un gestionale, e te lo diciamo prima."
+          "text": "Sì: catalogo, schede prodotto, pagamenti con carta e contrassegno, spedizioni e email d'ordine automatiche. Quello che non facciamo è il magazzino collegato in tempo reale ai corrieri: non rientra nel sito, e te lo diciamo prima."
         }
       },
       {
@@ -148,8 +148,8 @@
   <header class="site-header">
     <div class="container site-header__inner">
         <a class="site-header__logo" href="index.html">
-        <img class="site-header__logo-icon" src="assets/img/logo-mockly-icon.png" alt="" width="519" height="348">
-        Mockly
+        <img class="site-header__logo-icon" src="assets/img/logo-mockly-icon.png" alt="" width="632" height="447">
+        MOCKLY.
       </a>
 
       <!-- Menu orizzontale (visibile da 1280px in su, sotto resta solo l'hamburger) -->
@@ -157,7 +157,6 @@
         <ul class="site-header__navigation-list">
           <li><a class="site-header__navigation-link" href="index.html">Home</a></li>
           <li><a class="site-header__navigation-link is-current" href="siti-web.html" aria-current="page">Siti web</a></li>
-          <li><a class="site-header__navigation-link" href="gestionali.html">Gestionali</a></li>
           <li><a class="site-header__navigation-link" href="portfolio.html">Portfolio</a></li>
           <li><a class="site-header__navigation-link" href="chi-siamo.html">Chi siamo</a></li>
           <li><a class="site-header__navigation-link" href="contatti.html">Contatti</a></li>
@@ -184,17 +183,17 @@
     <!-- Pannello del menu (telefono/tablet) -->
     <div class="site-header__panel" id="menu-principale" role="dialog" aria-modal="true" aria-label="Menu">
       <div class="site-header__panel-head">
-        <p class="site-header__panel-brand"><img class="site-header__logo-icon" src="assets/img/logo-mockly-icon.png" alt="" width="519" height="348">Mockly</p>
+        <p class="site-header__panel-brand"><img class="site-header__logo-icon" src="assets/img/logo-mockly-icon.png" alt="" width="632" height="447">MOCKLY.</p>
         <button class="site-header__close" type="button" aria-label="Chiudi il menu" data-menu-close>
           <svg class="site-header__close-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         </button>
       </div>
       <!-- Menu, versione telefono -->
       <nav aria-label="Menu principale su telefono">
+        <p class="site-header__panel-label" aria-hidden="true">Menu</p>
         <ul class="site-header__panel-list">
           <li><a class="site-header__panel-link" href="index.html">Home</a></li>
           <li><a class="site-header__panel-link is-current" href="siti-web.html" aria-current="page">Siti web</a></li>
-          <li><a class="site-header__panel-link" href="gestionali.html">Gestionali</a></li>
           <li><a class="site-header__panel-link" href="portfolio.html">Portfolio</a></li>
           <li><a class="site-header__panel-link" href="chi-siamo.html">Chi siamo</a></li>
           <li><a class="site-header__panel-link" href="contatti.html">Contatti</a></li>
@@ -240,6 +239,7 @@
     <!-- ── I tipi ───────────────────────────────────────────────────── -->
     <section class="section section--tight" id="tipi">
       <div class="container">
+        <div class="scroll-row" data-scroll-row>
         <div class="section__header">
           <h2 class="section__title section__title--wide">Cinque tipi, non cinque pacchetti</h2>
           <p class="section__intro">
@@ -248,7 +248,8 @@
           </p>
         </div>
 
-        <ul class="card-grid card-grid--3">
+        <div class="scroll-row__viewport" data-scroll-row-viewport>
+        <ul class="card-grid card-grid--3" data-scroll-row-track>
           <li class="product-card">
             <h3 class="product-card__title">Vetrina</h3>
             <p class="product-card__description">
@@ -292,17 +293,21 @@
             </p>
           </li>
         </ul>
+        </div>
+        </div>
       </div>
     </section>
 
     <!-- ── Cosa c'è dentro ──────────────────────────────────────────── -->
     <section class="section" id="dentro">
       <div class="container">
+        <div class="scroll-row" data-scroll-row style="--scroll-row-basis: min(18rem, 82vw);">
         <div class="section__header">
           <h2 class="section__title section__title--wide">La base è sempre questa</h2>
         </div>
 
-        <ul class="feature-grid">
+        <div class="scroll-row__viewport" data-scroll-row-viewport>
+        <ul class="feature-grid" data-scroll-row-track>
           <li class="feature-grid__item">Pensato per il telefono prima che per il computer</li>
           <li class="feature-grid__item">Veloce anche con poca rete: niente pesi inutili</li>
           <li class="feature-grid__item">Pulsante WhatsApp con il messaggio già scritto dentro, e pulsante Chiama</li>
@@ -311,6 +316,8 @@
           <li class="feature-grid__item">Dati strutturati per Google: attività, indirizzo, orari, telefono</li>
           <li class="feature-grid__item">Dominio intestato a te e file del sito consegnati</li>
         </ul>
+        </div>
+        </div>
       </div>
     </section>
 
@@ -543,7 +550,6 @@
               <a class="button button--primary" href="https://wa.me/393517578080?text=Ciao%20Mockly%2C%20vorrei%20un%20preventivo%20per%20il%20sito%20della%20mia%20attivit%C3%A0." aria-label="Chiedi il preventivo su WhatsApp al 351 757 8080">
                 Chiedi il preventivo su WhatsApp
               </a>
-              <a class="button button--ghost" href="gestionali.html">Ti serve anche un gestionale?</a>
             </div>
           </div>
         </div>
@@ -559,8 +565,8 @@
 
       <div class="site-footer__grid">
         <div>
-          <p class="site-footer__brand-name"><img class="site-footer__logo-image" src="assets/img/logo-mockly.png" alt="Mockly" width="785" height="607"></p>
-          <p>Siti web e gestionali costruiti su misura, per tutta la Sardegna.</p>
+          <p class="site-footer__brand-name"><img class="site-footer__logo-image" src="assets/img/logo-mockly.png" alt="Mockly" width="632" height="628"></p>
+          <p>Siti web costruiti su misura, per tutta la Sardegna.</p>
           <p class="push-xsmall">
             Tre studenti dell'ITIS Othoca di Oristano: lavoriamo soprattutto in Sardegna, con
             l'obiettivo di arrivare presto in tutta Italia.
@@ -571,7 +577,6 @@
           <p class="site-footer__column-title">Cosa facciamo</p>
           <ul class="site-footer__link-list">
             <li><a class="site-footer__link" href="siti-web.html">Siti web</a></li>
-            <li><a class="site-footer__link" href="gestionali.html">Gestionali</a></li>
           </ul>
         </nav>
 
@@ -613,6 +618,15 @@
     <svg class="back-to-top__icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 16V4m0 0 6 6m-6-6L4 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
 
-  <script src="assets/js/main.js?v=20260926a"></script>
+  <script src="assets/js/main.js?v=20260930b"></script>
+
+  <!-- Solo qui: stessa libreria già autorizzata in D77 per la hero della
+       home, riusata per le righe che scorrono in orizzontale (D95/D96).
+       Se cdnjs non risponde, scroll-rows.js si accorge che window.gsap
+       non esiste e non fa nulla — le griglie restano normali, mai
+       bloccate a metà. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="assets/js/scroll-rows.js?v=20260930e" defer></script>
 </body>
 </html>

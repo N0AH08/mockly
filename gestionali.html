@@ -7,7 +7,7 @@
   <title>Gestionali su misura per la tua azienda | Mockly</title>
   <meta name="description" content="Magazzino, ordini, clienti, prenotazioni: un gestionale costruito sul tuo lavoro. Prima chiamata gratuita, proposta scritta entro una settimana.">
   <link rel="canonical" href="https://mockly.it/gestionali.html">
-  <meta name="theme-color" content="#FAF6EE">
+  <meta name="theme-color" content="#0A0F16">
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="it_IT">
@@ -18,13 +18,13 @@
   <meta property="og:image" content="https://mockly.it/assets/img/og-cover.png">
   <meta name="twitter:card" content="summary_large_image">
 
-  <link rel="stylesheet" href="assets/css/fonts.css?v=20260925a">
+  <link rel="stylesheet" href="assets/css/fonts.css?v=20260930a">
 
   <link rel="icon" href="assets/img/favicon.png" type="image/png">
 
-  <link rel="stylesheet" href="assets/css/tokens.css?v=20260925a">
-  <link rel="stylesheet" href="assets/css/base.css?v=20260924d">
-  <link rel="stylesheet" href="assets/css/components.css?v=20260926b">
+  <link rel="stylesheet" href="assets/css/tokens.css?v=20260930b">
+  <link rel="stylesheet" href="assets/css/base.css?v=20260930a">
+  <link rel="stylesheet" href="assets/css/components.css?v=20260930j">
 
   <script type="application/ld+json">
   {
@@ -140,8 +140,8 @@
   <header class="site-header">
     <div class="container site-header__inner">
         <a class="site-header__logo" href="index.html">
-        <img class="site-header__logo-icon" src="assets/img/logo-mockly-icon.png" alt="" width="519" height="348">
-        Mockly
+        <img class="site-header__logo-icon" src="assets/img/logo-mockly-icon.png" alt="" width="632" height="447">
+        MOCKLY.
       </a>
 
       <!-- Menu orizzontale (visibile da 1280px in su, sotto resta solo l'hamburger) -->
@@ -176,13 +176,14 @@
     <!-- Pannello del menu (telefono/tablet) -->
     <div class="site-header__panel" id="menu-principale" role="dialog" aria-modal="true" aria-label="Menu">
       <div class="site-header__panel-head">
-        <p class="site-header__panel-brand"><img class="site-header__logo-icon" src="assets/img/logo-mockly-icon.png" alt="" width="519" height="348">Mockly</p>
+        <p class="site-header__panel-brand"><img class="site-header__logo-icon" src="assets/img/logo-mockly-icon.png" alt="" width="632" height="447">MOCKLY.</p>
         <button class="site-header__close" type="button" aria-label="Chiudi il menu" data-menu-close>
           <svg class="site-header__close-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         </button>
       </div>
       <!-- Menu, versione telefono -->
       <nav aria-label="Menu principale su telefono">
+        <p class="site-header__panel-label" aria-hidden="true">Menu</p>
         <ul class="site-header__panel-list">
           <li><a class="site-header__panel-link" href="index.html">Home</a></li>
           <li><a class="site-header__panel-link" href="siti-web.html">Siti web</a></li>
@@ -231,11 +232,13 @@
     <!-- ── Cosa automatizziamo ──────────────────────────────────────── -->
     <section class="section section--tight" id="cosa">
       <div class="container">
+        <div class="scroll-row" data-scroll-row>
         <div class="section__header">
           <h2 class="section__title section__title--wide">Le cose che oggi fai a mano, in un posto solo</h2>
         </div>
 
-        <ul class="card-grid card-grid--3">
+        <div class="scroll-row__viewport" data-scroll-row-viewport>
+        <ul class="card-grid card-grid--3" data-scroll-row-track>
           <li class="product-card">
             <h3 class="product-card__title">Magazzino e giacenze</h3>
             <p class="product-card__description">
@@ -279,6 +282,8 @@
             </p>
           </li>
         </ul>
+        </div>
+        </div>
 
         <p class="note push-large">
           <span class="note__title">E se serve altro?</span>
@@ -291,11 +296,13 @@
     <!-- ── Come lavoriamo ───────────────────────────────────────────── -->
     <section class="section" id="metodo">
       <div class="container">
+        <div class="scroll-row" data-scroll-row>
         <div class="section__header">
           <h2 class="section__title section__title--wide">Prima capiamo, poi costruiamo</h2>
         </div>
 
-        <ol class="step-list step-list--split">
+        <div class="scroll-row__viewport" data-scroll-row-viewport>
+        <ol class="step-list step-list--split" data-scroll-row-track>
           <li class="step-list__item">
             <div>
               <h3 class="step-list__title">Chiamata gratuita</h3>
@@ -333,6 +340,8 @@
             </div>
           </li>
         </ol>
+        </div>
+        </div>
       </div>
     </section>
 
@@ -354,14 +363,12 @@
         </div>
 
         <p>
-          I gestionali contengono i dati veri di aziende vere: magazzino, clienti, incassi. Non possiamo
-          pubblicarli in una vetrina come facciamo con i siti demo, e non vogliamo inventarci clienti
-          che non esistono.
+          I gestionali contengono i dati veri di aziende vere: magazzino, clienti, incassi.
         </p>
 
         <div class="balance">
           <div class="balance__column balance__column--gain">
-            <p class="balance__title">Cosa facciamo invece</p>
+            <p class="balance__title"><span class="balance__icon" aria-hidden="true">&check;</span>Cosa facciamo invece</p>
             <p class="balance__text">
               Nella proposta scritta trovi un prototipo navigabile costruito sul tuo caso: le tue
               schermate, i tuoi campi, il tuo processo. Lo apri, lo clicchi e decidi se è quello che
@@ -369,13 +376,67 @@
             </p>
           </div>
           <div class="balance__column">
-            <p class="balance__title">Tecnologie standard</p>
+            <p class="balance__title"><span class="balance__icon" aria-hidden="true">&#9881;</span>Tecnologie standard</p>
             <p class="balance__text">
               Usiamo tecnologie diffuse e documentate, niente scatole chiuse. Il codice è tuo, i dati
               sono esportabili in formati aperti, e qualunque tecnico può riprenderlo in mano.
             </p>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ── Assistenza ───────────────────────────────────────────────── -->
+    <section class="section" id="assistenza">
+      <div class="container">
+        <div class="section__header">
+          <h2 class="section__title section__title--wide">L'assistenza, semplice</h2>
+          <p class="section__intro">
+            Anche un gestionale già consegnato ha bisogno di restare aggiornato e funzionante. I piani qui
+            sono più generici che per un sito — ogni gestionale è diverso, quindi lo scopo esatto si
+            definisce insieme in base allo strumento che usi.
+          </p>
+        </div>
+
+        <ul class="card-grid card-grid--3 push-large">
+          <li class="price-card">
+            <p class="price-card__plan">Base</p>
+            <p class="price-card__price">19,99 €/mese</p>
+            <ul class="price-card__include-list">
+              <li class="price-card__include">Hosting, sicurezza e backup sempre in ordine</li>
+              <li class="price-card__include">Avviso se qualcosa smette di funzionare</li>
+              <li class="price-card__include">Piccole correzioni incluse</li>
+              <li class="price-card__include">Rispondiamo entro 3 giorni lavorativi</li>
+              <li class="price-card__include">Durata minima 6 mesi, poi disdetta con 30 giorni di preavviso</li>
+            </ul>
+          </li>
+          <li class="price-card price-card--featured">
+            <p class="price-card__badge">Il più scelto</p>
+            <p class="price-card__plan">Standard</p>
+            <p class="price-card__price">29,99 €/mese</p>
+            <ul class="price-card__include-list">
+              <li class="price-card__include">Tutto quello di Base</li>
+              <li class="price-card__include">1 ora di intervento al mese, fino a 3 accumulabili</li>
+              <li class="price-card__include">Piccole modifiche e aggiustamenti su richiesta</li>
+              <li class="price-card__include">Rispondiamo entro 48 ore, durata minima 12 mesi</li>
+            </ul>
+          </li>
+          <li class="price-card">
+            <p class="price-card__plan">Avanzata</p>
+            <p class="price-card__price">39,99 €/mese</p>
+            <ul class="price-card__include-list">
+              <li class="price-card__include">Tutto quello di Standard</li>
+              <li class="price-card__include">3 ore di intervento al mese, fino a 9 accumulabili</li>
+              <li class="price-card__include">Priorità sulle tue richieste</li>
+              <li class="price-card__include">Rispondiamo entro 24 ore, durata minima 12 mesi</li>
+            </ul>
+          </li>
+        </ul>
+
+        <p class="note push-medium">
+          Nessuno dei tre piani include funzionalità nuove o integrazioni con altri sistemi: quelle restano
+          un progetto a parte, con un preventivo dedicato come per il gestionale stesso.
+        </p>
       </div>
     </section>
 
@@ -506,7 +567,7 @@
 
       <div class="site-footer__grid">
         <div>
-          <p class="site-footer__brand-name"><img class="site-footer__logo-image" src="assets/img/logo-mockly.png" alt="Mockly" width="785" height="607"></p>
+          <p class="site-footer__brand-name"><img class="site-footer__logo-image" src="assets/img/logo-mockly.png" alt="Mockly" width="632" height="628"></p>
           <p>Siti web e gestionali costruiti su misura, per tutta la Sardegna.</p>
           <p class="push-xsmall">
             Tre studenti dell'ITIS Othoca di Oristano: lavoriamo soprattutto in Sardegna, con
@@ -560,6 +621,15 @@
     <svg class="back-to-top__icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 16V4m0 0 6 6m-6-6L4 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
 
-  <script src="assets/js/main.js?v=20260926a"></script>
+  <script src="assets/js/main.js?v=20260930b"></script>
+
+  <!-- Solo qui: stessa libreria già autorizzata in D77 per la hero della
+       home, riusata per le righe che scorrono in orizzontale (D95/D96).
+       Se cdnjs non risponde, scroll-rows.js si accorge che window.gsap
+       non esiste e non fa nulla — le griglie restano normali, mai
+       bloccate a metà. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="assets/js/scroll-rows.js?v=20260930e" defer></script>
 </body>
 </html>

@@ -3,24 +3,25 @@
    nemmeno l'indirizzo IP di chi visita — esce verso terzi solo per mostrare
    il testo in pagina. Vedi cookie.html e privacy.html.
 
-   Fraunces e Space Grotesk sono variable font: un solo file copre l'intero
-   intervallo di pesi (e, per Fraunces, anche l'optical size), per questo il
-   font-weight qui sotto è un intervallo, non un numero singolo. Fraunces è
-   nei titoli, Space Grotesk nel corpo del testo (D71).
+   Baloo 2 e Nunito sono variable font: un solo file copre l'intero
+   intervallo di pesi, per questo il font-weight qui sotto è un intervallo,
+   non un numero singolo. Baloo 2 nei titoli (arrotondato, non il serif di
+   prima), Nunito nel corpo del testo — entrambi con terminali arrotondati,
+   più morbidi di Fraunces/Space Grotesk (D94).
    ========================================================================== */
 
 @font-face {
-  font-family: "Fraunces";
-  src: url("../fonts/fraunces.woff2") format("woff2");
-  font-weight: 100 900;
+  font-family: "Baloo 2";
+  src: url("../fonts/baloo2.woff2") format("woff2");
+  font-weight: 400 800;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Space Grotesk";
-  src: url("../fonts/space-grotesk.woff2") format("woff2");
-  font-weight: 300 700;
+  font-family: "Nunito";
+  src: url("../fonts/nunito.woff2") format("woff2");
+  font-weight: 300 800;
   font-style: normal;
   font-display: swap;
 }

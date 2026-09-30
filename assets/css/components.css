@@ -31,7 +31,10 @@
   padding: 0.95rem 1.7rem;
   min-height: 3rem;
   border: var(--border-width-medium) solid transparent;
-  border-radius: var(--radius-crisp);
+  /* Pill piena, non più tagliata con precisione (D50): i bottoni sono i
+     primi elementi con cui si interagisce, e i font arrotondati di D94
+     chiedevano forme altrettanto morbide sotto di loro. */
+  border-radius: var(--radius-pill);
   font-family: var(--font-heading);
   font-size: 1rem;
   font-weight: var(--font-weight-bold);
@@ -66,14 +69,14 @@
 .button--primary {
   background-color: var(--color-accent);
   border-color: var(--color-accent);
-  color: var(--color-text-inverse);
-  box-shadow: 0 10px 24px rgba(46, 92, 217, 0.28);
+  color: var(--color-text-inverse-on-accent);
+  box-shadow: 0 10px 24px rgba(61, 139, 196, 0.28);
 }
 
 .button--primary:hover {
   background-color: var(--color-accent-hover);
   border-color: var(--color-accent-hover);
-  color: var(--color-text-inverse);
+  color: var(--color-text-inverse-on-accent);
   transform: translateY(-2px);
 }
 
@@ -190,7 +193,7 @@
   height: 100%;
   width: 0%;
   background: var(--gradient-hero); /* l'unico gradiente del sito, qui e solo qui */
-  box-shadow: 0 0 8px rgba(46, 92, 217, 0.45);
+  box-shadow: 0 0 8px rgba(95, 168, 217, 0.45);
   transition: width 120ms linear;
 }
 
@@ -347,7 +350,7 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  box-shadow: inset 0 0 60px 16px rgba(108, 155, 255, 0.9);
+  box-shadow: inset 0 0 60px 16px rgba(95, 168, 217, 0.9);
   opacity: 0;
 }
 
@@ -377,51 +380,63 @@
    Intestazione — vetro trasparente
    ========================================================================== */
 
-/* Sospesa: non attaccata a nessun bordo dello schermo, né su telefono né su
-   desktop — margine uguale su tutti e quattro i lati, centrata, angoli
-   arrotondati su tutto il perimetro. Davvero trasparente, non un pannello
-   bianco smerigliato: pochissimo velo di colore, solo una sfocatura leggera
-   per restare leggibile sopra qualunque contenuto scorra sotto — niente
-   "vetro liquido" a distorcere i pixel, la trasparenza è il punto, non un
-   effetto sopra un fondo comunque opaco. */
+/* Masthead a riposo, pillola sospesa da scrollata (D90): in cima alla pagina
+   è un filo di testo trasparente, piena larghezza — appena si scrolla si
+   stacca dai bordi, si restringe e diventa la carta sospesa con angoli,
+   bordo e ombra che il sito aveva prima (D63/D79). Due stati, non una via di
+   mezzo: a riposo niente distrae dall'hero, in lettura si vede chiaramente
+   che galleggia sopra il contenuto. */
 .site-header {
   position: fixed;
-  top: var(--space-small);
+  top: 0;
   left: 50%;
+  width: 100%;
+  max-width: none;
   transform: translateX(-50%);
-  width: calc(100% - var(--space-large) * 2);
-  max-width: var(--container-width);
   z-index: var(--layer-header);
-  background-color: rgba(255, 255, 255, 0.14);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: var(--border-width-hairline) solid rgba(255, 255, 255, 0.35);
-  border-radius: var(--radius-soft);
-  box-shadow: var(--shadow-float);
+  background-color: transparent;
+  border: var(--border-width-hairline) solid transparent;
+  border-radius: 0;
+  box-shadow: none;
   transition:
+    top var(--duration-base) var(--ease-out),
+    width var(--duration-base) var(--ease-out),
+    max-width var(--duration-base) var(--ease-out),
+    background-color var(--duration-base) var(--ease-out),
     border-color var(--duration-base) var(--ease-out),
-    box-shadow var(--duration-base) var(--ease-out),
-    background-color var(--duration-base) var(--ease-out);
-}
-
-@media (max-width: 47.99em) {
-  .site-header {
-    top: var(--space-small);
-    width: calc(100% - var(--space-medium) * 2);
-    border-radius: var(--radius-crisp);
-  }
+    border-radius var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
 }
 
 @media (prefers-reduced-motion: reduce), (prefers-reduced-transparency: reduce) {
   .site-header {
-    background-color: rgba(255, 255, 255, 0.85);
+    background-color: var(--color-background);
+    border-color: var(--color-border);
   }
 }
 
 .site-header.is-scrolled {
-  background-color: rgba(255, 255, 255, 0.75);
-  border-bottom-color: var(--color-border);
+  top: var(--space-small);
+  width: calc(100% - var(--space-large) * 2);
+  max-width: var(--container-width);
+  background-color: rgba(13, 11, 9, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-color: var(--color-border);
+  /* Pill piena: su una barra di questa altezza si arrotonda per intero,
+     non solo agli angoli — più "sospesa", coerente con i bottoni. */
+  border-radius: var(--radius-pill);
   box-shadow: var(--shadow-lift);
+}
+
+@media (max-width: 47.99em) {
+  .site-header.is-scrolled {
+    top: var(--space-2xsmall);
+    width: calc(100% - var(--space-2xsmall) * 2);
+    /* Da telefono restava quasi squadrata (radius-crisp): qui la
+       rotondità conta più che altrove, niente downgrade. */
+    border-radius: var(--radius-pill);
+  }
 }
 
 .site-header__inner {
@@ -462,32 +477,29 @@
 .site-header__navigation-list {
   display: flex;
   align-items: center;
-  /* Otto voci: restano compatte così entrano a 1280px senza overflow. */
-  gap: var(--space-xsmall);
+  /* Voci non più dentro pillole: solo testo spaziato, come un ferro di
+     rivista — il gap più largo tiene la spaziatura anche senza scatola. */
+  gap: var(--space-medium);
 }
 
 .site-header__navigation-link {
   position: relative;
   display: block;
-  padding: 0.5rem 0.65rem;
-  border-radius: var(--radius-crisp);
+  padding: 0.3rem 0;
   color: var(--color-text-muted);
   font-size: var(--font-size-small);
   font-weight: var(--font-weight-medium);
+  letter-spacing: 0.01em;
   text-decoration: none;
-  transition:
-    color var(--duration-fast) var(--ease-out),
-    background-color var(--duration-fast) var(--ease-out);
+  transition: color var(--duration-fast) var(--ease-out);
 }
 
 .site-header__navigation-link:hover {
   color: var(--color-text);
-  background-color: var(--color-surface-alt);
 }
 
 .site-header__navigation-link.is-current {
-  color: var(--color-text);
-  background-color: var(--color-accent-soft);
+  color: var(--color-accent);
   font-weight: var(--font-weight-bold);
 }
 
@@ -499,10 +511,33 @@
   display: none;
 }
 
+/* Non più un bottone pieno: un link di testo con freccia — la scatola blu
+   era l'ultimo pezzo di "pillola SaaS" rimasto nell'intestazione. */
 .site-header__action .button {
-  padding: 0.7rem 1.3rem;
-  min-height: 2.75rem;
-  font-size: 0.95rem;
+  padding: 0;
+  min-height: auto;
+  background: none;
+  border: none;
+  box-shadow: none;
+  color: var(--color-text);
+  font-size: var(--font-size-small);
+  gap: 0.4em;
+}
+
+.site-header__action .button::after {
+  content: "→";
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.site-header__action .button:hover {
+  background: none;
+  color: var(--color-accent);
+  transform: none;
+  box-shadow: none;
+}
+
+.site-header__action .button:hover::after {
+  transform: translateX(3px);
 }
 
 .site-header__toggle {
@@ -513,9 +548,15 @@
   width: 2.75rem;
   height: 2.75rem;
   padding: 0 0.6rem;
-  background-color: var(--color-surface);
-  border: var(--border-width-hairline) solid var(--color-border);
+  background: none;
+  border: none;
   border-radius: var(--radius-pill);
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+
+.site-header__toggle:hover,
+.site-header__toggle:focus-visible {
+  background-color: var(--color-surface-alt);
 }
 
 .site-header__toggle-bar {
@@ -656,10 +697,21 @@
   background-color: var(--color-accent-soft);
 }
 
+/* Eyebrow sopra la lista: un'etichetta piccola per dare struttura al
+   pannello, non solo una lista di link senza intestazione. */
+.site-header__panel-label {
+  margin-bottom: var(--space-2xsmall);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-label);
+}
+
 .site-header__panel-list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3xsmall);
+  gap: var(--space-2xsmall);
 }
 
 .site-header__panel-link {
@@ -668,7 +720,7 @@
   justify-content: space-between;
   gap: var(--space-small);
   padding: var(--space-xsmall) var(--space-small);
-  border-radius: var(--radius-crisp);
+  border-radius: var(--radius-soft);
   color: var(--color-text);
   font-family: var(--font-heading);
   font-size: 1.15rem;
@@ -755,12 +807,12 @@
 }
 
 .page-body {
-  padding-top: calc(var(--header-height) + var(--space-large));
+  padding-top: calc(var(--header-height) + var(--space-small));
 }
 
 @media (max-width: 47.99em) {
   .page-body {
-    padding-top: calc(var(--header-height) + var(--space-medium));
+    padding-top: calc(var(--header-height) + var(--space-2xsmall));
   }
 }
 
@@ -781,7 +833,7 @@
   padding: 0;
   min-height: 0;
   border-radius: var(--radius-pill);
-  box-shadow: 0 12px 28px rgba(46, 92, 217, 0.4);
+  box-shadow: 0 12px 28px rgba(61, 139, 196, 0.4);
 }
 
 .whatsapp-bar__icon {
@@ -802,10 +854,16 @@
 }
 
 /* ==========================================================================
-   Torna su — freccia fissa in basso a destra
-   Su telefono sta sopra il bottone WhatsApp, su desktop in un angolo.
+   Torna su — freccia fissa in basso a destra, solo da PC
+   Da telefono il bottone WhatsApp basta: due pulsanti fissi impilati sopra
+   al pollice erano di troppo. Resta solo da 80em in su.
    ========================================================================== */
 
+.back-to-top {
+  display: none;
+}
+
+@media (min-width: 80em) {
 .back-to-top {
   position: fixed;
   right: var(--space-small);
@@ -831,11 +889,12 @@
     background-color var(--duration-fast) var(--ease-out),
     color var(--duration-fast) var(--ease-out);
 }
+}
 
 .back-to-top:hover {
   background-color: var(--color-accent);
   border-color: var(--color-accent);
-  color: var(--color-text-inverse);
+  color: var(--color-text-inverse-on-accent);
 }
 
 .back-to-top.is-visible {
@@ -869,7 +928,7 @@
 .hero {
   position: relative;
   overflow: clip;
-  padding-block: var(--space-2xlarge) var(--space-xlarge);
+  padding-block: var(--space-large) var(--space-xlarge);
   /* Senza la trama a puntini lo sfondo bianco si confondeva col resto della
      pagina, lasciando un vuoto piatto sotto al testo. Un lavaggio leggero
      (lo stesso di .section--warm altrove nel sito) basta a farla leggere
@@ -885,7 +944,7 @@
   opacity: 0;
   background: radial-gradient(
     480px circle at var(--spot-x, 50%) var(--spot-y, 50%),
-    rgba(108, 155, 255, 0.20),
+    rgba(95, 168, 217, 0.20),
     transparent 70%
   );
   transition: opacity var(--duration-base) var(--ease-out);
@@ -911,28 +970,12 @@
 }
 
 .hero__content--centered .hero__title,
-.hero__content--centered .hero__text,
-.hero__content--centered .hero__beat {
+.hero__content--centered .hero__text {
   margin-inline: auto;
 }
 
 .hero__content--centered .hero__actions {
   justify-content: center;
-}
-
-/* Ritmo a battute brevi prima del titolo grande: tre respiri corti invece
-   di un'unica frase, l'ultimo nell'accento. Non un'etichetta, fa parte
-   della lettura. */
-.hero__beat {
-  font-family: var(--font-heading);
-  font-size: clamp(1.125rem, 0.95rem + 0.9vw, 1.5rem);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-muted);
-}
-
-.hero__beat .hero__mark {
-  color: var(--color-accent);
-  font-weight: var(--font-weight-bold);
 }
 
 /*
@@ -1048,14 +1091,13 @@ body.is-loaded .hero__stagger {
   text-align: center;
 }
 
+/* Niente bordo/angoli/ombra da "screenshot in una card" (D89): l'immagine
+   riempie la sua colonna come un visual vero, non un riquadro-prodotto. */
 .hero__reveal-stage {
   position: relative;
   overflow: hidden;
   aspect-ratio: 8 / 5;
   background-color: var(--color-background-warm);
-  border: var(--border-width-hairline) solid var(--color-border);
-  border-radius: var(--radius-soft);
-  box-shadow: var(--shadow-float);
   --reveal-pct: 38%;
 }
 
@@ -1162,24 +1204,6 @@ body.is-loaded .hero__stagger {
   }
 }
 
-/* Azione secondaria: un link, non un secondo bottone identico al primo —
-   la gerarchia è dell'azione vera (WhatsApp), non di due scatole uguali. */
-.hero__demo-link {
-  display: inline-flex;
-  align-items: center;
-  color: var(--color-text);
-  font-weight: var(--font-weight-semibold);
-  text-decoration: underline;
-  text-decoration-color: var(--color-accent);
-  text-decoration-thickness: 2px;
-  text-underline-offset: 0.2em;
-  transition: color var(--duration-fast) var(--ease-out);
-}
-
-.hero__demo-link:hover {
-  color: var(--color-accent-hover);
-}
-
 /* ==========================================================================
    Hero delle pagine interne: la stessa firma della home, senza ripeterla
    ========================================================================== */
@@ -1241,8 +1265,11 @@ body.is-loaded .hero__stagger {
 }
 
 @media (min-width: 64em) {
+  /* Ancora meno margine sopra (D90, ristretto ulteriormente in D94):
+     l'intestazione è un filo trasparente, non una carta sospesa che aveva
+     bisogno di spazio proprio intorno. */
   .hero {
-    padding-block: var(--space-3xlarge) var(--space-2xlarge);
+    padding-block: var(--space-medium) var(--space-2xlarge);
   }
 
   .hero__inner {
@@ -1257,22 +1284,49 @@ body.is-loaded .hero__stagger {
   }
 
   /*
-   * Home: struttura diversa dalle pagine interne. Non due colonne affiancate
-   * ma testo sopra e, sotto, un confronto interattivo a piena larghezza —
-   * più spazio per farlo leggere bene, invece di schiacciarlo in una colonna
-   * stretta accanto al testo.
+   * Home (D89): asimmetrica, non a specchio — testo stretto e allineato a
+   * sinistra in una colonna, la demo vera domina l'altra, più alta e più
+   * larga. Via il centrato di D67 solo qui: quello resta la norma per le
+   * pagine interne, la home è il momento "studio", non "prodotto SaaS".
    */
-  .hero__inner--stacked {
-    grid-template-columns: 1fr;
+  .hero__inner--split {
+    grid-template-columns: 0.95fr 1.05fr;
+    align-items: start;
+    gap: var(--space-2xlarge);
   }
 
-  .hero__inner--stacked .hero__content {
-    max-width: 62ch;
-  }
-
-  .hero__reveal-stage {
-    max-width: 46rem;
+  /* Testo centrato dentro la sua colonna (D94): la struttura a due colonne
+     resta asimmetrica, ma "centra le scritte" vale anche qui — non più
+     appoggiato al bordo sinistro della colonna. */
+  .hero__inner--split .hero__title,
+  .hero__inner--split .hero__text {
     margin-inline: auto;
+    text-align: center;
+  }
+
+  /* La colonna è meno di metà pagina: il titolo a piena scala (fino a
+     104px, pensato per un titolo a piena larghezza) ci andava a capo
+     dopo pochissime lettere per riga, alto e illeggibile. Scala più
+     contenuta e una misura in caratteri, non "max-width: none". */
+  .hero__inner--split .hero__title {
+    max-width: 16ch;
+    font-size: clamp(2.25rem, 1.5rem + 2vw, 3.5rem);
+  }
+
+  .hero__inner--split .hero__actions {
+    justify-content: center;
+  }
+
+  .hero__inner--split .hero__reveal-label {
+    text-align: left;
+  }
+
+  /* Il testo parte più in alto, la demo parte più in basso e i due finiscono
+     alla stessa altezza: l'asimmetria resta leggibile invece di lasciare un
+     vuoto sotto l'immagine (il titolo enorme rende la colonna di testo più
+     alta della demo). */
+  .hero__inner--split .hero__reveal {
+    align-self: end;
   }
 }
 
@@ -1619,14 +1673,14 @@ body.is-loaded .hero__stagger {
   inset: 0;
   z-index: 1;
   border-radius: inherit;
-  background: radial-gradient(280px circle at var(--spot-x) var(--spot-y), rgba(46, 92, 217, 0.16), transparent 65%);
+  background: radial-gradient(280px circle at var(--spot-x) var(--spot-y), rgba(61, 139, 196, 0.16), transparent 65%);
   opacity: 0;
   transition: opacity var(--duration-base) var(--ease-out);
   pointer-events: none;
 }
 
 .bento__card--dark::after {
-  background: radial-gradient(280px circle at var(--spot-x) var(--spot-y), rgba(108, 155, 255, 0.22), transparent 65%);
+  background: radial-gradient(280px circle at var(--spot-x) var(--spot-y), rgba(95, 168, 217, 0.22), transparent 65%);
 }
 
 .bento__card.is-spotlit::after,
@@ -1808,17 +1862,28 @@ body.is-loaded .hero__stagger {
 }
 
 @media (min-width: 64em) {
-  /* Due prodotti paralleli, non due scatole a specchio: larghezze diverse,
-     ma sullo stesso livello — non più una scesa sotto l'altra. */
+  /* Larghezze uguali (D90): le due card a proporzioni diverse (D51) davano
+     l'impressione di due forme diverse, non di due prodotti pari. */
   .bento {
-    grid-template-columns: 1.15fr 0.85fr;
+    grid-template-columns: 1fr 1fr;
     align-items: stretch;
+  }
+
+  /* Con un solo prodotto in vetrina (D101) la card resta a piena
+     larghezza invece di lasciare mezza griglia vuota. */
+  .bento--single {
+    grid-template-columns: 1fr;
   }
 }
 
 /* ==========================================================================
    Card prezzo
-   Le tre card degli abbonamenti in siti-web.html#assistenza.
+   Le tre card degli abbonamenti in siti-web.html#assistenza e
+   #assistenza-gestionali. Box classico con bordo su tutti i lati (non più
+   il solo taglio a sinistra di D65: a Simone non convinceva, voleva un
+   confronto prezzi più leggibile a colpo d'occhio, il formato più comune).
+   Il piano centrale si distingue con un bordo più spesso e uno sfondo
+   leggermente tinto, non solo dall'etichetta sopra.
    ========================================================================== */
 
 .price-card {
@@ -1827,9 +1892,8 @@ body.is-loaded .hero__stagger {
   flex-direction: column;
   padding: var(--space-large);
   background-color: var(--color-surface);
-  border: none;
-  border-left: 3px solid var(--color-border-strong);
-  border-radius: 0;
+  border: var(--border-width-hairline) solid var(--color-border);
+  border-radius: var(--radius-crisp);
   transition:
     transform var(--duration-base) var(--ease-out),
     box-shadow var(--duration-base) var(--ease-out),
@@ -1838,18 +1902,23 @@ body.is-loaded .hero__stagger {
 
 .price-card:hover {
   transform: perspective(800px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateY(-4px);
-  border-left-color: var(--color-accent);
+  border-color: var(--color-accent);
   box-shadow: var(--shadow-lift);
 }
 
 .price-card--featured {
-  border-left-color: var(--color-accent);
+  background-color: var(--color-accent-soft);
+  border: var(--border-width-medium) solid var(--color-accent);
 }
 
 .price-card__badge {
-  display: block;
-  margin-bottom: var(--space-2xsmall);
-  color: var(--color-accent-hover);
+  display: inline-block;
+  align-self: flex-start;
+  margin-bottom: var(--space-small);
+  padding: var(--space-3xsmall) var(--space-xsmall);
+  background-color: var(--color-accent);
+  border-radius: var(--radius-pill);
+  color: var(--color-text-inverse-on-accent);
   font-family: var(--font-mono);
   font-size: var(--font-size-label);
   font-weight: var(--font-weight-medium);
@@ -1983,7 +2052,7 @@ body.is-loaded .hero__stagger {
 
 .plan-table thead th.is-featured {
   background-color: var(--color-accent);
-  color: var(--color-text-inverse);
+  color: var(--color-text-inverse-on-accent);
 }
 
 .plan-table__check {
@@ -2130,6 +2199,42 @@ body.is-loaded .hero__stagger {
 }
 
 /* ==========================================================================
+   Riga a scorrimento orizzontale — solo dove [data-scroll-row] esiste nel
+   markup, attivata da scroll-rows.js (D95, ristrutturata in D99). Prima che
+   il JS parta, e su ogni pagina/larghezza dove non parte, resta la griglia
+   normale (nessuna classe .is-active): niente si nasconde per un motore che
+   non c'è.
+   [data-scroll-row] è il blocco che si blocca per intero (titolo di sezione
+   compreso, D99: prima si bloccava solo la fila, e a quel punto il titolo
+   era già scorso via — le card si muovevano senza dire più a cosa si
+   riferivano). [data-scroll-row-viewport], dentro, è solo la finestra che
+   ritaglia la fila; [data-scroll-row-track] è la fila stessa, quella che si
+   sposta.
+   ========================================================================== */
+
+.scroll-row.is-active [data-scroll-row-viewport] {
+  overflow: hidden;
+}
+
+.scroll-row.is-active [data-scroll-row-track] {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--space-medium);
+  will-change: transform;
+}
+
+/* Larghezza di ogni elemento della fila: 23rem di base (le card con
+   immagine del portfolio), personalizzabile per fila via
+   --scroll-row-basis inline dove il contenuto è più corto o più denso. */
+.scroll-row.is-active [data-scroll-row-track] > * {
+  flex: 0 0 var(--scroll-row-basis, min(23rem, 80vw));
+}
+
+.scroll-row.is-active [data-scroll-row-track] .project-card.is-hidden {
+  display: flex;
+}
+
+/* ==========================================================================
    Etichetta
    I badge colorati sulle card (demo, lavoro reale, in lavorazione).
    ========================================================================== */
@@ -2161,50 +2266,6 @@ body.is-loaded .hero__stagger {
   background-color: var(--color-surface-alt);
   border: var(--border-width-hairline) solid var(--color-warning);
   color: var(--color-warning);
-}
-
-/* ==========================================================================
-   Filtri
-   I bottoni per filtrare il portfolio per tipo di locale.
-   ========================================================================== */
-
-.filter-group + .text-label {
-  text-align: center;
-}
-
-.filter-group {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--space-2xsmall);
-  margin-bottom: var(--space-large);
-}
-
-.filter-group__button {
-  padding: var(--space-2xsmall) 1.1rem;
-  min-height: 2.75rem;
-  background-color: var(--color-surface);
-  border: var(--border-width-hairline) solid var(--color-border);
-  border-radius: var(--radius-crisp);
-  color: var(--color-text);
-  font-size: var(--font-size-small);
-  font-weight: var(--font-weight-semibold);
-  transition:
-    background-color var(--duration-fast) var(--ease-out),
-    border-color var(--duration-fast) var(--ease-out),
-    color var(--duration-fast) var(--ease-out),
-    transform var(--duration-fast) var(--ease-out);
-}
-
-.filter-group__button:hover {
-  border-color: var(--color-text);
-  transform: translateY(-1px);
-}
-
-.filter-group__button[aria-pressed="true"] {
-  background-color: var(--color-text);
-  border-color: var(--color-text);
-  color: var(--color-text-inverse);
 }
 
 /* ==========================================================================
@@ -2289,32 +2350,56 @@ body.is-loaded .hero__stagger {
   margin-top: var(--space-large);
 }
 
+/* Stessa firma delle altre card del sito (D65): tratto blu a sinistra
+   invece del riquadro bordato su tutti e quattro i lati, testo a
+   sinistra invece che centrato — più facile da leggere su due frasi. */
 .balance__column {
   padding: var(--space-large);
   background-color: var(--color-surface);
-  border: var(--border-width-hairline) solid var(--color-border);
-  border-radius: var(--radius-crisp);
-  text-align: center;
+  border-left: 3px solid var(--color-border-strong);
+  text-align: left;
+  transition: border-left-color var(--duration-fast) var(--ease-out);
+}
+
+.balance__column:hover {
+  border-left-color: var(--color-accent);
 }
 
 .balance__column--gain {
   background-color: var(--color-accent-soft);
-  border-color: var(--color-accent-soft);
+  border-left-color: var(--color-accent);
 }
 
 .balance__title {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: var(--space-2xsmall);
-  margin-bottom: var(--space-2xsmall);
+  margin-bottom: var(--space-small);
   font-family: var(--font-mono);
   font-size: var(--font-size-label);
   font-weight: var(--font-weight-medium);
   letter-spacing: var(--letter-spacing-label);
 }
 
+.balance__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-surface);
+  color: var(--color-accent-hover);
+  font-size: 0.9rem;
+}
+
 .balance__column--gain .balance__title {
+  color: var(--color-success);
+}
+
+.balance__column--gain .balance__icon {
+  background-color: var(--color-surface);
   color: var(--color-success);
 }
 
@@ -2425,7 +2510,7 @@ body.is-loaded .hero__stagger {
 .accordion__item.is-open .accordion__icon {
   transform: rotate(135deg);
   background-color: var(--color-accent);
-  color: var(--color-text-inverse);
+  color: var(--color-text-inverse-on-accent);
 }
 
 .accordion__panel {
@@ -2505,13 +2590,7 @@ body.is-loaded .hero__stagger {
 .form__select:focus {
   outline: none;
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(46, 92, 217, 0.18);
-}
-
-body.theme-dark .form__input:focus,
-body.theme-dark .form__textarea:focus,
-body.theme-dark .form__select:focus {
-  box-shadow: 0 0 0 3px rgba(108, 155, 255, 0.25);
+  box-shadow: 0 0 0 3px rgba(61, 139, 196, 0.18);
 }
 
 .form__textarea {
@@ -2694,7 +2773,7 @@ body.theme-dark .form__select:focus {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background-image: radial-gradient(circle, rgba(108, 155, 255, 0.35) 1.5px, transparent 1.5px);
+  background-image: radial-gradient(circle, rgba(95, 168, 217, 0.35) 1.5px, transparent 1.5px);
   background-size: 26px 26px;
   -webkit-mask-image: radial-gradient(ellipse 60% 70% at 85% 10%, #000 30%, transparent 75%);
   mask-image: radial-gradient(ellipse 60% 70% at 85% 10%, #000 30%, transparent 75%);
@@ -2821,6 +2900,7 @@ body.theme-dark .form__select:focus {
 .site-footer__legal {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-2xsmall) var(--space-small);
   margin-top: var(--space-medium);
   padding-top: var(--space-medium);
@@ -2875,7 +2955,7 @@ body.theme-dark .form__select:focus {
   overflow: hidden;
   background-color: var(--color-accent);
   border-radius: var(--radius-pill);
-  color: var(--color-text-inverse);
+  color: var(--color-text-inverse-on-accent);
   font-family: var(--font-heading);
   font-size: var(--font-size-h3);
   font-weight: var(--font-weight-extrabold);
@@ -2968,6 +3048,11 @@ body.theme-dark .form__select:focus {
     gap: var(--space-medium);
   }
 
+  /* Con una sola voce (D101) niente seconda colonna vuota. */
+  .price-strip--single {
+    grid-template-columns: 1fr;
+  }
+
   .price-strip__item {
     flex-direction: column;
     align-items: flex-start;
@@ -2984,74 +3069,4 @@ body.theme-dark .form__select:focus {
   }
 }
 
-/* ==========================================================================
-   Tema scuro — correzioni mirate (D56)
-   Alcune regole erano scritte assumendo che ".surface-inverse" fosse sempre
-   il pannello scuro raro (velature bianche translucide per leggersi sopra
-   lo scuro): un tratto rgba(255,255,255,...) scritto a mano, non un token,
-   perché non poteva esserlo nel tema con un solo verso. Ora che
-   .theme-dark inverte quel significato (surface-inverse diventa il pannello
-   CHIARO raro), quelle stesse velature vanno scurite, non più schiarite.
-   L'header (non è dentro .surface-inverse, è la barra fissa in alto) ha lo
-   stesso problema per conto suo: il vetro smerigliato era bianco fisso.
-   ========================================================================== */
-body.theme-dark .site-header {
-  background-color: rgba(14, 20, 32, 0.82);
-}
-
-body.theme-dark .site-header.is-scrolled {
-  background-color: rgba(14, 20, 32, 0.94);
-}
-
-body.theme-dark .surface-inverse .button--ghost {
-  border-color: rgba(38, 34, 32, 0.3);
-}
-
-body.theme-dark .surface-inverse .button--ghost:hover {
-  background-color: rgba(38, 34, 32, 0.08);
-}
-
-body.theme-dark .manifesto__ghost {
-  color: rgba(38, 34, 32, 0.07);
-}
-
-body.theme-dark .bento__card--dark .bento__points li::before {
-  background-color: rgba(38, 34, 32, 0.1);
-}
-
-body.theme-dark .site-footer__disclaimer,
-body.theme-dark .site-footer__legal {
-  border-top-color: rgba(38, 34, 32, 0.14);
-}
-
-/* Terracotta rimasta scritta a mano in alcuni bagliori/ombre (D50-52): sul
-   tema scuro diventano blu, per restare coerenti con il nuovo accento
-   invece di lasciare un bagliore arancione fuori posto (D57). */
-body.theme-dark .button--primary {
-  box-shadow: 0 10px 24px rgba(108, 155, 255, 0.28);
-}
-
-body.theme-dark .scroll-progress__bar {
-  box-shadow: 0 0 8px rgba(108, 155, 255, 0.45);
-}
-
-body.theme-dark .whatsapp-bar__button {
-  box-shadow: 0 12px 28px rgba(108, 155, 255, 0.4);
-}
-
-body.theme-dark .hero__spotlight {
-  background: radial-gradient(480px circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(108, 155, 255, 0.22), transparent 70%);
-}
-
-body.theme-dark .bento__card::after {
-  background: radial-gradient(280px circle at var(--spot-x) var(--spot-y), rgba(108, 155, 255, 0.18), transparent 65%);
-}
-
-body.theme-dark .call-to-action__panel::before {
-  background-image: radial-gradient(circle, rgba(108, 155, 255, 0.3) 1.5px, transparent 1.5px);
-}
-
-body.theme-dark .bento__card--dark::after {
-  background: radial-gradient(280px circle at var(--spot-x) var(--spot-y), rgba(33, 81, 166, 0.22), transparent 65%);
-}
 

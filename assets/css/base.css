@@ -34,7 +34,7 @@ ol[class] {
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--header-height) + var(--space-large));
+  scroll-padding-top: calc(var(--header-height) + var(--space-small));
   -webkit-text-size-adjust: 100%;
   /* Il pannello del menu, chiuso, resta fuori schermo con un transform: la
      sua riga di layout (non il transform) sporge comunque a destra. Su
@@ -351,10 +351,17 @@ button {
 }
 
 /* Un paragrafo che contiene solo un bottone di richiamo a fine sezione:
-   centrato come il resto, non lasciato appeso a sinistra. Non tocca i
-   paragrafi di prosa (privacy, cookie) che usano gli stessi margini. */
+   centrato come il resto, non lasciato appeso a sinistra. `p` ha un
+   max-width di base (sopra) ma nessun margin-inline:auto — senza
+   margin-inline qui, text-align:center centra il testo dentro un riquadro
+   che resta comunque appoggiato al bordo sinistro del container: il
+   bottone sembrava "decentrato" perché lo era, la sua scatola non il testo
+   dentro. Non tocca i paragrafi di prosa (privacy, cookie) che usano gli
+   stessi margini ma restano a piena larghezza. */
 .push-medium:has(> a.button),
 .push-large:has(> a.button) {
+  max-width: none;
+  margin-inline: auto;
   text-align: center;
 }
 

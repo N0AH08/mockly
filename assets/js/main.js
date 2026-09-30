@@ -287,8 +287,12 @@
 
     function update_state() {
       var rect = hero.getBoundingClientRect();
+      var y = last_event.clientY - rect.top;
+      // L'intestazione sospesa galleggia sopra l'inizio dell'hero (D79): senza
+      // un minimo, avvicinare il cursore lì portava il faretto a spuntare da
+      // sotto l'intestazione come una fascia estranea. 120px lo tiene staccato.
       spotlight.style.setProperty("--spot-x", last_event.clientX - rect.left + "px");
-      spotlight.style.setProperty("--spot-y", last_event.clientY - rect.top + "px");
+      spotlight.style.setProperty("--spot-y", Math.max(120, y) + "px");
       is_ticking = false;
     }
 
@@ -551,76 +555,37 @@
   }
 
   /* ------------------------------------------------------------------ *
-   * Filtri del portfolio
+   * Curatela del portfolio: alcune demo restano dietro "Scopri di più"
+   * finché non lo clicchi. I filtri per settore sono stati tolti: questa
+   * funzione fa solo la parte di curatela rimasta.
    * ------------------------------------------------------------------ */
 
   function init_project_filters() {
-    var group = document.querySelector("[data-filter-group]");
-    var cards = document.querySelectorAll("[data-sector]");
-    if (!group || !cards.length) return;
-
-    var buttons = group.querySelectorAll(".filter-group__button");
-    var counter = document.querySelector("[data-filter-count]");
+    var cards = document.querySelectorAll("[data-more]");
     var show_more_button = document.querySelector("[data-show-more]");
     var show_more_wrap = document.querySelector("[data-show-more-wrap]");
+    if (!cards.length || !show_more_button) return;
+
     var reduce_motion = prefers_reduced_motion();
-    var is_expanded = false;
-    var current_sector = "tutti";
 
-    function apply_filter(selected_sector) {
-      current_sector = selected_sector;
-      var visible_count = 0;
+    Array.prototype.forEach.call(cards, function (card) {
+      card.classList.add("is-hidden");
+    });
 
+    show_more_button.addEventListener("click", function () {
       Array.prototype.forEach.call(cards, function (card) {
-        var sectors = (card.getAttribute("data-sector") || "").split(" ");
-        var is_sector_match =
-          selected_sector === "tutti" || sectors.indexOf(selected_sector) !== -1;
-        var is_curated_out =
-          selected_sector === "tutti" && !is_expanded && card.hasAttribute("data-more");
-        var is_match = is_sector_match && !is_curated_out;
-
-        card.classList.toggle("is-hidden", !is_match);
-        if (is_match) {
-          visible_count += 1;
-          if (!reduce_motion) {
-            card.style.animation = "none";
-            void card.offsetWidth;
-            card.style.animation = "";
-          }
+        card.classList.remove("is-hidden");
+        if (!reduce_motion) {
+          card.style.animation = "none";
+          void card.offsetWidth;
+          card.style.animation = "";
         }
       });
 
-      if (counter) {
-        counter.textContent =
-          visible_count === 1 ? "1 progetto" : visible_count + " progetti";
-      }
-
       if (show_more_wrap) {
-        show_more_wrap.classList.toggle(
-          "is-hidden",
-          selected_sector !== "tutti" || is_expanded
-        );
+        show_more_wrap.classList.add("is-hidden");
       }
-    }
-
-    Array.prototype.forEach.call(buttons, function (button) {
-      button.addEventListener("click", function () {
-        Array.prototype.forEach.call(buttons, function (other) {
-          other.setAttribute("aria-pressed", other === button ? "true" : "false");
-        });
-
-        apply_filter(button.getAttribute("data-filter") || "tutti");
-      });
     });
-
-    if (show_more_button) {
-      show_more_button.addEventListener("click", function () {
-        is_expanded = true;
-        apply_filter(current_sector);
-      });
-    }
-
-    apply_filter("tutti");
   }
 
   /* ------------------------------------------------------------------ *

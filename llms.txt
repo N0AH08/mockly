@@ -1,0 +1,21 @@
+# Mockly
+
+> Mockly costruisce siti web su misura per attività in Sardegna (con l'obiettivo di arrivare presto in tutta Italia). Tre studenti sardi scrivono ogni sito a mano, senza template né plugin: preventivo scritto entro 48 ore, bozza in una settimana, online in due. Il codice e il dominio restano sempre del cliente.
+
+Contatti: WhatsApp/telefono +39 351 757 8080, email mockly.website@gmail.com, Instagram @mockly.site.
+
+## Pagine principali
+
+- [Home](https://mockly.it/): panoramica del servizio, come si lavora, prezzi.
+- [Siti web](https://mockly.it/siti-web.html): tipi di sito realizzabili (vetrina, aziendali, e-commerce, multilingua, prenotazioni), cosa è incluso, abbonamenti di assistenza.
+- [Portfolio](https://mockly.it/portfolio.html): un lavoro reale su commessa (Tonnara di Flumentorgiu) e undici demo di settore costruite da Mockly per mostrare cosa sa fare un sito, con i locali dichiarati chiaramente come non reali.
+- [Chi siamo](https://mockly.it/chi-siamo.html): il team, come lavorano, perché niente template né plugin.
+- [Contatti](https://mockly.it/contatti.html): come scrivere, tempi di risposta, FAQ.
+
+## Cosa NON offre Mockly, ad oggi
+
+I gestionali su misura (software gestionale, magazzino, prenotazioni collegate) non fanno parte dell'offerta attuale: la pagina relativa non è collegata dal sito.
+
+## Note per crawler e assistenti
+
+Questo sito non usa cookie né strumenti di statistica (vedi /cookie.html e /privacy.html). Tutti i contenuti sono scritti dal team, nessun testo generato per scopi SEO senza controllo umano. Sitemap: https://mockly.it/sitemap.xml

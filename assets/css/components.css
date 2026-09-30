@@ -207,9 +207,7 @@
    Manifesto — una pausa scura a piena larghezza fra "Chi siamo" e "Prezzi",
    solo in home: una frase sola, enorme, invece di un'altra sezione con
    card. La tipografia grande fa il lavoro che altrove fanno le foto.
-   Il nome del sito sbiadito dietro è un filigrana, non un logo da copiare:
-   stessa tecnica del numero enorme sbiadito nelle hero interne
-   (.hero__ghost-stat), applicata a una parola invece che a una cifra.
+   Il nome del sito sbiadito dietro è una filigrana, non un logo da copiare.
    ========================================================================== */
 .manifesto {
   position: relative;
@@ -1207,37 +1205,6 @@ body.is-loaded .hero__stagger {
 /* ==========================================================================
    Hero delle pagine interne: la stessa firma della home, senza ripeterla
    ========================================================================== */
-/*
- * La home ha il pannello che si scrive da solo: qui non lo ripetiamo (sarebbe
- * la stessa cosa) ma non lasciamo le pagine interne piatte come prima. Due
- * elementi, entrambi presi da un dato vero della pagina, mai da un motivo
- * decorativo generico: una cifra enorme e sbiadita dietro il titolo (48H,
- * 15, 3...) e il titolo stesso che si "decifra" invece di comparire con un
- * fade. Il contenuto vero (container) va dopo, in un solo elemento
- * position:relative, altrimenti gli orb e la cifra — anche loro assoluti —
- * finirebbero sopra al testo per via dell'ordine di stacking.
- */
-.hero--page > .container {
-  position: relative;
-  z-index: 1;
-}
-
-.hero__ghost-stat {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -54%);
-  z-index: 0;
-  font-family: var(--font-mono);
-  font-size: clamp(5.5rem, 20vw, 11rem);
-  font-weight: var(--font-weight-bold);
-  line-height: 1;
-  color: var(--color-accent-soft);
-  white-space: nowrap;
-  pointer-events: none;
-  user-select: none;
-}
-
 .hero__title-page {
   max-width: 20ch;
   margin-inline: auto;

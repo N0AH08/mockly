@@ -311,63 +311,6 @@
   }
 }
 
-/* Animazione di apertura, solo in home: la cornice parte a schermo intero
-   (nascosta dietro al preloader) e si "chiude" sul suo riquadro finale nello
-   stesso istante in cui il preloader sparisce. `.is-settling` accende la
-   transizione solo per quel momento — il resto del tempo la cornice segue
-   il viewport all'istante, senza ritardo (vedi D78: un ritardo qui creava
-   una fascia scoperta durante lo scroll su Safari). */
-@media (min-width: 48em) {
-  .viewport-frame.is-settling {
-    transition:
-      top 700ms var(--ease-spring),
-      left 700ms var(--ease-spring),
-      width 700ms var(--ease-spring),
-      height 700ms var(--ease-spring),
-      border-radius 700ms var(--ease-spring);
-  }
-
-  @media (scripting: enabled) {
-    .viewport-frame.is-opening {
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      width: 100dvw;
-      height: 100dvh;
-      border-radius: 0;
-    }
-  }
-}
-
-/* Il lampo di luce quando la cornice scatta al suo posto: un elemento a
-   parte (::after) invece di animare l'ombra enorme sopra, perché Chromium
-   non riesce ad animare due ombre insieme in quel modo (trovato in D70). */
-.viewport-frame::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  box-shadow: inset 0 0 60px 16px rgba(95, 168, 217, 0.9);
-  opacity: 0;
-}
-
-.viewport-frame.is-settled-flash::after {
-  animation: frame-flash-glow 900ms var(--ease-out);
-}
-
-@keyframes frame-flash-glow {
-  0% { opacity: 0; }
-  35% { opacity: 1; }
-  100% { opacity: 0; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .viewport-frame.is-settled-flash::after {
-    animation: none;
-  }
-}
-
 @media print {
   .viewport-frame {
     display: none;
@@ -1298,251 +1241,10 @@ body.is-loaded .hero__stagger {
 }
 
 /* ==========================================================================
-   Preloader della home: un laptop, un cursore che clicca, il sito si apre
+   (Preloader rimosso in D105: per il pubblico 55+ del sito un overlay di
+   3,5s prima di vedere la pagina peggiorava solo la velocità percepita,
+   senza vantaggio reale. Storia del componente in AGENTS.md, D37-D38/D69-D70.)
    ========================================================================== */
-/*
- * Senza JS il preloader non serve a niente (nessuno spegnerebbe mai
- * l'overlay), quindi resta mostrato di default e sparisce solo grazie a
- * `@media (scripting: none)` più sotto — l'opposto della convenzione usata
- * per le animazioni decorative, ma qui è l'unico modo per non bloccare il
- * sito a chi non ha JavaScript.
- */
-.preloader {
-  position: fixed;
-  inset: 0;
-  z-index: var(--layer-preloader);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--color-background-warm);
-  /* Il "vero" cambio di stato lo fa .pl-bloom qui sotto, che dipinge già
-     tutto di bianco prima che questo overlay sparisca: la dissolvenza che
-     resta serve solo a non lasciare un salto netto di 1 frame. */
-  transition: opacity 200ms linear, visibility 200ms;
-}
-
-.preloader.is-hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-.pl-scene {
-  position: relative;
-  width: min(420px, 78vw);
-}
-
-.pl-laptop {
-  position: relative;
-  width: 100%;
-  opacity: 0;
-  transform: translateY(16px) scale(0.96);
-  animation: pl-in var(--duration-slow) 100ms var(--ease-out) forwards;
-}
-
-@keyframes pl-in {
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-.pl-screen {
-  background-color: var(--color-screen-dark);
-  border-radius: var(--radius-soft) var(--radius-soft) 3px 3px;
-  padding: var(--space-2xsmall);
-  box-shadow: var(--shadow-float);
-}
-
-.pl-screen__inner {
-  background-image: linear-gradient(160deg, #0B111C 0%, var(--color-screen-dark) 100%);
-  border-radius: 4px;
-  aspect-ratio: 16 / 10;
-  position: relative;
-  overflow: hidden;
-}
-
-.pl-file {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-3xsmall);
-}
-
-.pl-file span {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: #D7CDB4;
-}
-
-.pl-file-icon {
-  transition: transform 150ms ease;
-}
-
-.pl-file.is-active .pl-file-icon {
-  transform: scale(0.88);
-}
-
-.pl-base {
-  height: 14px;
-  background-image: linear-gradient(180deg, #0B111C, var(--color-screen-dark));
-  border-radius: 0 0 10px 10px;
-  margin-inline: -6px;
-  box-shadow: 0 10px 24px rgba(38, 34, 32, 0.2);
-}
-
-.pl-base::before {
-  content: "";
-  display: block;
-  width: 70px;
-  height: 6px;
-  margin-inline: auto;
-  background-color: var(--color-screen-dark);
-  border-radius: 0 0 6px 6px;
-}
-
-.pl-cursor {
-  position: absolute;
-  left: 82%;
-  top: 78%;
-  z-index: 3;
-  opacity: 0;
-  animation: pl-cursor-move 1.6s 500ms cubic-bezier(0.5, 0, 0.2, 1) forwards;
-}
-
-@keyframes pl-cursor-move {
-  0% {
-    left: 84%;
-    top: 82%;
-    opacity: 0;
-  }
-  12% {
-    opacity: 1;
-  }
-  70%,
-  100% {
-    left: 50%;
-    top: 50%;
-    opacity: 1;
-  }
-}
-
-.pl-click-ring {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 14px;
-  height: 14px;
-  border: 2.5px solid var(--color-accent-glow);
-  border-radius: var(--radius-pill);
-  transform: translate(-50%, -50%) scale(0.4);
-  opacity: 0;
-  animation: pl-click 550ms 2150ms ease-out forwards;
-}
-
-@keyframes pl-click {
-  0% {
-    transform: translate(-50%, -50%) scale(0.4);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(5);
-    opacity: 0;
-  }
-}
-
-.pl-flash {
-  position: absolute;
-  inset: 0;
-  background-color: var(--color-background);
-  border-radius: inherit;
-  opacity: 0;
-  animation: pl-flash 350ms 2200ms ease-out forwards;
-}
-
-@keyframes pl-flash {
-  0% {
-    opacity: 0;
-  }
-  40% {
-    opacity: 0.85;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-/*
- * Il file "si apre": un cerchio bianco — il vero colore di sfondo del sito,
- * non quello caldo del preloader — si espande dal punto del clic (poco
- * sotto il centro, dov'è il file) fino a coprire tutto lo schermo, come se
- * il sito si riversasse fuori da lì invece di comparire con una dissolvenza
- * uguale ovunque.
- */
-.pl-bloom {
-  position: absolute;
-  left: 50%;
-  top: 54%;
-  width: 300vmax;
-  height: 300vmax;
-  background-color: var(--color-background);
-  /* --radius-pill è un raggio fisso (pensato per pallini/avatar): su un
-     elemento enorme come questo arrotonderebbe appena gli angoli invece di
-     restare un cerchio. Qui serve percentuale. */
-  border-radius: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  opacity: 1;
-  z-index: 4;
-  animation: pl-bloom-out 1.05s 2300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes pl-bloom-out {
-  to {
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
-
-.pl-caption {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -2.6rem;
-  text-align: center;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--color-text-muted);
-  opacity: 0;
-  animation:
-    pl-in 500ms 300ms ease forwards,
-    pl-caption-out 400ms 2150ms ease forwards;
-}
-
-@keyframes pl-caption-out {
-  to {
-    opacity: 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pl-laptop,
-  .pl-cursor,
-  .pl-click-ring,
-  .pl-flash,
-  .pl-bloom,
-  .pl-caption {
-    animation: none;
-  }
-}
-
-@media (scripting: none) {
-  .preloader {
-    display: none;
-  }
-}
 
 /* ==========================================================================
    Fascia promesse + griglie vecchie
@@ -3034,6 +2736,145 @@ body.is-loaded .hero__stagger {
   .price-strip__item:hover {
     transform: translateY(-4px);
   }
+}
+
+/* ==========================================================================
+   Intestazione semplificata (D105) — solo per la pagina unica: niente
+   hamburger da nascondere, link e i due bottoni di contatto sempre visibili.
+   Un pubblico non tecnico non deve capire cosa fa un'iconcina per trovare
+   il menu o il numero di telefono.
+   ========================================================================== */
+.site-header--simple .site-header__navigation {
+  display: none;
+}
+
+.site-header--simple .site-header__action,
+.site-header--simple .site-header__toggle,
+.site-header--simple .site-header__panel,
+.site-header--simple .site-header__overlay {
+  display: none;
+}
+
+@media (min-width: 64em) {
+  .site-header--simple .site-header__navigation {
+    display: block;
+  }
+}
+
+.site-header__quick-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3xsmall);
+  flex-shrink: 0;
+}
+
+.site-header__quick-actions .button {
+  padding: 0.6rem 1.1rem;
+  min-height: 2.75rem;
+  font-size: var(--font-size-small);
+  white-space: nowrap;
+}
+
+/* Sotto i 420px logo+testo+due bottoni non ci stanno in una riga: resta
+   solo l'icona, i due bottoni restano sempre leggibili per intero. */
+@media (max-width: 26.25em) {
+  .site-header--simple .site-header__logo-text {
+    display: none;
+  }
+
+  .site-header--simple .site-header__quick-actions .button {
+    padding: 0.55rem 0.8rem;
+  }
+}
+
+/* ==========================================================================
+   Due garanzie veloci sotto i bottoni dell'hero — tre fatti veri, non
+   decorazione. Riusa .feature-grid (già pensato per un elenco di righe con
+   spunta), solo più stretto e centrato sotto al testo.
+   ========================================================================== */
+.hero__guarantees {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-small) var(--space-large);
+  margin-top: var(--space-medium);
+}
+
+.hero__guarantees .feature-grid__item {
+  padding-left: 1.75rem;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+}
+
+/* ==========================================================================
+   Schizzo → sito: due bottoni al posto del trascinamento (D105). Lo stesso
+   meccanismo CSS di prima (--reveal-pct pilota un clip-path), ma lo stato si
+   sceglie con un clic su un bottone invece che trascinando un cursore — più
+   chiaro per chi non ha dimestichezza con gli slider, e identico via
+   tastiera o touch senza bisogno di drag.
+   ========================================================================== */
+.hero__reveal-toggle {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2xsmall);
+  margin-top: var(--space-small);
+}
+
+.hero__reveal-toggle .button[aria-pressed="true"] {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-text-inverse-on-accent);
+}
+
+/* ==========================================================================
+   FAQ — <details> nativi (D105), non più l'accordion JS
+   Tastiera, screen reader e "trovami nel testo della pagina" funzionano da
+   soli: niente aria-expanded da tenere sincronizzato a mano.
+   ========================================================================== */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xsmall);
+}
+
+.faq-item {
+  border-bottom: var(--border-width-hairline) solid var(--color-border);
+}
+
+.faq-item__question {
+  padding-block: var(--space-small);
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lead);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq-item__question::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item__question::after {
+  content: "+";
+  float: right;
+  color: var(--color-accent);
+  font-weight: var(--font-weight-regular);
+}
+
+.faq-item[open] .faq-item__question::after {
+  content: "−";
+}
+
+.faq-item__question:focus-visible {
+  outline: var(--border-width-medium) solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.faq-item__answer {
+  padding-bottom: var(--space-medium);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-body);
 }
 
 

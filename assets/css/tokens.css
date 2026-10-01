@@ -144,7 +144,6 @@
   --layer-overlay: 150;
   --layer-menu: 200;
   --layer-back-to-top: 90;
-  --layer-preloader: 300;
   --layer-chrome: 400; /* grana e cursore custom: sempre sopra tutto, mai cliccabili */
 
   /* --- Motion ------------------------------------------------------------ */
@@ -156,11 +155,6 @@
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-menu: cubic-bezier(0.32, 0.72, 0, 1); /* scatto iOS: parte forte, atterra morbido */
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-
-  /* --- Sempre scuro, non legato al tema: lo schermo del laptop nel preloader
-     deve restare uno schermo scuro a prescindere dalla pagina. ------------- */
-  --color-screen-dark: #131C2B;
-
 }
 
 /* ==========================================================================

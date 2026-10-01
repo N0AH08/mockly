@@ -39,60 +39,6 @@
    * ogni volta che si torna sulla home dal menu.
    * ------------------------------------------------------------------ */
 
-  function init_preloader() {
-    var preloader = document.querySelector("[data-preloader]");
-    if (!preloader) return;
-
-    // La cornice (solo da tablet in su, vedi components.css) si apre/chiude
-    // in sincrono col preloader. Su telefono questo elemento non esiste o
-    // è nascosto: le righe sotto non fanno nulla di visibile, ma restano
-    // innocue.
-    var frame = document.querySelector("[data-viewport-frame]");
-
-    var already_seen = false;
-    try {
-      already_seen = window.sessionStorage.getItem("mockly_preloader_seen") === "1";
-    } catch (error) {
-      already_seen = false;
-    }
-
-    if (already_seen || prefers_reduced_motion()) {
-      preloader.classList.add("is-hidden");
-      if (frame) frame.classList.remove("is-opening");
-      return;
-    }
-
-    var file = preloader.querySelector("[data-preloader-file]");
-
-    window.setTimeout(function () {
-      if (file) file.classList.add("is-active");
-    }, 2100);
-
-    window.setTimeout(function () {
-      preloader.classList.add("is-hidden");
-
-      // La cornice scatta al suo posto nello stesso istante: `is-settling`
-      // accende la transizione solo per questo momento, `is-settled-flash`
-      // fa il lampo di luce sul bordo. Entrambe si tolgono da sole dopo.
-      if (frame) {
-        frame.classList.add("is-settling");
-        frame.classList.remove("is-opening");
-        frame.classList.add("is-settled-flash");
-        window.setTimeout(function () {
-          frame.classList.remove("is-settled-flash");
-          frame.classList.remove("is-settling");
-        }, 900);
-      }
-
-      try {
-        window.sessionStorage.setItem("mockly_preloader_seen", "1");
-      } catch (error) {
-        /* Storage non disponibile (privata/bloccato): si rivedrà ogni
-           volta, non è grave quanto restare bloccati sull'overlay. */
-      }
-    }, 3400);
-  }
-
   /* ------------------------------------------------------------------ *
    * Intestazione: stato "scrollata" (vetro più solido)
    * ------------------------------------------------------------------ */
@@ -350,39 +296,37 @@
 
   function init_hero_reveal() {
     var stage = document.querySelector("[data-reveal-stage]");
-    var input = document.querySelector("[data-reveal-input]");
-    if (!stage || !input) return;
+    if (!stage) return;
 
     function apply(value) {
       var sketch_pct = 100 - Number(value);
       stage.style.setProperty("--reveal-pct", sketch_pct + "%");
     }
 
-    apply(input.value);
+    // Due bottoni invece del trascinamento (D105): un clic, non un gesto da
+    // capire. Funzionano identici da tastiera e da touch, nessun drag da
+    // intuire.
+    var sketch_btn = document.querySelector("[data-reveal-show-sketch]");
+    var final_btn = document.querySelector("[data-reveal-show-final]");
+    if (!sketch_btn || !final_btn) return;
 
-    input.addEventListener("input", function () {
-      apply(input.value);
+    // Di base si vede il sito vero: lo schizzo è un dettaglio da scoprire,
+    // non la prima cosa da capire.
+    apply(100);
+    final_btn.setAttribute("aria-pressed", "true");
+    sketch_btn.setAttribute("aria-pressed", "false");
+
+    sketch_btn.addEventListener("click", function () {
+      apply(0);
+      sketch_btn.setAttribute("aria-pressed", "true");
+      final_btn.setAttribute("aria-pressed", "false");
     });
 
-    if (prefers_reduced_motion()) return;
-
-    /* Piccolo invito a trascinare: due passate avanti e indietro, una sola
-       volta, poco dopo il caricamento. */
-    window.setTimeout(function () {
-      var start = Number(input.value);
-      var steps = [start - 18, start + 12, start];
-      var i = 0;
-
-      function next() {
-        if (i >= steps.length) return;
-        input.value = steps[i];
-        apply(steps[i]);
-        i += 1;
-        window.setTimeout(next, 420);
-      }
-
-      next();
-    }, 1200);
+    final_btn.addEventListener("click", function () {
+      apply(100);
+      final_btn.setAttribute("aria-pressed", "true");
+      sketch_btn.setAttribute("aria-pressed", "false");
+    });
   }
 
   /* ------------------------------------------------------------------ *
@@ -763,7 +707,6 @@
    * ------------------------------------------------------------------ */
 
   init_page_ready();
-  init_preloader();
   init_header_scroll();
   init_back_to_top();
   init_scroll_progress();

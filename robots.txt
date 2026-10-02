@@ -5,13 +5,8 @@ Allow: /
 Disallow: /grazie.html
 Disallow: /404.html
 
-# Non più linkate da nessuna pagina dopo il passaggio a pagina unica (D105):
-# tenute come file, pronte a tornare, non da indicizzare finché restano ferme.
+# Non linkata da nessuna parte del sito per ora: tenuta come file, non da indicizzare.
 Disallow: /gestionali.html
-Disallow: /siti-web.html
-Disallow: /portfolio.html
-Disallow: /chi-siamo.html
-Disallow: /contatti.html
 
 # Strumenti di lavoro, non fanno parte del sito.
 Disallow: /tools/

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Siti web costruiti su misura | Mockly</title>
-  <meta name="description" content="Siti web di ogni tipo costruiti su misura, scritti a mano in Sardegna. Guarda le demo già pronte, scrivici su WhatsApp e ricevi il prezzo entro 48 ore.">
+  <meta name="description" content="Siti web di ogni tipo costruiti su misura, scritti a mano in Sardegna. Guarda le demo già costruite, poi decidi. Preventivo in 48 ore.">
   <link rel="canonical" href="https://mockly.it/">
   <meta name="theme-color" content="#0A0F16">
 
@@ -13,7 +13,7 @@
   <meta property="og:locale" content="it_IT">
   <meta property="og:site_name" content="Mockly">
   <meta property="og:title" content="Siti web costruiti su misura">
-  <meta property="og:description" content="Siti web di ogni tipo costruiti su misura, scritti a mano in Sardegna. Guarda le demo già pronte, scrivici su WhatsApp e ricevi il prezzo entro 48 ore.">
+  <meta property="og:description" content="Siti web di ogni tipo costruiti su misura, scritti a mano in Sardegna. Guarda le demo già costruite, poi decidi. Preventivo in 48 ore.">
   <meta property="og:url" content="https://mockly.it/">
   <meta property="og:image" content="https://mockly.it/assets/img/og-cover.png">
   <meta property="og:image:width" content="1200">
@@ -21,7 +21,7 @@
   <meta property="og:image:alt" content="Mockly — siti web costruiti a mano, su misura.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Siti web costruiti su misura">
-  <meta name="twitter:description" content="Siti web di ogni tipo costruiti su misura, scritti a mano in Sardegna. Guarda le demo già pronte, scrivici su WhatsApp e ricevi il prezzo entro 48 ore.">
+  <meta name="twitter:description" content="Siti web di ogni tipo costruiti su misura, scritti a mano in Sardegna. Guarda le demo già costruite, poi decidi. Preventivo in 48 ore.">
   <meta name="twitter:image" content="https://mockly.it/assets/img/og-cover.png">
   <meta name="twitter:image:alt" content="Mockly — siti web costruiti a mano, su misura.">
 
@@ -36,7 +36,7 @@
 
   <link rel="stylesheet" href="assets/css/tokens.css?v=20260930b">
   <link rel="stylesheet" href="assets/css/base.css?v=20260930a">
-  <link rel="stylesheet" href="assets/css/components.css?v=20261001b">
+  <link rel="stylesheet" href="assets/css/components.css?v=20260930l">
 
   <link rel="preload" as="image" href="assets/img/projects/esempio-generico-hero.webp" fetchpriority="high">
 
@@ -117,10 +117,10 @@
       },
       {
         "@type": "Question",
-        "name": "Il sito è mio o vostro?",
+        "name": "Il sito e il codice sono miei o vostri?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Tuo, dal primo giorno: il nome del sito è intestato a te, i file e il codice te li consegniamo a fine lavoro. Nessun vincolo, nessun riscatto."
+          "text": "Tuoi, dal primo giorno: dominio intestato a te, file e codice consegnati a fine lavoro, dati esportabili in formati aperti. Nessun vincolo, nessun riscatto."
         }
       },
       {
@@ -136,7 +136,7 @@
         "name": "Dopo la consegna chi mi segue?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Noi, con l'assistenza mensile da 19,99 €: aggiornamenti e modifiche su richiesta via WhatsApp. Ogni piano ha una durata minima (6 o 12 mesi secondo il piano); dopo, disdetta con 30 giorni di preavviso e zero penali."
+          "text": "Noi, con l'assistenza mensile da 19,99 €: aggiornamenti, backup e modifiche su richiesta via WhatsApp. Ogni piano ha una durata minima (6 o 12 mesi secondo il piano); dopo, disdetta con 30 giorni di preavviso e zero penali."
         }
       }
     ]
@@ -147,68 +147,128 @@
 <body class="page-body">
 
   <div class="grain" aria-hidden="true"></div>
-  <div class="viewport-frame" aria-hidden="true"></div>
+  <div class="viewport-frame is-opening" aria-hidden="true" data-viewport-frame></div>
+
+  <div class="preloader" id="preloader" data-preloader aria-hidden="true">
+    <div class="pl-scene">
+      <div class="pl-laptop">
+        <div class="pl-screen">
+          <div class="pl-screen__inner">
+            <div class="pl-file" data-preloader-file>
+              <svg class="pl-file-icon" width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+                <rect x="3" y="8" width="28" height="20" rx="3" fill="#3D8BC4"/>
+                <path d="M3 11a3 3 0 0 1 3-3h6l3 3h13a3 3 0 0 1 3 3v1H3v-4Z" fill="#5FA8D9"/>
+              </svg>
+              <span>mockly</span>
+            </div>
+            <div class="pl-click-ring"></div>
+            <div class="pl-flash"></div>
+          </div>
+        </div>
+        <div class="pl-base"></div>
+        <svg class="pl-cursor" width="22" height="22" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M4 3l4.5 13 2-5.5L16 8.5 4 3Z" fill="#fff" stroke="#0A0F16" stroke-width="1.4" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <p class="pl-caption">Apertura di mockly…</p>
+    </div>
+    <div class="pl-bloom" aria-hidden="true"></div>
+  </div>
 
   <div class="scroll-progress" aria-hidden="true"><span class="scroll-progress__bar" data-scroll-progress></span></div>
 
   <a class="skip-link" href="#contenuto">Salta al contenuto</a>
 
-  <!-- Intestazione: niente hamburger. Logo, 4 link-ancora, e i due bottoni di
-       contatto sempre visibili — vedi .site-header--simple in components.css. -->
-  <header class="site-header site-header--simple">
+  <!-- Intestazione: uguale su tutte le pagine (logo, menu, bottone WhatsApp). -->
+  <header class="site-header">
     <div class="container site-header__inner">
-      <a class="site-header__logo" href="#top">
+        <a class="site-header__logo" href="index.html">
         <img class="site-header__logo-icon" src="assets/img/logo-mockly-icon.png" alt="" width="632" height="447">
-        <span class="site-header__logo-text">MOCKLY.</span>
+        MOCKLY.
       </a>
 
+      <!-- Menu orizzontale (visibile da 1280px in su, sotto resta solo l'hamburger) -->
       <nav class="site-header__navigation" aria-label="Menu principale">
         <ul class="site-header__navigation-list">
-          <li><a class="site-header__navigation-link" href="#demo">Demo</a></li>
-          <li><a class="site-header__navigation-link" href="#prezzi">Prezzi</a></li>
-          <li><a class="site-header__navigation-link" href="#chi-siamo">Chi siamo</a></li>
-          <li><a class="site-header__navigation-link" href="#contatti">Contatti</a></li>
+          <li><a class="site-header__navigation-link is-current" href="index.html" aria-current="page">Home</a></li>
+          <li><a class="site-header__navigation-link" href="siti-web.html">Siti web</a></li>
+          <li><a class="site-header__navigation-link" href="portfolio.html">Portfolio</a></li>
+          <li><a class="site-header__navigation-link" href="chi-siamo.html">Chi siamo</a></li>
+          <li><a class="site-header__navigation-link" href="contatti.html">Contatti</a></li>
         </ul>
       </nav>
 
-      <div class="site-header__quick-actions">
-        <a class="button button--secondary" href="tel:+393517578080" aria-label="Chiama il 351 757 8080">Chiama</a>
-        <a class="button button--primary" href="https://wa.me/393517578080?text=Ciao%20Mockly%2C%20ho%20visto%20il%20vostro%20sito%20e%20vorrei%20parlare%20del%20mio%20progetto." aria-label="Scrivici su WhatsApp al 351 757 8080">WhatsApp</a>
+      <div class="site-header__action">
+        <a class="button button--primary" href="https://wa.me/393517578080?text=Ciao%20Mockly%2C%20ho%20visto%20il%20vostro%20sito%20e%20vorrei%20parlare%20del%20mio%20progetto." aria-label="Scrivici su WhatsApp al 351 757 8080">
+          Scrivici su WhatsApp
+        </a>
       </div>
+
+      <!-- Hamburger: apre il pannello sotto i 1280px -->
+      <button class="site-header__toggle" type="button" aria-label="Apri il menu" aria-expanded="false" aria-controls="menu-principale">
+        <span class="site-header__toggle-bar" aria-hidden="true"></span>
+        <span class="site-header__toggle-bar" aria-hidden="true"></span>
+        <span class="site-header__toggle-bar" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <!-- Velo scuro, chiude il menu se ci clicchi sopra -->
+    <div class="site-header__overlay"></div>
+
+    <!-- Pannello del menu (telefono/tablet) -->
+    <div class="site-header__panel" id="menu-principale" role="dialog" aria-modal="true" aria-label="Menu">
+      <div class="site-header__panel-head">
+        <p class="site-header__panel-brand"><img class="site-header__logo-icon" src="assets/img/logo-mockly-icon.png" alt="" width="632" height="447">MOCKLY.</p>
+        <button class="site-header__close" type="button" aria-label="Chiudi il menu" data-menu-close>
+          <svg class="site-header__close-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <!-- Menu, versione telefono -->
+      <nav aria-label="Menu principale su telefono">
+        <p class="site-header__panel-label" aria-hidden="true">Menu</p>
+        <ul class="site-header__panel-list">
+          <li><a class="site-header__panel-link is-current" href="index.html" aria-current="page">Home</a></li>
+          <li><a class="site-header__panel-link" href="siti-web.html">Siti web</a></li>
+          <li><a class="site-header__panel-link" href="portfolio.html">Portfolio</a></li>
+          <li><a class="site-header__panel-link" href="chi-siamo.html">Chi siamo</a></li>
+          <li><a class="site-header__panel-link" href="contatti.html">Contatti</a></li>
+        </ul>
+      </nav>
     </div>
   </header>
 
   <main id="contenuto">
 
     <!-- ── Hero ─────────────────────────────────────────────────────── -->
-    <section class="hero" id="top" aria-labelledby="titolo-hero">
-      <div class="container hero__inner">
-        <div class="hero__content hero__content--centered">
-          <h1 class="hero__title" id="titolo-hero">
-            Il sito della tua attività, <span class="hero__mark">costruito su misura</span>.
+    <section class="hero" aria-labelledby="titolo-hero" data-hero>
+      <div class="hero__spotlight" aria-hidden="true" data-hero-spotlight></div>
+
+      <div class="container hero__inner hero__inner--split">
+        <div class="hero__content">
+          <h1 class="hero__title hero__stagger" id="titolo-hero" style="--hero-delay: 90ms;">
+            Il sito e il software della tua attività, <span class="hero__mark">costruiti su misura</span>.
           </h1>
-          <p class="hero__text">
-            Vetrina, ristorazione, prenotazioni, negozio online: raccontaci cosa fai, e ti costruiamo
-            un sito pensato sul tuo lavoro — non un modello già pronto con il tuo nome sopra.
+          <p class="hero__text hero__stagger" style="--hero-delay: 180ms;">
+            Gestisci un locale o un'azienda? Il sito lo provi tu, dentro le demo, prima di decidere.
+            Tutto scritto a mano, tutto tuo.
           </p>
 
-          <div class="hero__actions">
-            <a class="button button--primary" href="https://wa.me/393517578080?text=Ciao%20Mockly%2C%20ho%20visto%20il%20vostro%20sito%20e%20vorrei%20parlare%20del%20mio%20progetto." aria-label="Scrivici su WhatsApp al 351 757 8080">
+          <div class="hero__actions hero__stagger" style="--hero-delay: 270ms;">
+            <a class="button button--primary" data-magnetic href="https://wa.me/393517578080?text=Ciao%20Mockly%2C%20ho%20visto%20il%20vostro%20sito%20e%20vorrei%20parlare%20del%20mio%20progetto." aria-label="Scrivici su WhatsApp al 351 757 8080">
               Scrivici su WhatsApp
               <svg class="button__icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M8.5 2.5a5.5 5.5 0 0 0-4.7 8.4L2.5 13.5l2.7-1.2a5.5 5.5 0 1 0 3.3-9.8Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
-            <a class="button button--secondary" href="tel:+393517578080" aria-label="Chiama il 351 757 8080">Chiama il 351 757 8080</a>
+            <a class="button button--secondary" data-magnetic href="portfolio.html">Prova una demo</a>
           </div>
 
-          <ul class="hero__guarantees feature-grid" aria-label="In breve">
-            <li class="feature-grid__item">Un prezzo unico, scritto, che non cambia dopo</li>
-            <li class="feature-grid__item">Online entro due settimane dalla revisione</li>
-            <li class="feature-grid__item">Il sito è tuo: nome, file e codice intestati a te</li>
-          </ul>
+          <p class="hero__microcopy hero__stagger" style="--hero-delay: 340ms;">
+            Preventivo scritto entro 48 ore, con prezzo unico e data di consegna. Codice tuo dal primo
+            giorno, nessun vincolo né riscatto, risposta in giornata.
+          </p>
         </div>
 
-        <div class="hero__reveal" data-reveal>
-          <p class="hero__reveal-label">Come lavoriamo: da un foglio disegnato a mano al sito vero.</p>
+        <div class="hero__reveal hero__stagger" style="--hero-delay: 250ms;" data-reveal>
+          <p class="hero__reveal-label">Dallo schizzo al sito vero. Trascina per vedere.</p>
 
           <div class="hero__reveal-stage" data-reveal-stage>
             <img class="hero__reveal-final" src="assets/img/projects/esempio-generico-hero.webp"
@@ -245,162 +305,139 @@
                 </g>
               </svg>
             </div>
+
+            <div class="hero__reveal-line" aria-hidden="true" data-reveal-line></div>
           </div>
 
-          <div class="hero__reveal-toggle">
-            <button class="button button--secondary" type="button" data-reveal-show-sketch aria-pressed="false">Il foglio di partenza</button>
-            <button class="button button--secondary" type="button" data-reveal-show-final aria-pressed="true">Il sito vero</button>
+          <div class="hero__reveal-control">
+            <span class="hero__reveal-control-label hero__reveal-control-label--from">Schizzo</span>
+            <input class="hero__reveal-input" type="range" min="0" max="100" value="62" step="1"
+                   data-reveal-input aria-label="Trascina per confrontare lo schizzo iniziale con un esempio di sito finito">
+            <span class="hero__reveal-control-label hero__reveal-control-label--to">Sito finito</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ── Le demo ──────────────────────────────────────────────────── -->
-    <section class="section" id="demo" aria-labelledby="titolo-demo">
+    <!-- ── Cosa facciamo ────────────────────────────────────────────── -->
+    <section class="section" id="servizi" aria-labelledby="titolo-servizi">
       <div class="container">
-        <div class="section__header">
-          <h2 class="section__title section__title--wide" id="titolo-demo">Apri una demo, non solo una descrizione</h2>
-          <p class="section__intro">
-            Sono siti completi che puoi aprire dal telefono adesso. Il primo è un lavoro vero,
-            fatto per un cliente; gli altri sono esempi che abbiamo costruito noi per mostrare cosa
-            sappiamo fare.
-          </p>
+        <div class="section__header reveal">
+          <h2 class="section__title section__title--wide" id="titolo-servizi">Siti di ogni tipo, un solo modo di lavorare: su misura.</h2>
         </div>
 
-        <ul class="card-grid push-medium">
-          <li class="project-card">
-            <div class="project-card__media">
-              <img class="project-card__image" src="assets/img/projects/tonnara-hero.webp"
-                   alt="Home del sito della Tonnara di Flumentorgiu con le foto d'archivio della tonnara"
-                   width="1440" height="900" loading="lazy">
-            </div>
-            <div class="project-card__body">
-              <span class="badge badge--real">Lavoro vero &mdash; Associazione Porto Palma</span>
-              <p class="project-card__sector">Museo e sito culturale, Arbus</p>
-              <h3 class="project-card__title">Tonnara di Flumentorgiu</h3>
-              <p class="project-card__summary">
-                Il sito del complesso della tonnara per l'Associazione Porto Palma: la storia del
-                luogo, le informazioni per la visita, le immagini dell'archivio.
-              </p>
-              <p class="project-card__action">
-                <a class="project-card__link" href="https://tonnaradiflumentorgiu.it" target="_blank" rel="noopener"
-                   aria-label="Apri il sito della Tonnara di Flumentorgiu in una nuova scheda">Apri il sito vero</a>
-                <span class="project-card__external-note">(si apre in una nuova scheda)</span>
-              </p>
-            </div>
-          </li>
-        </ul>
-
-        <ul class="card-grid card-grid--3 push-large">
-          <li class="project-card">
-            <div class="project-card__media">
-              <img class="project-card__image" src="assets/img/projects/forno-nero-hero.webp"
-                   alt="Home della demo Forno Nero: banner con il forno a legna e il menu pizze"
-                   width="1440" height="900" loading="lazy">
-            </div>
-            <div class="project-card__body">
-              <span class="badge badge--demo">Esempio &mdash; non un cliente vero</span>
-              <p class="project-card__sector">Pizzeria</p>
-              <h3 class="project-card__title">Forno Nero</h3>
-              <p class="project-card__summary">Menu, foto, pulsante per prenotare un tavolo e per ordinare su WhatsApp.</p>
-              <p class="project-card__action">
-                <a class="project-card__link" href="https://mockly-website.github.io/forno-nero/" target="_blank" rel="noopener"
-                   aria-label="Apri la demo Forno Nero in una nuova scheda">Apri la demo</a>
-                <span class="project-card__external-note">(si apre in una nuova scheda)</span>
-              </p>
-            </div>
-          </li>
-
-          <li class="project-card">
-            <div class="project-card__media">
-              <img class="project-card__image" src="assets/img/projects/cocco-dessi-hero.webp"
-                   alt="Home della demo Ristorante Il Loggiato: sala interna e piatti in evidenza"
-                   width="1440" height="900" loading="lazy">
-            </div>
-            <div class="project-card__body">
-              <span class="badge badge--demo">Esempio &mdash; non un cliente vero</span>
-              <p class="project-card__sector">Ristorante</p>
-              <h3 class="project-card__title">Il Loggiato</h3>
-              <p class="project-card__summary">Menu diviso per portate, orari, come arrivare e pulsante per prenotare.</p>
-              <p class="project-card__action">
-                <a class="project-card__link" href="https://mockly-website.github.io/coccoedessi/" target="_blank" rel="noopener"
-                   aria-label="Apri la demo Il Loggiato in una nuova scheda">Apri la demo</a>
-                <span class="project-card__external-note">(si apre in una nuova scheda)</span>
-              </p>
-            </div>
-          </li>
-
-          <li class="project-card">
-            <div class="project-card__media">
-              <img class="project-card__image" src="assets/img/projects/sa-sida-hero.webp"
-                   alt="Home della demo Sa Sida Country: uliveto allestito per un matrimonio"
-                   width="1440" height="900" loading="lazy">
-            </div>
-            <div class="project-card__body">
-              <span class="badge badge--demo">Esempio di sito, location vera</span>
-              <p class="project-card__sector">Eventi e matrimoni</p>
-              <h3 class="project-card__title">Sa Sida Country</h3>
-              <p class="project-card__summary">Location per matrimoni ed eventi: galleria foto, pacchetti e modulo richiesta data.</p>
-              <p class="project-card__action">
-                <a class="project-card__link" href="https://mockly-website.github.io/sasida/" target="_blank" rel="noopener"
-                   aria-label="Apri la demo Sa Sida Country in una nuova scheda">Apri la demo</a>
-                <span class="project-card__external-note">(si apre in una nuova scheda)</span>
-              </p>
-            </div>
-          </li>
-        </ul>
-
-        <p class="note note--centered push-large">
-          Non fai ristorazione? Scrivici che lavoro fai: ti diciamo subito se abbiamo già un esempio
-          simile o come pensiamo di costruire il tuo.
-        </p>
+        <div class="bento bento--single">
+          <article class="bento__card reveal" style="--reveal-delay: 0ms;">
+            <p class="bento__label">Siti web</p>
+            <h3 class="bento__title">Siti di ogni tipo</h3>
+            <p class="bento__price">su preventivo · prezzo unico</p>
+            <p class="bento__description">
+              Vetrina, aziendali, e-commerce, multilingua, prenotazioni: ogni sito è costruito sul
+              tuo lavoro, veloce anche con poca rete e tuo dal primo giorno.
+            </p>
+            <ul class="bento__points">
+              <li>Bozza in una settimana, online in due</li>
+              <li>Pagamenti e prenotazioni collegati</li>
+              <li>Dominio tuo, file tuoi</li>
+            </ul>
+            <p class="bento__action">
+              <a class="button button--primary" href="siti-web.html">Vedi i siti web</a>
+            </p>
+          </article>
+        </div>
       </div>
     </section>
 
-    <!-- ── Come lavoriamo ───────────────────────────────────────────── -->
+    <!-- ── Come si lavora ───────────────────────────────────────────── -->
     <section class="section" id="come-funziona" aria-labelledby="titolo-lavoro">
       <div class="container">
-        <div class="section__header">
-          <h2 class="section__title section__title--wide" id="titolo-lavoro">Dal primo messaggio al sito online</h2>
+        <div class="scroll-row" data-scroll-row>
+        <div class="section__header reveal">
+          <h2 class="section__title section__title--wide" id="titolo-lavoro">Dal primo messaggio al lavoro finito.</h2>
+          <p class="section__intro">Tu racconti, noi costruiamo, tu provi.</p>
         </div>
 
-        <ol class="step-list step-list--split">
-          <li class="step-list__item">
+        <div class="scroll-row__viewport" data-scroll-row-viewport>
+        <ol class="step-list step-list--split" data-scroll-row-track>
+          <li class="step-list__item reveal">
             <div>
               <h3 class="step-list__title">Venti minuti insieme</h3>
               <p class="step-list__text">
-                Di persona, in videochiamata o su WhatsApp. Ci racconti cosa fai: da lì capiamo se
-                ti serve un sito o no.
+                Di persona, in videochiamata o su WhatsApp. Ci racconti cosa fai e dove perdi tempo:
+                da lì capiamo se ti serve un sito o niente.
               </p>
             </div>
           </li>
-          <li class="step-list__item">
+          <li class="step-list__item reveal" style="--reveal-delay: 100ms;">
             <div>
               <h3 class="step-list__title">Preventivo scritto entro 48 ore</h3>
               <p class="step-list__text">
-                Cosa costruiamo, quanto costa, che giorno consegniamo. Il prezzo non cambia dopo.
+                Cosa costruiamo, cosa resta fuori, quanto costa, che giorno consegniamo. Il prezzo non
+                cambia dopo.
               </p>
             </div>
           </li>
-          <li class="step-list__item">
+          <li class="step-list__item reveal" style="--reveal-delay: 150ms;">
             <div>
-              <h3 class="step-list__title">Lo vedi crescere, in una settimana</h3>
+              <h3 class="step-list__title">Provi mentre costruiamo</h3>
               <p class="step-list__text">
-                Ti mandiamo un link privato per seguire il sito mentre lo costruiamo, e ci dici cosa
-                cambiare.
+                Link privato per seguire il sito mentre lo costruiamo. Vedi il lavoro crescere
+                e ci dici cosa cambiare strada facendo.
               </p>
             </div>
           </li>
-          <li class="step-list__item">
+          <li class="step-list__item reveal" style="--reveal-delay: 200ms;">
             <div>
-              <h3 class="step-list__title">Online in due settimane, tutto tuo</h3>
+              <h3 class="step-list__title">Consegna, tutto tuo</h3>
               <p class="step-list__text">
-                Il nome del sito, i file e il codice sono intestati a te dal primo giorno. Ti
-                mostriamo come funziona in venti minuti.
+                Dominio, file, codice e dati: intestati a te dal primo giorno. Ti formiamo in venti
+                minuti e restiamo a disposizione dopo.
               </p>
             </div>
           </li>
         </ol>
+        </div>
+        </div>
+
+        <p class="push-large reveal">
+          <a class="button button--secondary" href="siti-web.html#tipi">Vedi cosa possiamo costruire</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ── Chi siamo ────────────────────────────────────────────────── -->
+    <section class="section" id="chi-siamo" aria-labelledby="titolo-chi-siamo">
+      <div class="container">
+        <div class="section__header reveal">
+          <h2 class="section__title section__title--wide" id="titolo-chi-siamo">Giovani, sul pezzo, senza vincoli.</h2>
+        </div>
+
+        <p class="reveal">
+          Siamo Noah, Adriano e Simone, tre studenti sardi. Lavoriamo fra scuola
+          e pomeriggi, e proprio per questo un tuo progetto per noi è un lavoro vero: lo seguiamo
+          di persona, rispondiamo in giornata e lo consegniamo con tutto in mano a te.
+        </p>
+
+        <div class="balance">
+          <div class="balance__column balance__column--gain reveal">
+            <p class="balance__title">Prezzo onesto</p>
+            <p class="balance__text">
+              Niente uffici e niente strutture da mantenere: paghi il lavoro, non l'organizzazione.
+              Il preventivo ha una cifra unica che non cambia dopo.
+            </p>
+          </div>
+          <div class="balance__column balance__column--gain reveal" style="--reveal-delay: 120ms;">
+            <p class="balance__title">Tutto tuo, senza vincoli</p>
+            <p class="balance__text">
+              Dominio intestato a te, file e codice consegnati, dati esportabili. Se un giorno vuoi
+              cambiare fornitore, puoi farlo senza riscatti né penali.
+            </p>
+          </div>
+        </div>
+
+        <p class="push-medium reveal">
+          <a class="button button--secondary" href="chi-siamo.html">Conosci chi lavora al tuo progetto</a>
+        </p>
       </div>
     </section>
 
@@ -408,8 +445,8 @@
     <div class="manifesto">
       <p class="manifesto__ghost" aria-hidden="true">Mockly</p>
       <div class="container">
-        <p class="manifesto__text">
-          Scriviamo <span class="hero__mark">codice a mano</span>. Non vendiamo numeri inventati.
+        <p class="manifesto__text reveal">
+          Scriviamo <span class="hero__mark" data-draw>codice a mano</span>. Non vendiamo numeri inventati.
         </p>
       </div>
     </div>
@@ -417,237 +454,149 @@
     <!-- ── Prezzi ───────────────────────────────────────────────────── -->
     <section class="section" id="prezzi" aria-labelledby="titolo-prezzi">
       <div class="container">
-        <div class="section__header">
-          <h2 class="section__title section__title--wide" id="titolo-prezzi">Il prezzo lo sai entro 48 ore, prima di decidere</h2>
+        <div class="section__header reveal">
+          <h2 class="section__title section__title--wide" id="titolo-prezzi">Il prezzo lo sai prima di cominciare.</h2>
           <p class="section__intro">
-            Il sito va su preventivo: ci racconti cosa fai, e in 48 ore hai un prezzo unico scritto —
-            non un "dipende, sentiamoci". L'assistenza dopo la consegna parte da 19,99&nbsp;€ al mese.
+            Il sito va su preventivo entro 48 ore. L'assistenza mensile parte da
+            19,99&nbsp;€, con regole scritte.
           </p>
         </div>
 
-        <ul class="card-grid card-grid--3 push-large">
-          <li class="price-card">
-            <p class="price-card__plan">Acceso</p>
-            <p class="price-card__price">19,99 €/mese</p>
-            <ul class="price-card__include-list">
-              <li class="price-card__include">Il sito resta sempre acceso e al sicuro</li>
-              <li class="price-card__include">2 piccole modifiche all'anno</li>
-              <li class="price-card__include">Rispondiamo entro 3 giorni lavorativi</li>
-            </ul>
-          </li>
-          <li class="price-card price-card--featured">
-            <p class="price-card__badge">Il più scelto</p>
-            <p class="price-card__plan">Aggiornato</p>
-            <p class="price-card__price">29,99 €/mese</p>
-            <ul class="price-card__include-list">
-              <li class="price-card__include">Tutto quello di Acceso</li>
-              <li class="price-card__include">1 ora al mese: foto, menu, orari aggiornati su richiesta</li>
-              <li class="price-card__include">Rispondiamo entro 48 ore</li>
-            </ul>
-          </li>
-          <li class="price-card">
-            <p class="price-card__plan">Seguito</p>
-            <p class="price-card__price">39,99 €/mese</p>
-            <ul class="price-card__include-list">
-              <li class="price-card__include">Tutto quello di Aggiornato</li>
-              <li class="price-card__include">3 ore al mese, anche accumulabili</li>
-              <li class="price-card__include">Rispondiamo entro 24 ore</li>
-            </ul>
-          </li>
-        </ul>
-
-        <p class="note note--centered push-medium">
-          Il secondo sito, dopo 6 mesi di abbonamento attivo, ha il 15% di sconto. Se attivi
-          l'abbonamento entro 30 giorni dalla consegna, i primi due mesi sono compresi.
-        </p>
-      </div>
-    </section>
-
-    <!-- ── Chi siamo ────────────────────────────────────────────────── -->
-    <section class="section section--tight" id="chi-siamo" aria-labelledby="titolo-chi-siamo">
-      <div class="container">
-        <div class="section__header">
-          <h2 class="section__title section__title--wide" id="titolo-chi-siamo">Chi lavora al tuo sito</h2>
-          <p class="section__intro">
-            Siamo tre studenti sardi. Il progetto lo seguiamo noi tre, dall'inizio alla consegna.
-          </p>
+        <div class="price-strip price-strip--single reveal">
+          <a class="price-strip__item" href="siti-web.html">
+            <span class="price-strip__name">Sito web su misura</span>
+            <span class="price-strip__value">Preventivo in 48 ore</span>
+          </a>
         </div>
 
-        <ul class="card-grid card-grid--3">
-          <li class="person-card">
-            <p class="person-card__avatar" aria-hidden="true"><img src="assets/img/team/noah.webp" alt="" width="480" height="480" loading="lazy"></p>
-            <h3 class="person-card__name">Noah Melis</h3>
-            <p class="person-card__role">Sviluppo e interfaccia</p>
-            <p class="person-card__text">Decide come si muove il sito sul tuo telefono e lo fa trovare su Google.</p>
-          </li>
-
-          <li class="person-card">
-            <p class="person-card__avatar" aria-hidden="true"><img src="assets/img/team/adriano.webp" alt="" width="480" height="480" loading="lazy"></p>
-            <h3 class="person-card__name">Adriano Mulas</h3>
-            <p class="person-card__role">Sviluppo e foto</p>
-            <p class="person-card__text">Sistema le tue foto e controlla il sito su più telefoni prima della consegna.</p>
-          </li>
-
-          <li class="person-card">
-            <p class="person-card__avatar" aria-hidden="true"><img src="assets/img/team/simone.webp" alt="" width="480" height="480" loading="lazy"></p>
-            <h3 class="person-card__name">Simone Nalli</h3>
-            <p class="person-card__role">Form e collegamenti</p>
-            <p class="person-card__text">Fa funzionare il pulsante WhatsApp, il modulo e i collegamenti con gli strumenti che usi già.</p>
-          </li>
-        </ul>
+        <div class="push-medium reveal button-group">
+          <a class="button button--secondary" href="siti-web.html#assistenza">Assistenza sui siti</a>
+        </div>
       </div>
     </section>
 
     <!-- ── FAQ ──────────────────────────────────────────────────────── -->
     <section class="section" id="faq" aria-labelledby="titolo-faq">
       <div class="container container--narrow">
-        <div class="section__header">
-          <h2 class="section__title section__title--wide" id="titolo-faq">Domande prima di scriverci</h2>
+        <div class="section__header reveal">
+          <h2 class="section__title section__title--wide" id="titolo-faq">Le cinque domande che ci fanno sempre.</h2>
         </div>
 
-        <div class="faq-list">
-          <details class="faq-item">
-            <summary class="faq-item__question">Quanto costa un sito?</summary>
-            <div class="faq-item__answer">
-              <p>Dipende da cosa deve fare. Non abbiamo pacchetti: ci racconti il tuo lavoro e entro 48 ore ricevi un preventivo scritto con prezzo unico e data di consegna.</p>
+        <div class="accordion reveal">
+          <div class="accordion__item">
+            <h3 class="accordion__heading">
+              <button class="accordion__trigger" type="button" id="faq-trigger-1" aria-expanded="false" aria-controls="faq-panel-1">
+                Quanto costa un sito?
+                <span class="accordion__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="accordion__panel" id="faq-panel-1" role="region" aria-labelledby="faq-trigger-1" hidden>
+              <div class="accordion__panel-inner">
+                <p>
+                  Dipende da cosa deve fare. Non abbiamo pacchetti: ci racconti il tuo lavoro e entro
+                  48 ore ricevi un preventivo scritto con prezzo unico e data di consegna.
+                </p>
+              </div>
             </div>
-          </details>
+          </div>
 
-          <details class="faq-item">
-            <summary class="faq-item__question">In quanto tempo sono online?</summary>
-            <div class="faq-item__answer">
-              <p>Preventivo entro 48 ore, bozza in una settimana dai materiali, online in due settimane dopo la tua revisione.</p>
+          <div class="accordion__item">
+            <h3 class="accordion__heading">
+              <button class="accordion__trigger" type="button" id="faq-trigger-2" aria-expanded="false" aria-controls="faq-panel-2">
+                In quanto tempo sono online?
+                <span class="accordion__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="accordion__panel" id="faq-panel-2" role="region" aria-labelledby="faq-trigger-2" hidden>
+              <div class="accordion__panel-inner">
+                <p>
+                  Preventivo entro 48 ore, bozza in una settimana dai materiali, online in
+                  due settimane dopo la tua revisione.
+                </p>
+              </div>
             </div>
-          </details>
+          </div>
 
-          <details class="faq-item">
-            <summary class="faq-item__question">Il sito è mio o vostro?</summary>
-            <div class="faq-item__answer">
-              <p>Tuo, dal primo giorno: il nome del sito è intestato a te, i file e il codice te li consegniamo a fine lavoro. Nessun vincolo, nessun riscatto.</p>
+          <div class="accordion__item">
+            <h3 class="accordion__heading">
+              <button class="accordion__trigger" type="button" id="faq-trigger-3" aria-expanded="false" aria-controls="faq-panel-3">
+                Il sito e il codice sono miei o vostri?
+                <span class="accordion__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="accordion__panel" id="faq-panel-3" role="region" aria-labelledby="faq-trigger-3" hidden>
+              <div class="accordion__panel-inner">
+                <p>
+                  Tuoi, dal primo giorno: dominio intestato a te, file e codice consegnati a fine
+                  lavoro, dati esportabili in formati aperti. Nessun vincolo, nessun riscatto.
+                </p>
+              </div>
             </div>
-          </details>
+          </div>
 
-          <details class="faq-item">
-            <summary class="faq-item__question">Ho già un sito o uso WordPress: potete lavorarci?</summary>
-            <div class="faq-item__answer">
-              <p>Sì. Sistemiamo siti WordPress esistenti, o ripartiamo da zero se conviene di più. Se invece ti conviene restare dove sei, te lo diciamo.</p>
+          <div class="accordion__item">
+            <h3 class="accordion__heading">
+              <button class="accordion__trigger" type="button" id="faq-trigger-4" aria-expanded="false" aria-controls="faq-panel-4">
+                Ho già un sito o uso WordPress: potete lavorarci?
+                <span class="accordion__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="accordion__panel" id="faq-panel-4" role="region" aria-labelledby="faq-trigger-4" hidden>
+              <div class="accordion__panel-inner">
+                <p>
+                  Sì. Sistemiamo siti WordPress esistenti, o ripartiamo da zero se conviene di più.
+                  Se invece ti conviene restare dove sei, te lo diciamo.
+                </p>
+              </div>
             </div>
-          </details>
+          </div>
 
-          <details class="faq-item">
-            <summary class="faq-item__question">Dopo la consegna chi mi segue?</summary>
-            <div class="faq-item__answer">
-              <p>Noi, con l'assistenza mensile da 19,99 €: aggiornamenti e modifiche su richiesta via WhatsApp. Ogni piano ha una durata minima (6 o 12 mesi secondo il piano); dopo, disdetta con 30 giorni di preavviso e zero penali.</p>
+          <div class="accordion__item">
+            <h3 class="accordion__heading">
+              <button class="accordion__trigger" type="button" id="faq-trigger-5" aria-expanded="false" aria-controls="faq-panel-5">
+                Dopo la consegna chi mi segue?
+                <span class="accordion__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="accordion__panel" id="faq-panel-5" role="region" aria-labelledby="faq-trigger-5" hidden>
+              <div class="accordion__panel-inner">
+                <p>
+                  Noi, con l'assistenza mensile da 19,99 €: aggiornamenti, backup e modifiche su
+                  richiesta via WhatsApp. Ogni piano ha una durata minima (6 o 12 mesi secondo il
+                  piano); dopo, disdetta con 30 giorni di preavviso e zero penali.
+                </p>
+              </div>
             </div>
-          </details>
+          </div>
         </div>
+
+        <p class="push-large reveal">
+          <a class="button button--secondary" href="contatti.html#faq">Tutte le domande</a>
+        </p>
       </div>
     </section>
 
-    <!-- ── Contatti ─────────────────────────────────────────────────── -->
-    <section class="section" id="contatti" aria-labelledby="titolo-contatti">
-      <div class="container container--narrow">
-        <div class="section__header">
-          <h2 class="section__title section__title--wide" id="titolo-contatti">Scrivici, in due righe</h2>
-          <p class="section__intro">
-            WhatsApp è la via più veloce. Se preferisci, chiama, scrivi una email, oppure usa il
-            modulo qui sotto.
+    <!-- ── Chiusura ─────────────────────────────────────────────────── -->
+    <section class="call-to-action is-highlighted" aria-labelledby="titolo-cta">
+      <div class="container">
+        <div class="call-to-action__panel reveal">
+          <span class="call-to-action__seam" aria-hidden="true"></span>
+
+          <h2 class="call-to-action__title" id="titolo-cta">Raccontaci il tuo lavoro. <span class="hero__mark" data-draw>Al resto pensiamo noi.</span></h2>
+          <p class="call-to-action__text">
+            Dicci cosa fai e dove perdi tempo: ti rispondiamo entro 48 ore con un preventivo scritto,
+            prezzo unico e data. Se non ci serve niente, te lo diciamo.
           </p>
+
+          <div class="call-to-action__actions button-group button-group--stacked">
+            <a class="button button--primary" href="https://wa.me/393517578080?text=Ciao%20Mockly%2C%20ho%20visto%20il%20vostro%20sito%20e%20vorrei%20parlare%20del%20mio%20progetto." aria-label="Scrivici su WhatsApp al 351 757 8080">
+              Scrivici su WhatsApp
+            </a>
+            <a class="button button--ghost" href="tel:+393517578080" aria-label="Chiama il 351 757 8080">
+              Chiama il 351 757 8080
+            </a>
+          </div>
         </div>
-
-        <ul class="card-grid card-grid--3 push-medium">
-          <li class="product-card">
-            <p class="product-card__label">Il più veloce</p>
-            <h3 class="product-card__title">WhatsApp</h3>
-            <p class="product-card__price">351 757 8080</p>
-            <p class="product-card__action">
-              <a class="button button--primary button--full-width" href="https://wa.me/393517578080?text=Ciao%20Mockly%2C%20vi%20scrivo%20dal%20sito."
-                 aria-label="Scrivici su WhatsApp al 351 757 8080">Scrivici su WhatsApp</a>
-            </p>
-          </li>
-          <li class="product-card">
-            <p class="product-card__label">Se preferisci la voce</p>
-            <h3 class="product-card__title">Telefono</h3>
-            <p class="product-card__price">+39 351 757 8080</p>
-            <p class="product-card__action">
-              <a class="button button--secondary button--full-width" href="tel:+393517578080"
-                 aria-label="Chiama il 351 757 8080">Chiama ora</a>
-            </p>
-          </li>
-          <li class="product-card">
-            <p class="product-card__label">Per le cose scritte</p>
-            <h3 class="product-card__title">Email</h3>
-            <p class="product-card__price">mockly.website@gmail.com</p>
-            <p class="product-card__action">
-              <a class="button button--secondary button--full-width" href="mailto:mockly.website@gmail.com"
-                 aria-label="Scrivi a mockly.website@gmail.com">Scrivi una email</a>
-            </p>
-          </li>
-        </ul>
-
-        <p class="note note--centered push-large">
-          Siamo studenti: la mattina siamo a scuola. Scrivi quando vuoi — rispondiamo nel pomeriggio,
-          dal lunedì al sabato, di solito entro sera.
-        </p>
-
-        <!-- TODO: endpoint del modulo (Formspree o equivalente), docs/99-aperte.md #1.
-             Finche action resta vuoto, main.js blocca l invio e rimanda a WhatsApp ed email. -->
-        <form class="form push-large" data-contact-form action="" method="post" aria-label="Modulo per richiedere informazioni" novalidate>
-          <div class="form__status" role="status" aria-live="polite"></div>
-
-          <div class="form__field">
-            <label class="form__label" for="nome">Come ti chiami <span class="form__required" aria-hidden="true">*</span></label>
-            <input class="form__input" type="text" id="nome" name="nome" placeholder="Mario Piras"
-                   autocomplete="name" required
-                   data-error-empty="Scrivi il tuo nome, così sappiamo con chi parliamo.">
-            <p class="form__error"></p>
-          </div>
-
-          <div class="form__field">
-            <label class="form__label" for="email">La tua email <span class="form__required" aria-hidden="true">*</span></label>
-            <p class="form__hint" id="aiuto-email">Ti rispondiamo qui.</p>
-            <input class="form__input" type="email" id="email" name="email" placeholder="nome@esempio.it"
-                   autocomplete="email" inputmode="email" aria-describedby="aiuto-email" required
-                   data-error-empty="Serve un'email per risponderti."
-                   data-error-format="Controlla l'email: manca la chiocciola o c'è un errore di battitura.">
-            <p class="form__error"></p>
-          </div>
-
-          <div class="form__field">
-            <label class="form__label" for="telefono">Telefono o WhatsApp <span class="text-muted">(facoltativo)</span></label>
-            <p class="form__hint" id="aiuto-telefono">Se lo lasci, ti rispondiamo prima.</p>
-            <input class="form__input" type="tel" id="telefono" name="telefono" placeholder="351 757 8080"
-                   autocomplete="tel" inputmode="tel" aria-describedby="aiuto-telefono"
-                   data-error-format="Il numero non sembra giusto. Controlla le cifre, oppure lascia il campo vuoto.">
-            <p class="form__error"></p>
-          </div>
-
-          <div class="form__field">
-            <label class="form__label" for="messaggio">Cosa ti serve <span class="form__required" aria-hidden="true">*</span></label>
-            <p class="form__hint" id="aiuto-messaggio">Bastano due righe. Non serve che sia scritto bene.</p>
-            <textarea class="form__textarea" id="messaggio" name="messaggio" rows="5" minlength="10"
-                      aria-describedby="aiuto-messaggio" required
-                      placeholder="Ho una trattoria a Cabras, il menu è solo su Facebook e vorrei capire quanto costa un sito."
-                      data-error-empty="Scrivi due righe su cosa ti serve, anche di corsa."
-                      data-error-short="Ancora un po': dicci almeno che attività hai."></textarea>
-            <p class="form__error"></p>
-          </div>
-
-          <div class="form__field">
-            <div class="form__consent">
-              <input class="form__checkbox" type="checkbox" id="consenso" name="consenso" required
-                     data-error-empty="Metti la spunta: senza il consenso non possiamo risponderti.">
-              <label class="form__label" for="consenso">
-                Ho letto l'<a href="privacy.html">informativa privacy</a> e acconsento a essere ricontattato.
-              </label>
-            </div>
-            <p class="form__error"></p>
-          </div>
-
-          <div class="form__actions">
-            <button class="button button--primary button--full-width" type="submit">Invia il messaggio</button>
-          </div>
-        </form>
       </div>
     </section>
 
@@ -661,16 +610,26 @@
       <div class="site-footer__grid">
         <div>
           <p class="site-footer__brand-name"><img class="site-footer__logo-image" src="assets/img/logo-mockly.png" alt="Mockly" width="632" height="628"></p>
-          <p>Siti web costruiti su misura, per tutta la Sardegna, con l'obiettivo di arrivare presto in tutta Italia.</p>
+          <p>Siti web costruiti su misura, per tutta la Sardegna.</p>
+          <p class="push-xsmall">
+            Tre studenti sardi: lavoriamo soprattutto in Sardegna, con
+            l'obiettivo di arrivare presto in tutta Italia.
+          </p>
         </div>
 
-        <nav aria-label="Collegamenti della pagina">
-          <p class="site-footer__column-title">In questa pagina</p>
+        <nav aria-label="Collegamenti del footer">
+          <p class="site-footer__column-title">Cosa facciamo</p>
           <ul class="site-footer__link-list">
-            <li><a class="site-footer__link" href="#demo">Demo</a></li>
-            <li><a class="site-footer__link" href="#prezzi">Prezzi</a></li>
-            <li><a class="site-footer__link" href="#chi-siamo">Chi siamo</a></li>
-            <li><a class="site-footer__link" href="#faq">Domande</a></li>
+            <li><a class="site-footer__link" href="siti-web.html">Siti web</a></li>
+          </ul>
+        </nav>
+
+        <nav aria-label="Collegamenti su Mockly">
+          <p class="site-footer__column-title">Mockly</p>
+          <ul class="site-footer__link-list">
+            <li><a class="site-footer__link" href="portfolio.html">Portfolio</a></li>
+            <li><a class="site-footer__link" href="chi-siamo.html">Chi siamo</a></li>
+            <li><a class="site-footer__link" href="contatti.html">Contatti</a></li>
           </ul>
         </nav>
 
@@ -703,6 +662,15 @@
     <svg class="back-to-top__icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 16V4m0 0 6 6m-6-6L4 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
 
-  <script src="assets/js/main.js?v=20261001a"></script>
+  <script src="assets/js/main.js?v=20260930b"></script>
+
+  <!-- Solo qui: libreria esterna già autorizzata in D77 per il movimento
+       legato allo scroll. Se cdnjs non risponde, hero-motion.js si accorge
+       che window.gsap non esiste e non fa nulla — l'hero resta quella
+       normale, statica, mai bloccata a metà. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="assets/js/hero-motion.js?v=20260930d" defer></script>
+  <script src="assets/js/scroll-rows.js?v=20260930e" defer></script>
 </body>
 </html>

@@ -1,85 +1,66 @@
 /* ==========================================================================
    Mockly — design token
-   Identità "cinematica" (D90), accento tornato blu/celeste (D93): base scura
-   vera, non più bianco/panna — quello resta. L'ambra bruciata di D90 non ha
-   convinto Simone alla prova; l'accento torna blu/celeste (più scuro e meno
-   acceso del blu SaaS di D57-D89, non un ritorno identico) e i testi passano
-   da crema caldo a bianco/grigio neutro, sfondo compreso (blu-nero, non più
-   nero tinto caldo).
-   Solo custom property, nessuna regola. Ogni token è usato davvero.
-   Contrasti AA ricalcolati da zero per questa combinazione (script Python
-   inline, stesso metodo di sempre) il 30/09/2026.
+   Palette di Noah (D110): navy #16174F, blu #2070A1, azzurro #54A8BC,
+   arancio #E96A30 (solo per l'azione principale), grigi neutri.
+   Base chiara, pochi colori, nessun effetto: il sito deve far capire in
+   fretta cosa offriamo, non stupire.
+   Solo custom property, nessuna regola. Contrasti AA ricalcolati (D110).
    ========================================================================== */
 
 :root {
 
-  /* --- Colore: superfici — un solo tono, nessuna fascia diversa --------- */
-  --color-background: #0A0F16;             /* blu-nero, non più tinto caldo */
-  --color-background-warm: #0A0F16;        /* stesso tono: zero fasce a lavaggio diverso */
-  --color-surface: #0A0F16;                /* le card non hanno un tono proprio: le disegna il bordo */
-  --color-surface-alt: #0A0F16;            /* stesso motivo */
-  --color-surface-inverse: #141C26;        /* non un pannello chiaro: un tono leggermente più elevato dello
-                                               stesso buio — su un sito già scuro un pannello bianco lampeggerebbe */
+  /* --- Colore: superfici ------------------------------------------------ */
+  --color-background: #FFFFFF;
+  --color-background-warm: #FFFFFF;        /* stesso tono: nessuna fascia a lavaggio diverso */
+  --color-surface: #FFFFFF;
+  --color-surface-alt: #F4F4F4;            /* grigio chiarissimo, derivato da #E2E2E2 */
+  --color-surface-inverse: #16174F;        /* navy: footer, pannelli scuri, intestazione */
 
-  /* --- Colore: testo — bianco/grigio neutro, non più crema caldo -------- */
-  --color-text: #EDEFF2;                   /* 16.68 su fondo */
-  --color-text-muted: #9AA3AF;             /* 7.53 su fondo */
-  --color-text-inverse: #EDEFF2;           /* surface-inverse resta scura: stesso testo chiaro, non invertito */
-  --color-text-inverse-muted: #9AA3AF;     /* stesso motivo */
+  /* --- Colore: testo ---------------------------------------------------- */
+  --color-text: #1D1D1D;                   /* 16.86 su bianco */
+  --color-text-muted: #474747;             /* 9.7 su bianco */
+  --color-heading: #16174F;                /* 16.54 su bianco */
+  --color-text-inverse: #FFFFFF;           /* 16.54 su navy */
+  --color-text-inverse-muted: #C4C4C4;     /* 9.48 su navy */
 
-  /* --- Colore: bordi -------------------------------------------------- */
-  --color-border: #26313D;                 /* decorativo, appena percepibile sul fondo scuro */
-  --color-border-strong: #37485A;          /* decorativo più deciso, mai testo — le card contano su questo */
+  /* --- Colore: bordi ---------------------------------------------------- */
+  --color-border: #C4C4C4;                 /* decorativo, ben visibile */
+  --color-border-strong: #8A8A8A;          /* 3.15 su bianco: bordi dei campi, mai testo */
 
-  /* --- Colore: accento blu/celeste (primario) ----------------------------
-     Il testo sopra i riempimenti pieni resta scuro
-     (--color-text-inverse-on-accent), non bianco: bianco su questo blu resta
-     sotto 4.5:1 per il testo normale. */
-  --color-accent: #3D8BC4;                 /* 5.21 su fondo */
-  --color-accent-hover: #5FA8D9;           /* 7.40 su fondo, per hover/testo più chiaro */
-  --color-accent-active: #2E6FA3;
-  --color-accent-soft: #132433;            /* fondi, badge — blu scurito */
-  --color-accent-glow: #5FA8D9;            /* stati più luminosi: focus, spotlight sulle card */
-  --color-text-inverse-on-accent: #071019; /* testo scuro sopra un riempimento pieno --color-accent: 5.21 */
+  /* --- Colore: accento blu (link, focus, evidenze) ---------------------- */
+  --color-accent: #2070A1;                 /* 5.39 su bianco */
+  --color-accent-hover: #16174F;
+  --color-accent-active: #0E0F3A;
+  --color-accent-soft: #E4F1F5;            /* fondo tenue, derivato da #54A8BC */
+  --color-accent-glow: #54A8BC;            /* 6.07 su navy: accenti sui pannelli scuri */
+  --color-text-inverse-on-accent: #FFFFFF; /* 5.39 su accento */
 
-  /* --- Colore: accento mare (secondario, con parsimonia) -----------------
-     Teal freddo, resta distinto dal blu/celeste primario per tinta anche se
-     entrambi freddi (differiscono in tonalità, verde contro blu). */
-  --color-sea: #5FB3AC;                    /* 7.98 su fondo */
-  --color-sea-soft: #10221F;
+  /* --- Colore: stati semantici ------------------------------------------ */
+  --color-success: #1F6B43;
+  --color-warning: #8A4B00;
+  --color-error: #C1121F;                  /* 6.22 su bianco */
+  --color-error-soft: #FBE6E8;
 
-  /* --- Sfumatura: un solo momento, non decorazione diffusa --------------- */
-  --gradient-hero: linear-gradient(100deg, #3D8BC4 10%, #5FA8D9 90%); /* solo sulla barra di avanzamento lettura */
-
-  /* --- Colore: stati semantici ---------------------------------------- */
-  --color-success: #4FB37A;                /* 7.54 su fondo */
-  --color-warning: #E0A840;                /* 9.21 su fondo */
-  --color-error: #E86A5A;                  /* 6.21 su fondo */
-  --color-error-soft: #2E1712;
-
-  /* --- Colore: velo del menu mobile ----------------------------------- */
-  --color-overlay: rgba(3, 5, 8, 0.72);    /* più scuro del fondo stesso */
+  /* --- Colore: velo del menu mobile ------------------------------------- */
+  --color-overlay: rgba(22, 23, 79, 0.6);
 
   /* --- Tipografia: famiglie ---------------------------------------------
-     Via il serif e il grottesco squadrato (D94): Baloo 2 nei titoli e
-     Nunito nel corpo, entrambi con terminali arrotondati — più morbido,
-     meno "tagliato con la squadra" di Fraunces/Space Grotesk. */
-  --font-heading: "Baloo 2", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-  --font-body: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+     Manrope per titoli e testo (D111), un solo font ospitato in locale. */
+  --font-heading: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-body: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
 
   /* --- Tipografia: scala (mobile -> desktop) ---------------------------
      H1 spinto oltre la "sicurezza" di prima (D90): su una base scura e
      cinematica il titolo deve dominare lo schermo, non solo essere grande
      a sufficienza per leggersi. */
-  --font-size-h1: clamp(2.75rem, 1.3rem + 6.8vw, 6.5rem);       /* 44 -> 104 */
+  --font-size-h1: clamp(2.5rem, 1.6rem + 3.6vw, 4.25rem);       /* 36 -> 60 */
   --font-size-h2: clamp(1.875rem, 1.4rem + 2vw, 3rem);          /* 30 -> 48 */
   --font-size-h3: clamp(1.375rem, 1.18rem + 0.8vw, 1.75rem);    /* 22 -> 28 */
   --font-size-h4: clamp(1.125rem, 1.04rem + 0.34vw, 1.3125rem); /* 18 -> 21 */
-  --font-size-lead: clamp(1.1875rem, 1.11rem + 0.34vw, 1.375rem);
-  --font-size-body: clamp(1.0625rem, 1.03rem + 0.11vw, 1.125rem);
-  --font-size-small: 0.9375rem;
-  --font-size-label: 0.8125rem;
+  --font-size-lead: clamp(1.25rem, 1.15rem + 0.4vw, 1.5rem);
+  --font-size-body: clamp(1.125rem, 1.09rem + 0.12vw, 1.1875rem);
+  --font-size-small: 1.0625rem;
+  --font-size-label: 0.9375rem;
 
   /* --- Tipografia: pesi ------------------------------------------------ */
   --font-weight-regular: 400;
@@ -88,9 +69,8 @@
   --font-weight-bold: 700;
   --font-weight-extrabold: 800;
 
-  /* --- Tipografia: interlinea (Baloo 2 è più "tondo e pieno" di Fraunces,
-     vuole più aria fra le righe, non meno) --- */
-  --line-height-h1: 1.05;
+  /* --- Tipografia: interlinea --- */
+  --line-height-h1: 1.12;
   --line-height-h2: 1.15;
   --line-height-h3: 1.25;
   --line-height-h4: 1.3;
@@ -128,8 +108,8 @@
   --focus-ring-offset: 2px;
 
   /* --- Ombre: solo su ciò che galleggia davvero -------------------------- */
-  --shadow-lift: 0 10px 24px rgba(38, 34, 32, 0.12);   /* hover di una card interattiva */
-  --shadow-float: 0 20px 48px rgba(38, 34, 32, 0.20);  /* elementi davvero sospesi: menu, bottone WhatsApp, pannello hero */
+  --shadow-lift: 0 10px 24px rgba(29, 29, 29, 0.10);   /* hover di una card interattiva */
+  --shadow-float: 0 20px 48px rgba(29, 29, 29, 0.16);  /* elementi davvero sospesi: menu, bottone WhatsApp, pannello hero */
 
   /* --- Layout ------------------------------------------------------------ */
   --container-width: 75rem;                /* 1200 */
@@ -144,66 +124,13 @@
   --layer-overlay: 150;
   --layer-menu: 200;
   --layer-back-to-top: 90;
-  --layer-preloader: 300;
-  --layer-chrome: 400; /* grana e cursore custom: sempre sopra tutto, mai cliccabili */
 
   /* --- Motion ------------------------------------------------------------ */
   --duration-fast: 150ms;
   --duration-base: 250ms;
   --duration-slow: 500ms;
-  --duration-reveal: 700ms;
   --duration-menu: 380ms;   /* solo il pannello mobile */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-menu: cubic-bezier(0.32, 0.72, 0, 1); /* scatto iOS: parte forte, atterra morbido */
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-
-  /* --- Sempre scuro, non legato al tema: lo schermo del laptop nel preloader
-     deve restare uno schermo scuro a prescindere dalla pagina. ------------- */
-  --color-screen-dark: #131C2B;
-
-}
-
-/* ==========================================================================
-   Tema chiaro — dormiente (D90). Il buio è diventato la base di default
-   sopra; questi sono i valori "bianco e cielo" di D59-D89 conservati con
-   `body.theme-light`, non cancellati, sullo stesso principio con cui D59
-   aveva tenuto pronto il tema scuro quando era lui il dormiente. Se il buio
-   viene bocciato, si torna al chiaro attivando questa classe invece di
-   ricostruire la palette da zero una terza volta.
-   ========================================================================== */
-body.theme-light {
-
-  --color-background: #FFFFFF;
-  --color-background-warm: #FFFFFF;
-  --color-surface: #FFFFFF;
-  --color-surface-alt: #FFFFFF;
-  --color-surface-inverse: #1B2A3D;
-
-  --color-text: #2B3444;
-  --color-text-muted: #5C6B80;
-  --color-text-inverse: #FFFFFF;
-  --color-text-inverse-muted: #9BAAB8;
-  --color-text-inverse-on-accent: #FFFFFF;
-
-  --color-border: #DDE3EE;
-  --color-border-strong: #B7C2D6;
-
-  --color-accent: #2E5CD9;
-  --color-accent-hover: #1E44AD;
-  --color-accent-active: #163783;
-  --color-accent-soft: #E3EAFB;
-  --color-accent-glow: #6C9BFF;
-
-  --color-sea: #276E73;
-  --color-sea-soft: #DCEBEA;
-
-  --gradient-hero: linear-gradient(100deg, #2E5CD9 10%, #5C86EC 90%);
-
-  --color-success: #1F6B43;
-  --color-warning: #8A5A00;
-  --color-error: #A32318;
-  --color-error-soft: #F5E1DC;
-
-  --color-overlay: rgba(14, 20, 32, 0.6);
-
 }

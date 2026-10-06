@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <linearGradient id="mk-g" x1="0.1" y1="1" x2="0.9" y2="0">
+      <stop offset="0" stop-color="#2F86E8"/>
+      <stop offset="1" stop-color="#5CC0F2"/>
+    </linearGradient>
+    <clipPath id="mk-c"><path id="mk-shape" d="M31 41 L64 11 Q70 6 77 8 Q86 11 86 20 L86 72 Q86 78 80 80 L40 95 Z"/></clipPath>
+  </defs>
+  <path d="M31 41 L64 11 Q70 6 77 8 Q86 11 86 20 L86 72 Q86 78 80 80 L40 95 Z" fill="url(#mk-g)"/>
+  <path d="M22 49 Q17 49 17 54 V78 Q17 83 22 83 H52 Q57 83 57 78 V54 Q57 49 52 49 Z" fill="#FFFFFF"/>
+  <path fill="#16174F" fill-rule="evenodd" d="M20 38 H54 Q66 38 66 50 V82 Q66 94 54 94 H20 Q8 94 8 82 V50 Q8 38 20 38 Z M22 49 Q17 49 17 54 V78 Q17 83 22 83 H52 Q57 83 57 78 V54 Q57 49 52 49 Z"/>
+  <g clip-path="url(#mk-c)"><path fill="#1F63D6" fill-rule="evenodd" d="M20 38 H54 Q66 38 66 50 V82 Q66 94 54 94 H20 Q8 94 8 82 V50 Q8 38 20 38 Z M22 49 Q17 49 17 54 V78 Q17 83 22 83 H52 Q57 83 57 78 V54 Q57 49 52 49 Z"/></g>
+</svg>

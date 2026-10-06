@@ -1,35 +1,16 @@
 /* ==========================================================================
-   Font ospitati in locale, non caricati da Google Fonts: nessun dato —
+   Font ospitato in locale, non caricato da Google Fonts: nessun dato —
    nemmeno l'indirizzo IP di chi visita — esce verso terzi solo per mostrare
    il testo in pagina. Vedi cookie.html e privacy.html.
 
-   Baloo 2 e Nunito sono variable font: un solo file copre l'intero
-   intervallo di pesi, per questo il font-weight qui sotto è un intervallo,
-   non un numero singolo. Baloo 2 nei titoli (arrotondato, non il serif di
-   prima), Nunito nel corpo del testo — entrambi con terminali arrotondati,
-   più morbidi di Fraunces/Space Grotesk (D94).
+   Manrope (D111): un solo variable font per titoli e testo, pulito e molto
+   leggibile; un solo file copre tutti i pesi da 400 a 800.
    ========================================================================== */
 
 @font-face {
-  font-family: "Baloo 2";
-  src: url("../fonts/baloo2.woff2") format("woff2");
+  font-family: "Manrope";
+  src: url("../fonts/manrope.woff2") format("woff2");
   font-weight: 400 800;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Nunito";
-  src: url("../fonts/nunito.woff2") format("woff2");
-  font-weight: 300 800;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "IBM Plex Mono";
-  src: url("../fonts/ibm-plex-mono.woff2") format("woff2");
-  font-weight: 500;
   font-style: normal;
   font-display: swap;
 }

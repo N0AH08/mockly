@@ -4,8 +4,8 @@
   "description": "Siti web di ogni tipo costruiti su misura, scritti a mano in Sardegna.",
   "start_url": "/",
   "display": "browser",
-  "background_color": "#0A0F16",
-  "theme_color": "#0A0F16",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FFFFFF",
   "lang": "it",
   "icons": [
     {

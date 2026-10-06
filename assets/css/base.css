@@ -77,7 +77,7 @@ h2,
 h3,
 h4 {
   font-family: var(--font-heading);
-  color: var(--color-text);
+  color: var(--color-heading);
   text-wrap: balance;
 }
 
@@ -189,7 +189,7 @@ button {
   background-color: var(--color-text);
   border-radius: var(--radius-pill);
   color: var(--color-text-inverse);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--font-size-label);
   font-weight: var(--font-weight-medium);
   letter-spacing: var(--letter-spacing-label);
@@ -286,22 +286,29 @@ button {
   color: var(--color-text-inverse);
 }
 
-/* --- Reveal on scroll ------------------------------------------------------
-   Gli elementi partono abbassati e trasparenti, entrano con .is-visible.
-   Il ritardo sta in --reveal-delay così si sfalsano senza JS in più. */
+/* --- Comparsa allo scroll ----------------------------------------------------
+   La classe .reveal la mette main.js: senza JavaScript non si nasconde niente.
+   Animazione (non transition) così non confligge con le transition delle card. */
 
 .reveal {
   opacity: 0;
-  transform: translateY(26px);
-  transition:
-    opacity var(--duration-reveal) var(--ease-out),
-    transform var(--duration-reveal) var(--ease-out);
-  transition-delay: var(--reveal-delay, 0ms);
 }
 
 .reveal.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  animation: reveal-in 650ms var(--ease-out) backwards;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* --- Utility --------------------------------------------------------------- */
@@ -328,7 +335,7 @@ button {
 }
 
 .text-label {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--font-size-label);
   font-weight: var(--font-weight-medium);
   letter-spacing: var(--letter-spacing-label);
@@ -375,22 +382,5 @@ button {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-
-  .reveal {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-/* --- Senza JavaScript: niente contenuti invisibili --------------------------
-   Reveal e ingresso hero nascondono via CSS ma mostrano via JS: se il JS non
-   c'è, tutto resta visibile e il sito resta interamente leggibile. */
-
-@media (scripting: none) {
-  .reveal,
-  .hero__stagger {
-    opacity: 1;
-    transform: none;
   }
 }

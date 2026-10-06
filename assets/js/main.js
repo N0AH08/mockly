@@ -16,373 +16,55 @@
   }
 
   /* ------------------------------------------------------------------ *
-   * Ingresso hero: la pagina segnala che è pronta e il CSS anima.
-   * ------------------------------------------------------------------ */
-
-  function init_page_ready() {
-    function mark_ready() {
-      document.body.classList.add("is-loaded");
-    }
-
-    if (document.readyState === "complete") {
-      mark_ready();
-    } else {
-      window.addEventListener("load", mark_ready, { once: true });
-      /* Rete lenta: dopo 1.2s si mostra comunque, niente pagina congelata. */
-      window.setTimeout(mark_ready, 1200);
-    }
-  }
-
-  /* ------------------------------------------------------------------ *
-   * Preloader della home: un laptop, un cursore che clicca, il sito si
-   * apre. Una sola volta per sessione del browser (sessionStorage), non a
-   * ogni volta che si torna sulla home dal menu.
-   * ------------------------------------------------------------------ */
-
-  function init_preloader() {
-    var preloader = document.querySelector("[data-preloader]");
-    if (!preloader) return;
-
-    // La cornice (solo da tablet in su, vedi components.css) si apre/chiude
-    // in sincrono col preloader. Su telefono questo elemento non esiste o
-    // è nascosto: le righe sotto non fanno nulla di visibile, ma restano
-    // innocue.
-    var frame = document.querySelector("[data-viewport-frame]");
-
-    var already_seen = false;
-    try {
-      already_seen = window.sessionStorage.getItem("mockly_preloader_seen") === "1";
-    } catch (error) {
-      already_seen = false;
-    }
-
-    if (already_seen || prefers_reduced_motion()) {
-      preloader.classList.add("is-hidden");
-      if (frame) frame.classList.remove("is-opening");
-      return;
-    }
-
-    var file = preloader.querySelector("[data-preloader-file]");
-
-    window.setTimeout(function () {
-      if (file) file.classList.add("is-active");
-    }, 2100);
-
-    window.setTimeout(function () {
-      preloader.classList.add("is-hidden");
-
-      // La cornice scatta al suo posto nello stesso istante: `is-settling`
-      // accende la transizione solo per questo momento, `is-settled-flash`
-      // fa il lampo di luce sul bordo. Entrambe si tolgono da sole dopo.
-      if (frame) {
-        frame.classList.add("is-settling");
-        frame.classList.remove("is-opening");
-        frame.classList.add("is-settled-flash");
-        window.setTimeout(function () {
-          frame.classList.remove("is-settled-flash");
-          frame.classList.remove("is-settling");
-        }, 900);
-      }
-
-      try {
-        window.sessionStorage.setItem("mockly_preloader_seen", "1");
-      } catch (error) {
-        /* Storage non disponibile (privata/bloccato): si rivedrà ogni
-           volta, non è grave quanto restare bloccati sull'overlay. */
-      }
-    }, 3400);
-  }
-
-  /* ------------------------------------------------------------------ *
-   * Intestazione: stato "scrollata" (vetro più solido)
-   * ------------------------------------------------------------------ */
-
-  function init_header_scroll() {
-    var header = document.querySelector(".site-header");
-    if (!header) return;
-
-    var is_ticking = false;
-
-    function update_state() {
-      header.classList.toggle("is-scrolled", window.scrollY > 8);
-      is_ticking = false;
-    }
-
-    window.addEventListener(
-      "scroll",
-      function () {
-        if (is_ticking) return;
-        is_ticking = true;
-        window.requestAnimationFrame(update_state);
-      },
-      { passive: true }
-    );
-
-    update_state();
-  }
-
-  /* ------------------------------------------------------------------ *
-   * Barra di avanzamento: quanto manca alla fine della pagina.
-   * ------------------------------------------------------------------ */
-
-  function init_scroll_progress() {
-    var bar = document.querySelector("[data-scroll-progress]");
-    if (!bar) return;
-
-    var is_ticking = false;
-
-    function update_state() {
-      var doc = document.documentElement;
-      var scrollable = doc.scrollHeight - doc.clientHeight;
-      var progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
-      bar.style.width = progress + "%";
-      is_ticking = false;
-    }
-
-    window.addEventListener(
-      "scroll",
-      function () {
-        if (is_ticking) return;
-        is_ticking = true;
-        window.requestAnimationFrame(update_state);
-      },
-      { passive: true }
-    );
-    window.addEventListener("resize", update_state);
-
-    update_state();
-  }
-
-  /* ------------------------------------------------------------------ *
-   * Firma: il faretto blu segue il puntatore su ogni card del sito,
-   * invece del solito sollevamento con ombra che hanno tutti — e la card
-   * si inclina verso il punto dove sta il faretto, come se la luce ci
-   * cadesse sopra davvero, non due effetti indipendenti messi insieme.
-   * Inclinazione piccola apposta (max ~5deg): una card che si piega di
-   * più sembra un plugin, non un dettaglio.
-   * ------------------------------------------------------------------ */
-
-  function init_card_spotlight() {
-    var cards = document.querySelectorAll(".bento__card, .product-card, .price-card, .project-card");
-    if (!cards.length) return;
-    if (prefers_reduced_motion()) return;
-    if (!window.matchMedia("(pointer: fine)").matches) return;
-
-    var max_tilt = 5;
-
-    Array.prototype.forEach.call(cards, function (card) {
-      function set_spot(event) {
-        var rect = card.getBoundingClientRect();
-        var x = event.clientX - rect.left;
-        var y = event.clientY - rect.top;
-        card.style.setProperty("--spot-x", x + "px");
-        card.style.setProperty("--spot-y", y + "px");
-
-        var ratio_x = x / rect.width - 0.5;
-        var ratio_y = y / rect.height - 0.5;
-        card.style.setProperty("--tilt-x", (ratio_y * -2 * max_tilt).toFixed(2) + "deg");
-        card.style.setProperty("--tilt-y", (ratio_x * 2 * max_tilt).toFixed(2) + "deg");
-      }
-
-      card.addEventListener("mouseenter", function (event) {
-        set_spot(event);
-        card.classList.add("is-spotlit");
-      });
-      card.addEventListener("mousemove", set_spot);
-      card.addEventListener("mouseleave", function () {
-        card.classList.remove("is-spotlit");
-        card.style.setProperty("--tilt-x", "0deg");
-        card.style.setProperty("--tilt-y", "0deg");
-      });
-    });
-  }
-
-  /* ------------------------------------------------------------------ *
-   * Reveal on scroll: le sezioni entrano una volta sola.
-   * ------------------------------------------------------------------ */
-
-  function init_reveal() {
-    var items = document.querySelectorAll(".reveal");
-    if (!items.length) return;
-
-    if (prefers_reduced_motion() || !("IntersectionObserver" in window)) {
-      Array.prototype.forEach.call(items, function (item) {
-        item.classList.add("is-visible");
-      });
-      return;
-    }
-
-    var observer = new IntersectionObserver(
-      function (entries) {
-        Array.prototype.forEach.call(entries, function (entry) {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        });
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
-    );
-
-    Array.prototype.forEach.call(items, function (item) {
-      observer.observe(item);
-    });
-  }
-
-  /* ------------------------------------------------------------------ *
-   * L'accento si disegna da sé quando entra nello schermo, invece di
-   * comparire con un fade: [data-draw] parte tagliato a zero larghezza
-   * (clip-path in components.css) e questa funzione toglie il taglio
-   * quando l'elemento diventa visibile, una volta sola.
-   * ------------------------------------------------------------------ */
-
-  function init_mark_draw() {
-    var marks = document.querySelectorAll("[data-draw]");
-    if (!marks.length) return;
-
-    if (prefers_reduced_motion() || !("IntersectionObserver" in window)) {
-      Array.prototype.forEach.call(marks, function (mark) {
-        mark.classList.add("is-drawn");
-      });
-      return;
-    }
-
-    /* Non si osserva lo span stesso: partendo con clip-path a larghezza
-       zero, un elemento tagliato così non risulta mai "intersecante" per
-       IntersectionObserver — resterebbe tagliato per sempre, un blocco che
-       si autoalimenta. Si osserva il paragrafo/titolo che lo contiene,
-       mai clippato, e si scopre il segno quando quello entra in vista. */
-    var observer = new IntersectionObserver(
-      function (entries) {
-        Array.prototype.forEach.call(entries, function (entry) {
-          if (!entry.isIntersecting) return;
-          var marks_in_view = entry.target.querySelectorAll("[data-draw]");
-          Array.prototype.forEach.call(marks_in_view, function (mark) {
-            mark.classList.add("is-drawn");
-          });
-          observer.unobserve(entry.target);
-        });
-      },
-      { threshold: 0.6 }
-    );
-
-    Array.prototype.forEach.call(marks, function (mark) {
-      var container = mark.closest("p, h1, h2, h3") || mark.parentElement;
-      observer.observe(container);
-    });
-  }
-
-  /* ------------------------------------------------------------------ *
-   * Faretto dell'hero: segue il puntatore, solo mouse fine.
-   * ------------------------------------------------------------------ */
-
-  function init_hero_spotlight() {
-    var hero = document.querySelector("[data-hero]");
-    var spotlight = document.querySelector("[data-hero-spotlight]");
-    if (!hero || !spotlight) return;
-    if (prefers_reduced_motion()) return;
-    if (!window.matchMedia("(pointer: fine)").matches) return;
-
-    var is_ticking = false;
-    var last_event = null;
-
-    function update_state() {
-      var rect = hero.getBoundingClientRect();
-      var y = last_event.clientY - rect.top;
-      // L'intestazione sospesa galleggia sopra l'inizio dell'hero (D79): senza
-      // un minimo, avvicinare il cursore lì portava il faretto a spuntare da
-      // sotto l'intestazione come una fascia estranea. 120px lo tiene staccato.
-      spotlight.style.setProperty("--spot-x", last_event.clientX - rect.left + "px");
-      spotlight.style.setProperty("--spot-y", Math.max(120, y) + "px");
-      is_ticking = false;
-    }
-
-    hero.addEventListener(
-      "pointermove",
-      function (event) {
-        last_event = event;
-        spotlight.style.opacity = "1";
-        if (is_ticking) return;
-        is_ticking = true;
-        window.requestAnimationFrame(update_state);
-      },
-      { passive: true }
-    );
-
-    hero.addEventListener("pointerleave", function () {
-      spotlight.style.opacity = "0";
-    });
-  }
-
-  /* ------------------------------------------------------------------ *
-   * Bottoni magnetici: si spostano un poco verso il puntatore.
-   * ------------------------------------------------------------------ */
-
-  function init_magnetic_buttons() {
-    var items = document.querySelectorAll(".button--primary, [data-magnetic]");
-    if (!items.length) return;
-    if (prefers_reduced_motion()) return;
-    if (!window.matchMedia("(pointer: fine)").matches) return;
-
-    var max_offset = 7;
-
-    Array.prototype.forEach.call(items, function (item) {
-      item.addEventListener("mousemove", function (event) {
-        var rect = item.getBoundingClientRect();
-        var offset_x = (event.clientX - rect.left - rect.width / 2) * 0.1;
-        var offset_y = (event.clientY - rect.top - rect.height / 2) * 0.14;
-        offset_x = Math.max(-max_offset, Math.min(max_offset, offset_x));
-        offset_y = Math.max(-max_offset, Math.min(max_offset, offset_y));
-        item.style.transform = "translate(" + offset_x.toFixed(1) + "px, " + offset_y.toFixed(1) + "px)";
-      });
-
-      item.addEventListener("mouseleave", function () {
-        item.style.transform = "";
-      });
-    });
-  }
-
-  /* ------------------------------------------------------------------ *
-   * Hero: confronto a trascinamento fra lo schizzo e il sito vero.
-   * Uno slider nativo (tastiera e touch gratis) sposta un clip-path sullo
-   * schizzo SVG sovrapposto allo screenshot. Senza JS l'input non fa
-   * niente, quindi resta nascosto in CSS e si vede solo il sito vero.
+   * Hero: lo schizzo e il sito vero si alternano da soli, ogni 4,5 secondi.
+   * Nessun clic, nessun trascinamento, nessuno scroll: basta guardare.
+   * `--reveal-pct` è la quota di schizzo visibile (100% = tutto schizzo,
+   * 0% = tutto sito vero); il CSS la anima con un passaggio da sinistra.
+   * Con "riduci movimento" non c'è alternanza: si vede il sito vero.
    * ------------------------------------------------------------------ */
 
   function init_hero_reveal() {
     var stage = document.querySelector("[data-reveal-stage]");
-    var input = document.querySelector("[data-reveal-input]");
-    if (!stage || !input) return;
+    if (!stage) return;
 
-    function apply(value) {
-      var sketch_pct = 100 - Number(value);
-      stage.style.setProperty("--reveal-pct", sketch_pct + "%");
+    var states = document.querySelectorAll("[data-reveal-state]");
+    var showing_sketch = true;
+    var timer = null;
+
+    function show(sketch) {
+      showing_sketch = sketch;
+      stage.style.setProperty("--reveal-pct", sketch ? "100%" : "0%");
+      Array.prototype.forEach.call(states, function (el) {
+        el.classList.toggle("is-active", (el.getAttribute("data-reveal-state") === "sketch") === sketch);
+      });
     }
 
-    apply(input.value);
+    if (prefers_reduced_motion()) {
+      show(false);
+      return;
+    }
 
-    input.addEventListener("input", function () {
-      apply(input.value);
-    });
-
-    if (prefers_reduced_motion()) return;
-
-    /* Piccolo invito a trascinare: due passate avanti e indietro, una sola
-       volta, poco dopo il caricamento. */
-    window.setTimeout(function () {
-      var start = Number(input.value);
-      var steps = [start - 18, start + 12, start];
-      var i = 0;
-
-      function next() {
-        if (i >= steps.length) return;
-        input.value = steps[i];
-        apply(steps[i]);
-        i += 1;
-        window.setTimeout(next, 420);
+    function start() {
+      if (timer === null) {
+        timer = window.setInterval(function () {
+          show(!showing_sketch);
+        }, 4500);
       }
+    }
 
-      next();
-    }, 1200);
+    function stop() {
+      window.clearInterval(timer);
+      timer = null;
+    }
+
+    show(true);
+    start();
+
+    /* Scheda in secondo piano: si ferma, così non riparte "a scatti". */
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) stop();
+      else start();
+    });
   }
 
   /* ------------------------------------------------------------------ *
@@ -585,6 +267,10 @@
       if (show_more_wrap) {
         show_more_wrap.classList.add("is-hidden");
       }
+
+      /* Porta lo sguardo sulla prima card appena comparsa, subito dopo quelle
+         già viste, invece di lasciare la pagina dove capita. */
+      cards[0].scrollIntoView({ behavior: reduce_motion ? "auto" : "smooth", block: "start" });
     });
   }
 
@@ -759,19 +445,48 @@
   }
 
   /* ------------------------------------------------------------------ *
+   * Comparsa allo scroll: le sezioni entrano con una piccola salita.
+   * La classe .reveal la aggiunge questo script: senza JavaScript (o con
+   * "riduci movimento") nessun contenuto resta nascosto.
+   * ------------------------------------------------------------------ */
+
+  function init_reveal() {
+    if (prefers_reduced_motion() || typeof window.IntersectionObserver !== "function") return;
+
+    var targets = document.querySelectorAll(
+      "main .section__header, main .bento__card, main .step-list__item, main .project-card, " +
+      "main .product-card, main .price-card, main .person-card, main .accordion, " +
+      "main .call-to-action__panel, main .note, main .feature-grid__item, main .balance__column, " +
+      "main .contact-card, main .faq-item, main .form"
+    );
+    if (!targets.length) return;
+
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
+    );
+
+    Array.prototype.forEach.call(targets, function (el) {
+      var siblings = el.parentElement ? el.parentElement.children : [];
+      var index = Array.prototype.indexOf.call(siblings, el);
+      el.style.setProperty("--reveal-delay", Math.min(index, 3) * 90 + "ms");
+      el.classList.add("reveal");
+      observer.observe(el);
+    });
+  }
+
+  /* ------------------------------------------------------------------ *
    * Avvio
    * ------------------------------------------------------------------ */
 
-  init_page_ready();
-  init_preloader();
-  init_header_scroll();
   init_back_to_top();
-  init_scroll_progress();
-  init_card_spotlight();
   init_reveal();
-  init_mark_draw();
-  init_hero_spotlight();
-  init_magnetic_buttons();
   init_hero_reveal();
   init_mobile_menu();
   init_accordions();

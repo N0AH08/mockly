@@ -1,7 +1,7 @@
 /* ==========================================================================
    Mockly — design token
    Palette di Noah (D110): navy #16174F, blu #2070A1, azzurro #54A8BC,
-   arancio #E96A30 (solo per l'azione principale), grigi neutri.
+   grigi neutri.
    Base chiara, pochi colori, nessun effetto: il sito deve far capire in
    fretta cosa offriamo, non stupire.
    Solo custom property, nessuna regola. Contrasti AA ricalcolati (D110).
@@ -32,12 +32,10 @@
   --color-accent-hover: #16174F;
   --color-accent-active: #0E0F3A;
   --color-accent-soft: #E4F1F5;            /* fondo tenue, derivato da #54A8BC */
-  --color-accent-glow: #54A8BC;            /* 6.07 su navy: accenti sui pannelli scuri */
   --color-text-inverse-on-accent: #FFFFFF; /* 5.39 su accento */
 
   /* --- Colore: stati semantici ------------------------------------------ */
   --color-success: #1F6B43;
-  --color-warning: #8A4B00;
   --color-error: #C1121F;                  /* 6.22 su bianco */
   --color-error-soft: #FBE6E8;
 
@@ -77,7 +75,6 @@
   --line-height-lead: 1.55;
   --line-height-body: 1.65;
   --line-height-small: 1.45;
-  --line-height-label: 1.4;
 
   /* --- Tipografia: crenatura (un font arrotondato non vuole tracciato stretto) --- */
   --letter-spacing-h1: -0.005em;
@@ -128,9 +125,7 @@
   /* --- Motion ------------------------------------------------------------ */
   --duration-fast: 150ms;
   --duration-base: 250ms;
-  --duration-slow: 500ms;
   --duration-menu: 380ms;   /* solo il pannello mobile */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-menu: cubic-bezier(0.32, 0.72, 0, 1); /* scatto iOS: parte forte, atterra morbido */
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }

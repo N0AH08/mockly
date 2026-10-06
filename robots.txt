@@ -5,9 +5,6 @@ Allow: /
 Disallow: /grazie.html
 Disallow: /404.html
 
-# Non linkata da nessuna parte del sito per ora: tenuta come file, non da indicizzare.
-Disallow: /gestionali.html
-
 # Strumenti di lavoro, non fanno parte del sito.
 Disallow: /tools/
 Disallow: /docs/

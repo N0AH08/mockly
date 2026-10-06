@@ -174,10 +174,6 @@ button {
   border-radius: var(--radius-crisp);
 }
 
-.surface-inverse :focus-visible {
-  outline-color: var(--color-accent-glow);
-}
-
 /* --- Salta al contenuto --------------------------------------------------- */
 
 .skip-link {
@@ -229,14 +225,6 @@ button {
   padding-block: calc(var(--section-spacing) * 0.55);
 }
 
-.section--warm {
-  background-color: var(--color-background-warm);
-}
-
-.section--alt {
-  background-color: var(--color-surface-alt);
-}
-
 /* Testata di sezione: solo il titolo. Nessun occhiello ripetuto sopra ogni blocco.
    Centrata sulla pagina, non più appoggiata al bordo sinistro del container. */
 .section__header {
@@ -268,24 +256,6 @@ button {
    di conversione (lo conta tools/check.js). La firma visiva viene dal
    pannello scuro (.call-to-action__panel), non richiede token dedicati. */
 
-/* --- Superficie scura ------------------------------------------------------ */
-
-.surface-inverse {
-  background-color: var(--color-surface-inverse);
-  color: var(--color-text-inverse);
-}
-
-.surface-inverse h1,
-.surface-inverse h2,
-.surface-inverse h3,
-.surface-inverse h4 {
-  color: var(--color-text-inverse);
-}
-
-.surface-inverse a {
-  color: var(--color-text-inverse);
-}
-
 /* --- Comparsa allo scroll ----------------------------------------------------
    La classe .reveal la mette main.js: senza JavaScript non si nasconde niente.
    Animazione (non transition) così non confligge con le transition delle card. */
@@ -311,20 +281,6 @@ button {
   }
 }
 
-/* --- Utility --------------------------------------------------------------- */
-
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-  border: 0;
-}
-
 .text-muted {
   color: var(--color-text-muted);
 }
@@ -332,17 +288,6 @@ button {
 .text-lead {
   font-size: var(--font-size-lead);
   line-height: var(--line-height-lead);
-}
-
-.text-label {
-  font-family: var(--font-body);
-  font-size: var(--font-size-label);
-  font-weight: var(--font-weight-medium);
-  letter-spacing: var(--letter-spacing-label);
-}
-
-.push-xsmall {
-  margin-top: var(--space-xsmall);
 }
 
 .push-small {

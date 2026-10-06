@@ -1,25 +1,12 @@
 /* ==========================================================================
    Mockly — componenti
-   Identità D110: base bianca, navy, blu, arancio solo per l'azione principale.
+   Identità D110: base bianca, navy e blu.
    Nessun effetto decorativo: hover sobri, nessun movimento allo scroll.
    BEM per esteso. Stati is- + ARIA. Mobile-first.
-   Questo file supporta sia il markup rivoluzionato (hero, demo-viewer,
-   bento) sia le classi delle pagine non ancora migrate (seam, promise-list).
    ========================================================================== */
 
-.call-to-action__seam,
-.site-footer__seam {
-  display: none;
-}
-
-.promise-list__item::before,
-.product-card::before,
-.price-card::before {
-  background: none;
-}
-
 /* ==========================================================================
-   Bottone — pill calda
+   Bottone
    I tre stili: --primary (pieno), --secondary (bordo), --ghost (solo testo).
    ========================================================================== */
 
@@ -95,18 +82,6 @@
   color: var(--color-text);
 }
 
-
-.surface-inverse .button--ghost {
-  border-color: rgba(255, 255, 255, 0.35);
-  color: var(--color-text-inverse);
-}
-
-.surface-inverse .button--ghost:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: var(--color-text-inverse);
-  color: var(--color-text-inverse);
-}
-
 .button--full-width {
   width: 100%;
 }
@@ -179,7 +154,6 @@
   gap: var(--space-small);
   min-height: var(--header-height);
 }
-
 
 .site-header__logo {
   display: inline-flex;
@@ -613,20 +587,6 @@
   text-align: center;
 }
 
-.hero__content--centered {
-  margin-inline: auto;
-  text-align: center;
-}
-
-.hero__content--centered .hero__title,
-.hero__content--centered .hero__text {
-  margin-inline: auto;
-}
-
-.hero__content--centered .hero__actions {
-  justify-content: center;
-}
-
 /*
  * Firma: colore pieno sull'accento, senza segno sotto — il tratto disegnato
  * a mano (uno spesso 5px su un'onda di 14px) copriva le discendenti di
@@ -637,10 +597,6 @@
 .hero__mark {
   display: inline;
   color: var(--color-accent);
-}
-
-.surface-inverse .hero__mark {
-  color: var(--color-accent-glow);
 }
 
 .hero__text {
@@ -796,11 +752,10 @@
 }
 
 @media (min-width: 64em) {
-  /* Ancora meno margine sopra (D90, ristretto ulteriormente in D94):
-     l'intestazione è un filo trasparente, non una carta sospesa che aveva
-     bisogno di spazio proprio intorno. */
+  /* Da computer il titolo sta un po' più in basso, con aria sotto
+     l'intestazione (D122). Da telefono resta com'è. */
   .hero {
-    padding-block: var(--space-medium) var(--space-2xlarge);
+    padding-block: var(--space-xlarge) var(--space-2xlarge);
   }
 
   /* Una colonna sola, testo centrato e demo sotto: nessuna hero a metà. */
@@ -898,21 +853,6 @@
   border-left-color: var(--color-accent);
 }
 
-.bento__card--dark {
-  background-color: var(--color-surface-inverse);
-  border-left-color: var(--color-accent-glow);
-  color: var(--color-text-inverse);
-}
-
-.bento__card--dark:hover {
-  border-left-color: var(--color-accent-glow);
-}
-
-.bento__card--dark .bento__description {
-  color: var(--color-text-inverse-muted);
-}
-
-
 .bento__label {
   color: var(--color-accent-hover);
   font-family: var(--font-body);
@@ -920,16 +860,8 @@
   letter-spacing: var(--letter-spacing-label);
 }
 
-.bento__card--dark .bento__label {
-  color: var(--color-accent-glow);
-}
-
 .bento__title {
   margin-top: var(--space-2xsmall);
-}
-
-.bento__card--dark .bento__title {
-  color: var(--color-text-inverse);
 }
 
 .bento__price {
@@ -937,10 +869,6 @@
   font-family: var(--font-body);
   font-weight: var(--font-weight-medium);
   color: var(--color-text-muted);
-}
-
-.bento__card--dark .bento__price {
-  color: var(--color-text-inverse-muted);
 }
 
 .bento__description {
@@ -977,11 +905,6 @@
   color: var(--color-accent-hover);
   font-size: 0.78rem;
   font-weight: var(--font-weight-bold);
-}
-
-.bento__card--dark .bento__points li::before {
-  background-color: rgba(255, 255, 255, 0.14);
-  color: var(--color-accent-glow);
 }
 
 .bento__action {
@@ -1219,24 +1142,6 @@
   font-weight: var(--font-weight-medium);
 }
 
-.plan-table__cell--plan.is-featured {
-  background-color: var(--color-accent-soft);
-}
-
-.plan-table thead th.is-featured {
-  background-color: var(--color-accent);
-  color: var(--color-text-inverse-on-accent);
-}
-
-.plan-table__check {
-  color: var(--color-success);
-  font-weight: var(--font-weight-bold);
-}
-
-.plan-table__dash {
-  color: var(--color-text-muted);
-}
-
 .plan-table tbody tr:last-child th,
 .plan-table tbody tr:last-child td {
   border-bottom: 0;
@@ -1287,27 +1192,6 @@
   aspect-ratio: 16 / 10;
   object-fit: cover;
   object-position: top center;
-}
-
-.project-card__placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  padding: var(--space-medium);
-  color: var(--color-text-muted);
-  font-family: var(--font-body);
-  font-size: var(--font-size-label);
-  letter-spacing: var(--letter-spacing-label);
-  text-align: center;
-  background-image: repeating-linear-gradient(
-    135deg,
-    var(--color-border) 0,
-    var(--color-border) 1px,
-    transparent 1px,
-    transparent 12px
-  );
 }
 
 .project-card__body {
@@ -1365,42 +1249,6 @@
 }
 
 /* ==========================================================================
-   Riga a scorrimento orizzontale — solo dove [data-scroll-row] esiste nel
-   markup, attivata da scroll-rows.js (D95, ristrutturata in D99). Prima che
-   il JS parta, e su ogni pagina/larghezza dove non parte, resta la griglia
-   normale (nessuna classe .is-active): niente si nasconde per un motore che
-   non c'è.
-   [data-scroll-row] è il blocco che si blocca per intero (titolo di sezione
-   compreso, D99: prima si bloccava solo la fila, e a quel punto il titolo
-   era già scorso via — le card si muovevano senza dire più a cosa si
-   riferivano). [data-scroll-row-viewport], dentro, è solo la finestra che
-   ritaglia la fila; [data-scroll-row-track] è la fila stessa, quella che si
-   sposta.
-   ========================================================================== */
-
-.scroll-row.is-active [data-scroll-row-viewport] {
-  overflow: hidden;
-}
-
-.scroll-row.is-active [data-scroll-row-track] {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: var(--space-medium);
-  will-change: transform;
-}
-
-/* Larghezza di ogni elemento della fila: 23rem di base (le card con
-   immagine del portfolio), personalizzabile per fila via
-   --scroll-row-basis inline dove il contenuto è più corto o più denso. */
-.scroll-row.is-active [data-scroll-row-track] > * {
-  flex: 0 0 var(--scroll-row-basis, min(23rem, 80vw));
-}
-
-.scroll-row.is-active [data-scroll-row-track] .project-card.is-hidden {
-  display: flex;
-}
-
-/* ==========================================================================
    Etichetta
    I badge colorati sulle card (demo, lavoro reale, in lavorazione).
    ========================================================================== */
@@ -1426,12 +1274,6 @@
   background-color: var(--color-accent-soft);
   border: var(--border-width-hairline) solid var(--color-accent);
   color: var(--color-accent-hover);
-}
-
-.badge--progress {
-  background-color: var(--color-surface-alt);
-  border: var(--border-width-hairline) solid var(--color-warning);
-  color: var(--color-warning);
 }
 
 /* ==========================================================================
@@ -1508,76 +1350,6 @@
   max-width: 60ch;
   margin-inline: auto;
   text-align: center;
-}
-
-.balance {
-  display: grid;
-  gap: var(--space-medium);
-  margin-top: var(--space-large);
-}
-
-/* Stessa firma delle altre card del sito (D65): tratto blu a sinistra
-   invece del riquadro bordato su tutti e quattro i lati, testo a
-   sinistra invece che centrato — più facile da leggere su due frasi. */
-.balance__column {
-  padding: var(--space-large);
-  background-color: var(--color-surface);
-  border: var(--border-width-hairline) solid var(--color-border);
-  border-left: 4px solid var(--color-accent);
-  text-align: left;
-  transition: border-left-color var(--duration-fast) var(--ease-out);
-}
-
-.balance__column:hover {
-  border-left-color: var(--color-accent);
-}
-
-.balance__column--gain {
-  background-color: var(--color-accent-soft);
-  border-left-color: var(--color-accent);
-}
-
-.balance__title {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2xsmall);
-  margin-bottom: var(--space-small);
-  font-family: var(--font-body);
-  font-size: var(--font-size-label);
-  font-weight: var(--font-weight-medium);
-  letter-spacing: var(--letter-spacing-label);
-}
-
-.balance__icon {
-  display: inline-flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  width: 1.75rem;
-  height: 1.75rem;
-  border-radius: var(--radius-pill);
-  background-color: var(--color-surface);
-  color: var(--color-accent-hover);
-  font-size: 0.9rem;
-}
-
-.balance__column--gain .balance__title {
-  color: var(--color-success);
-}
-
-.balance__column--gain .balance__icon {
-  background-color: var(--color-surface);
-  color: var(--color-success);
-}
-
-.balance__text {
-  color: var(--color-text-muted);
-}
-
-@media (min-width: 48em) {
-  .balance {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 /* ==========================================================================
@@ -1910,13 +1682,6 @@
   text-align: center;
 }
 
-.note__title {
-  display: block;
-  margin-bottom: var(--space-3xsmall);
-  color: var(--color-text);
-  font-weight: var(--font-weight-bold);
-}
-
 /* ==========================================================================
    Chiamata all'azione — pannello scuro con carta millimetrata
    ========================================================================== */
@@ -1934,10 +1699,6 @@
   border: var(--border-width-hairline) solid var(--color-border);
   border-radius: var(--radius-soft);
   color: var(--color-text);
-}
-
-.call-to-action__seam {
-  display: none;
 }
 
 .call-to-action__title {
@@ -1968,15 +1729,6 @@
   margin-top: var(--space-large);
 }
 
-.call-to-action__note {
-  position: relative;
-  margin-top: var(--space-small);
-  color: var(--color-text-muted);
-  font-size: var(--font-size-small);
-  line-height: var(--line-height-small);
-  text-align: center;
-}
-
 /* Una sola colonna centrata, non più testo a sinistra e bottoni a destra:
    la stessa composizione del pannello della home, ovunque. */
 .call-to-action__inner {
@@ -1997,10 +1749,6 @@
   font-size: var(--font-size-small);
   line-height: var(--line-height-small);
   border-radius: var(--radius-soft) var(--radius-soft) 0 0;
-}
-
-.site-footer__seam {
-  display: none;
 }
 
 .site-footer__grid {
@@ -2059,16 +1807,6 @@
 .site-footer__link:hover {
   color: var(--color-text-inverse);
   text-decoration: underline;
-}
-
-.site-footer__disclaimer {
-  margin-top: var(--space-2xlarge);
-  padding-top: var(--space-medium);
-  border-top: var(--border-width-hairline) solid rgba(255, 255, 255, 0.16);
-}
-
-.site-footer__disclaimer p {
-  max-width: 80ch;
 }
 
 .site-footer__legal {
@@ -2192,69 +1930,5 @@
 .person-card__link-list a {
   display: inline-block;
   padding: 0.7rem 0.4rem; /* area di tocco da 44px */
-}
-
-/* ==========================================================================
-   Striscia prezzi home
-   Le righe "nome del piano → prezzo" nella sezione Prezzi della home.
-   ========================================================================== */
-
-.price-strip {
-  display: grid;
-  gap: var(--space-xsmall);
-  margin-top: var(--space-large);
-}
-
-.price-strip__item {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-small);
-  padding: var(--space-small) var(--space-medium);
-  background-color: var(--color-surface);
-  border: var(--border-width-hairline) solid var(--color-border);
-  border-radius: var(--radius-crisp);
-  text-decoration: none;
-  min-width: 0;
-  transition: border-color var(--duration-fast) var(--ease-out);
-}
-
-.price-strip__item:hover {
-  border-color: var(--color-accent);
-}
-
-.price-strip__name {
-  color: var(--color-text);
-  font-weight: var(--font-weight-bold);
-}
-
-.price-strip__value {
-  color: var(--color-accent-hover);
-  font-family: var(--font-body);
-  font-weight: var(--font-weight-medium);
-  text-align: right;
-}
-
-@media (min-width: 48em) {
-  .price-strip {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-medium);
-  }
-
-  /* Con una sola voce (D101) niente seconda colonna vuota. */
-  .price-strip--single {
-    grid-template-columns: 1fr;
-  }
-
-  .price-strip__item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-3xsmall);
-    padding: var(--space-medium);
-  }
-
-  .price-strip__value {
-    white-space: nowrap;
-  }
 }
 

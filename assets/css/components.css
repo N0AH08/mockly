@@ -2005,8 +2005,11 @@
   font-weight: var(--font-weight-medium);
 }
 
+/* Il colore va ripetuto: altrimenti vince a:hover (navy) e il testo
+   sparisce sul vetro scuro. */
 .shopfront__contact:hover,
 .shopfront__page:hover {
+  color: var(--color-text-inverse);
   text-decoration: underline;
 }
 

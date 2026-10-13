@@ -1,11 +1,62 @@
 /* ==========================================================================
-   Font ospitato in locale, non caricato da Google Fonts: nessun dato —
+   Font ospitati in locale, non caricati da Google Fonts: nessun dato —
    nemmeno l'indirizzo IP di chi visita — esce verso terzi solo per mostrare
    il testo in pagina. Vedi cookie.html e privacy.html.
 
-   Manrope (D111): un solo variable font per titoli e testo, pulito e molto
-   leggibile; un solo file copre tutti i pesi da 400 a 800.
+   Barlow Condensed per i titoli e Barlow per il testo (D133): nasce dalla
+   segnaletica, è stretto e deciso come una scritta su una serranda e si
+   legge bene. Sottoinsieme "latin", che copre l'italiano.
+   Manrope resta solo per la parola "mockly" del logo, che è disegnata così.
    ========================================================================== */
+
+@font-face {
+  font-family: "Barlow";
+  src: url("../fonts/barlow-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Barlow";
+  src: url("../fonts/barlow-500.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Barlow";
+  src: url("../fonts/barlow-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Il 700 serve anche dove il sito chiede 800: Barlow per il testo non va oltre. */
+@font-face {
+  font-family: "Barlow";
+  src: url("../fonts/barlow-700.woff2") format("woff2");
+  font-weight: 700 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Barlow Condensed";
+  src: url("../fonts/barlow-condensed-700.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Barlow Condensed";
+  src: url("../fonts/barlow-condensed-800.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
 
 @font-face {
   font-family: "Manrope";

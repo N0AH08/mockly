@@ -1,0 +1,745 @@
+/* ==========================================================================
+   Home — una schermata alla volta, su fondo blu notte luminoso.
+   Solo index.html carica questo file (e assets/js/home.js). Niente riquadri:
+   il testo sta sullo sfondo e ogni schermata ha una composizione diversa.
+     1 Inizio         titolo enorme al centro
+     2 Cosa ricevi    titolo a sinistra, elenco grande a destra
+     3 Come si lavora una schermata sola che cambia: 4 passi + la finestra
+     4 Chi siamo      frase grande, tre volti, la Tonnara in una riga
+     5 Domande        titolo fermo a sinistra, domande a righe
+     6 Scrivici       chiusura a tutto schermo
+   ========================================================================== */
+
+html:has(.home-scenes) {
+  scroll-snap-type: y proximity;
+  scroll-padding-top: 0;
+}
+
+.home-scenes {
+  --l-sky: #7fc8d8;
+  --l-soft: rgba(255, 255, 255, 0.8);
+  --l-line: rgba(255, 255, 255, 0.22);
+  padding-top: 0;
+}
+
+/* ---- Le schermate ------------------------------------------------------- */
+
+.home-scenes main,
+.home-scenes .site-footer {
+  position: relative;
+  z-index: 1;
+}
+
+.scene {
+  position: relative;
+  display: grid;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding-block: calc(var(--header-height) + var(--space-xlarge)) var(--space-xlarge);
+  color: #fff;
+  scroll-snap-align: start;
+}
+
+.scene__mega,
+.scene__title {
+  margin: 0;
+  color: #fff;
+  text-wrap: balance;
+}
+
+.scene__mega {
+  max-width: 24ch;
+  font-size: clamp(3.4rem, 1.2rem + 9vw, 9.5rem);
+  letter-spacing: -0.01em;
+  line-height: 0.92;
+}
+
+.scene__title {
+  max-width: 20ch;
+  font-size: clamp(2.6rem, 1.5rem + 4.2vw, 5rem);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0;
+  line-height: 0.98;
+}
+
+.scene__mega .hero__mark,
+.scene__title .hero__mark {
+  color: var(--l-sky);
+}
+
+.scene__lead,
+.scene__text {
+  max-width: 42ch;
+  margin: 0;
+  color: var(--l-soft);
+  font-size: var(--font-size-lead);
+  line-height: var(--line-height-lead);
+}
+
+.home-scenes .button--secondary,
+.home-scenes .button--ghost {
+  background-color: transparent;
+  border-color: rgba(255, 255, 255, 0.65);
+  color: #fff;
+}
+
+.home-scenes .button--secondary:hover,
+.home-scenes .button--ghost:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+/* Entrata: i pezzi di ogni schermata salgono uno dopo l'altro. */
+.scenes-ready .scene:not(.is-in) .scene__inner > * {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+.scenes-ready .scene .scene__inner > * {
+  transition: opacity 600ms var(--ease-out), transform 700ms var(--ease-out);
+}
+
+.scenes-ready .scene .scene__inner > *:nth-child(2) { transition-delay: 90ms; }
+.scenes-ready .scene .scene__inner > *:nth-child(3) { transition-delay: 180ms; }
+.scenes-ready .scene .scene__inner > *:nth-child(4) { transition-delay: 270ms; }
+
+/* 1 · Inizio */
+.scene--hero .scene__inner,
+.scene--end .scene__inner {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-medium);
+  text-align: center;
+}
+
+.scene--hero .hero__actions,
+.scene--end .call-to-action__actions {
+  margin-top: var(--space-small);
+}
+
+/* Il telefono con un esempio vero. Su telefono spunta dal fondo della
+   schermata; da computer sta a destra del titolo, per intero. */
+.hero-phone {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-xsmall);
+  margin-top: var(--space-small);
+  color: var(--l-soft);
+  font-size: var(--font-size-small);
+  text-decoration: none;
+}
+
+.hero-phone__caption {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.4);
+  text-underline-offset: 0.25em;
+}
+
+.hero-phone:hover .hero-phone__caption {
+  color: #fff;
+  text-decoration-color: #fff;
+}
+
+.hero-phone__frame {
+  position: relative;
+  display: block;
+  width: 13.5rem;
+  height: 13rem;
+  overflow: hidden;
+  background-color: #05061f;
+  border: 0.45rem solid #05061f;
+  border-bottom: 0;
+  border-radius: 2rem 2rem 0 0;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28);
+  -webkit-mask: linear-gradient(#000 55%, transparent);
+  mask: linear-gradient(#000 55%, transparent);
+}
+
+.hero-phone__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 1.55rem 1.55rem 0 0;
+}
+
+@media (max-width: 63.99em) {
+  /* Il telefono occupa il fondo della schermata: la freccia non serve. */
+  .scene--hero .scene__cue {
+    display: none;
+  }
+
+  .scene--hero {
+    padding-bottom: 0;
+  }
+}
+
+@media (min-width: 64em) {
+  .scene--hero .scene__inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: 1fr auto auto 1.6fr;
+    justify-items: start;
+    align-content: center;
+    column-gap: var(--space-2xlarge);
+    text-align: left;
+  }
+
+  .scene--hero .scene__mega {
+    grid-row: 2;
+    max-width: 14ch;
+    font-size: clamp(3.4rem, 1rem + 6.2vw, 8rem);
+  }
+
+  .scene--hero .scene__lead {
+    grid-row: 3;
+  }
+
+  .scene--hero .hero__actions {
+    grid-row: 4;
+    align-self: start;
+    justify-content: flex-start;
+  }
+
+  .hero-phone {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    align-self: center;
+    margin-top: 0;
+  }
+
+  .hero-phone__caption {
+    order: 2;
+  }
+
+  .hero-phone__frame {
+    width: min(18.5rem, 22vw, calc((100vh - 15rem) * 0.462));
+    height: auto;
+    border-bottom: 0.45rem solid #05061f;
+    border-radius: 2.4rem;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28), 0 30px 60px rgba(0, 0, 0, 0.45);
+    -webkit-mask: none;
+    mask: none;
+  }
+
+  .hero-phone__image {
+    border-radius: 1.95rem;
+  }
+}
+
+.scene__cue {
+  position: absolute;
+  bottom: var(--space-medium);
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  color: #fff;
+  transform: translateX(-50%);
+  animation: l-cue 1.8s ease-in-out infinite;
+}
+
+@keyframes l-cue {
+  0%, 100% { transform: translate(-50%, 0); opacity: 0.9; }
+  50%      { transform: translate(-50%, 8px); opacity: 0.5; }
+}
+
+/* 2 · Cosa ricevi */
+.offer {
+  display: grid;
+  gap: var(--space-xlarge);
+}
+
+.offer__head {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-small);
+}
+
+.offer__price {
+  margin: 0;
+  color: var(--l-sky);
+  font-weight: var(--font-weight-bold);
+}
+
+.offer__list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-bottom: 1px solid var(--l-line);
+}
+
+.offer__list li {
+  padding-block: var(--space-small);
+  border-top: 1px solid var(--l-line);
+  font-family: var(--font-heading);
+  font-size: clamp(1.9rem, 1.4rem + 1.9vw, 2.75rem);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0;
+  line-height: 1.05;
+}
+
+@media (min-width: 64em) {
+  .offer {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: var(--space-2xlarge);
+  }
+}
+
+/* 3 · Come si lavora: una schermata che resta ferma e cambia */
+.pin {
+  position: relative;
+  z-index: 1;
+  height: 400vh;
+  height: 400svh;
+  color: #fff;
+}
+
+.pin__snap {
+  position: absolute;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  scroll-snap-align: start;
+}
+
+.pin__stage {
+  position: sticky;
+  top: 0;
+  display: grid;
+  align-items: center;
+  height: 100vh;
+  height: 100svh;
+  padding-block: calc(var(--header-height) + var(--space-medium)) var(--space-medium);
+  overflow: hidden;
+}
+
+.pin__inner {
+  display: grid;
+  gap: var(--space-medium);
+}
+
+.pin__steps {
+  display: grid;
+}
+
+.pin__step {
+  grid-area: 1 / 1;
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: var(--space-xsmall);
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 450ms var(--ease-out), transform 550ms var(--ease-out);
+  pointer-events: none;
+}
+
+.pin__step.is-active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Il numero è enorme e solo contornato: fa da immagine, non da riquadro. */
+.pin__num {
+  color: transparent;
+  font-size: clamp(6rem, 3rem + 14vw, 17rem);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 0.8;
+  -webkit-text-stroke: 2px rgba(127, 200, 216, 0.7);
+}
+
+.pin__kicker {
+  margin: 0;
+  color: var(--l-sky);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+}
+
+.device {
+  overflow: hidden;
+  background-color: #fff;
+  border-radius: 14px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+}
+
+.device__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xsmall);
+  height: 2.25rem;
+  padding-inline: var(--space-xsmall);
+  background-color: var(--color-surface-alt);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.device__dots {
+  flex: none;
+  width: 3.1rem;
+  height: 0.7rem;
+  background:
+    radial-gradient(circle at 0.35rem 50%, var(--color-border-strong) 0.3rem, transparent 0.32rem),
+    radial-gradient(circle at 1.55rem 50%, var(--color-border-strong) 0.3rem, transparent 0.32rem),
+    radial-gradient(circle at 2.75rem 50%, var(--color-border-strong) 0.3rem, transparent 0.32rem);
+}
+
+.device__url {
+  flex: 1;
+  max-width: 18rem;
+  padding: 0.1rem 0.8rem;
+  background-color: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-label);
+}
+
+.pin .hero__reveal-stage {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  transition: --reveal-pct 140ms linear;
+}
+
+.pin__bar {
+  display: flex;
+  gap: var(--space-2xsmall);
+}
+
+.pin__bar span {
+  flex: 1;
+  height: 4px;
+  background-color: var(--l-line);
+  border-radius: 2px;
+  transition: background-color var(--duration-base) var(--ease-out);
+}
+
+.pin__bar span.is-on {
+  background-color: var(--l-sky);
+}
+
+@media (min-width: 64em) {
+  .pin__inner {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.15fr);
+    align-items: center;
+    gap: var(--space-large) var(--space-2xlarge);
+  }
+
+  .pin__bar {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 63.99em) {
+  .pin__device {
+    order: -1;
+  }
+
+  .pin__num {
+    font-size: 5rem;
+  }
+}
+
+/* 4 · Chi siamo */
+.team {
+  display: grid;
+  gap: var(--space-xlarge);
+}
+
+.team__text {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-medium);
+}
+
+.team__text .scene__title {
+  max-width: 18ch;
+}
+
+.team__faces {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.team__faces li {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2xsmall);
+  margin-inline: -0.75rem;
+  color: var(--l-soft);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+}
+
+.team__faces li:nth-child(2) {
+  margin-top: var(--space-xlarge);
+}
+
+.team__faces img {
+  width: clamp(6.5rem, 4rem + 9vw, 12.5rem);
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 5px solid var(--l-ink);
+  border-radius: 50%;
+}
+
+/* La Tonnara: una riga in fondo alla schermata. */
+.home-scenes .team__proof {
+  justify-self: stretch;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xsmall) var(--space-small);
+  max-width: none;
+  margin: 0;
+  padding-top: var(--space-medium);
+  border-top: 1px solid var(--l-line);
+  color: var(--l-soft);
+}
+
+.team__proof img {
+  width: 4.5rem;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 4px;
+}
+
+.team__proof a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem; /* area di tocco comoda */
+  color: #fff;
+  font-weight: var(--font-weight-bold);
+}
+
+.team__proof a:last-child {
+  margin-left: auto;
+}
+
+@media (min-width: 64em) {
+  .team {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    align-items: center;
+    column-gap: var(--space-2xlarge);
+  }
+
+  .team__proof {
+    grid-column: 1 / -1;
+  }
+}
+
+/* 5 · Domande: righe, non riquadri */
+.faq {
+  display: grid;
+  gap: var(--space-large);
+}
+
+.home-scenes .accordion {
+  gap: 0;
+  border-bottom: 1px solid var(--l-line);
+}
+
+.home-scenes .accordion__item,
+.home-scenes .accordion__item:hover,
+.home-scenes .accordion__item.is-open {
+  background-color: transparent;
+  border: 0;
+  border-top: 1px solid var(--l-line);
+  border-radius: 0;
+}
+
+.home-scenes .accordion__trigger {
+  padding: var(--space-small) 0;
+  color: #fff;
+  font-size: clamp(1.1rem, 1rem + 0.5vw, 1.375rem);
+}
+
+.home-scenes .accordion__trigger:hover {
+  color: var(--l-sky);
+}
+
+.home-scenes .accordion__icon {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.home-scenes .accordion__item.is-open .accordion__icon {
+  background-color: var(--l-sky);
+  color: var(--l-ink);
+}
+
+.home-scenes .accordion__panel p {
+  padding: 0 0 var(--space-medium);
+  color: var(--l-soft);
+}
+
+@media (min-width: 64em) {
+  .faq {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.3fr);
+    align-items: start;
+    column-gap: var(--space-2xlarge);
+  }
+
+  .faq__title {
+    position: sticky;
+    top: calc(var(--header-height) + var(--space-xlarge));
+    grid-row: 1 / span 2;
+  }
+
+  /* "Altre domande" sta sotto le domande, non sotto il titolo. */
+  .faq .accordion,
+  .faq__more {
+    grid-column: 2;
+  }
+
+  .faq__more {
+    justify-self: start;
+    margin-top: 0;
+  }
+}
+
+/* ---- Puntini a destra: dove sei nella pagina ---------------------------- */
+
+.scene-dots {
+  position: fixed;
+  top: 50%;
+  right: var(--space-small);
+  z-index: 50;
+  display: none;
+  gap: 0.35rem;
+  transform: translateY(-50%);
+}
+
+.scene-dots button {
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.scene-dots button::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  transition: transform var(--duration-base) var(--ease-out), background-color var(--duration-base) var(--ease-out);
+}
+
+.scene-dots button[aria-current="true"]::before {
+  background-color: #fff;
+  transform: scale(1.7);
+}
+
+@media (min-width: 64em) {
+  .scene-dots {
+    display: grid;
+  }
+}
+
+.home-scenes .site-footer {
+  scroll-snap-align: end;
+}
+
+/* ---- Le domande: cinque in vista, le altre dietro un tasto --------------- */
+
+.home-scenes .accordion__item[hidden] {
+  display: none;
+}
+
+.faq__more {
+  justify-self: center;
+  margin-top: var(--space-medium);
+}
+
+/* ---- Telefono: tutto al centro ------------------------------------------ */
+/* Sotto i 64em ogni schermata è una colonna sola: titoli, testi e bottoni
+   stanno al centro, come la prima e l'ultima schermata. */
+
+@media (max-width: 63.99em) {
+  .scene__title,
+  .scene__text,
+  .scene__lead {
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .offer__head,
+  .team__text {
+    justify-items: center;
+    text-align: center;
+  }
+
+  .offer__price {
+    text-align: center;
+  }
+
+  .offer__list li {
+    text-align: center;
+  }
+
+  .pin__step {
+    justify-items: center;
+    text-align: center;
+  }
+
+  .pin__kicker {
+    text-align: center;
+  }
+
+  .faq__title {
+    justify-self: center;
+  }
+
+  .home-scenes .team__proof {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .team__proof a:last-child {
+    margin-left: 0;
+  }
+}
+
+/* ---- Senza movimento: tutto in fila, niente schermata ferma ------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html:has(.home-scenes) { scroll-snap-type: none; }
+
+  .scene__cue { animation: none; }
+
+  .pin { height: auto; }
+
+  .pin__stage {
+    position: static;
+    height: auto;
+  }
+
+  .pin__steps { gap: var(--space-xlarge); }
+
+  .pin__step {
+    grid-area: auto;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .pin__bar { display: none; }
+}

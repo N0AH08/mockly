@@ -1,0 +1,759 @@
+/* ==========================================================================
+   Pagine interne — stessa impaginazione della home, senza riquadri.
+   Lo caricano le pagine con la classe .night (tutte tranne index.html).
+   Idea: il testo sta sullo sfondo. Gli elenchi lunghi non sono griglie di
+   card ma righe grandi separate da una linea; da computer il titolo della
+   sezione resta fermo a sinistra e il contenuto scorre a destra.
+   Parte dal telefono: le regole "da computer" stanno nei @media in fondo a
+   ogni blocco.
+   Dove serve battere una regola con un id (#tempi .note e simili) uso
+   "main:not(#_)": alza il peso del selettore senza toccare il markup.
+   ========================================================================== */
+
+.night {
+  --p-line: rgba(255, 255, 255, 0.22);
+  --p-soft: rgba(255, 255, 255, 0.8);
+  --p-sky: #7FC8D8;
+  --p-ink: #0D0E3A;
+}
+
+/* ---- In cima: titolo enorme al centro dello schermo --------------------- */
+
+.night .hero {
+  display: grid;
+  align-items: center;
+  min-height: 72vh;
+  min-height: 72svh;
+  padding-block: var(--space-xlarge) var(--space-2xlarge);
+}
+
+/* Le pagine di servizio (privacy, cookie, 404, grazie) hanno poco testo in
+   cima: meno vuoto prima del contenuto. */
+.night .hero:not(.hero--page) {
+  min-height: 46vh;
+  min-height: 46svh;
+  padding-bottom: var(--space-large);
+}
+
+/* Privacy e Cookie si leggono e basta: titolo normale, niente vuoto. */
+.night .hero.hero--plain {
+  min-height: 0;
+  padding-block: var(--space-xlarge) var(--space-small);
+}
+
+.night main:not(#_) .hero--plain > .container > h1 {
+  font-size: clamp(2.4rem, 1.8rem + 2.4vw, 3.5rem);
+}
+
+.night .hero__title,
+.night .hero__title-page,
+.night .hero > .container > h1 {
+  max-width: 20ch;
+}
+
+.night .hero__text {
+  color: var(--p-soft);
+}
+
+/* ---- Le sezioni --------------------------------------------------------- */
+
+.night .section,
+.night .section--tight {
+  padding-block: clamp(3.5rem, 2rem + 8vw, 7rem);
+}
+
+.night .section__header {
+  margin-bottom: var(--space-large);
+}
+
+.night .section__title {
+  max-width: 20ch;
+  font-size: clamp(2.6rem, 1.5rem + 4.2vw, 5rem);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0;
+  line-height: 0.98;
+}
+
+.night .section__intro {
+  color: var(--p-soft);
+}
+
+@media (min-width: 64em) {
+  /* Titolo fermo a sinistra, contenuto a destra. Non vale dove servono
+     tre colonne piene (piani dell'assistenza, squadra) o righe larghe con la
+     foto (portfolio). */
+  .night .section > .container:has(> .section__header):not(:has(.price-card, .person-card, .project-card)) {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    column-gap: var(--space-2xlarge);
+    align-items: start;
+    max-width: var(--container-width);
+  }
+
+  .night main:not(#_) .section > .container:has(> .section__header):not(:has(.price-card, .person-card, .project-card)) > * {
+    grid-column: 2;
+    max-width: none;
+    margin-inline: 0;
+    text-align: left;
+  }
+
+  .night main:not(#_) .section > .container:has(> .section__header):not(:has(.price-card, .person-card, .project-card)) > .section__header {
+    grid-column: 1;
+    grid-row: 1 / span 8;
+    position: sticky;
+    top: calc(var(--header-height) + var(--space-xlarge));
+    margin: 0;
+  }
+
+  .night .section > .container:has(> .section__header):not(:has(.price-card, .person-card, .project-card)) .section__title,
+  .night .section > .container:has(> .section__header):not(:has(.price-card, .person-card, .project-card)) .section__intro {
+    margin-inline: 0;
+  }
+}
+
+/* ---- Elenchi a righe: tipi di sito, modi per scriverci, tempi ----------- */
+
+.night .card-grid:not(.card-grid--team):not(:has(.price-card)),
+.night .promise-list {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  border-bottom: 1px solid var(--p-line);
+}
+
+.night .product-card,
+.night .promise-list__item {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2xsmall);
+  padding: var(--space-medium) 0;
+  background-color: transparent;
+  border: 0;
+  border-top: 1px solid var(--p-line);
+  border-radius: 0;
+  text-align: center;
+}
+
+.night .product-card > *,
+.night .promise-list__item > * {
+  max-width: 34ch;
+  margin: 0;
+}
+
+.night .product-card__title,
+.night .promise-list__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.9rem, 1.4rem + 1.9vw, 2.75rem);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0;
+  line-height: 1.02;
+}
+
+.night .product-card__label {
+  color: var(--p-sky);
+  font-weight: var(--font-weight-bold);
+}
+
+.night .product-card__price {
+  color: #FFFFFF;
+  font-size: var(--font-size-lead);
+  font-weight: var(--font-weight-bold);
+}
+
+.night .product-card__description,
+.night .promise-list__text {
+  color: var(--p-soft);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.night .product-card__action {
+  margin-top: var(--space-2xsmall);
+}
+
+@media (min-width: 48em) {
+  /* Nome a sinistra, spiegazione a destra, sulla stessa riga. */
+  .night .product-card,
+  .night .promise-list__item {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    justify-items: start;
+    align-items: start;
+    column-gap: var(--space-large);
+    text-align: left;
+  }
+
+  .night .product-card > *,
+  .night .promise-list__item > * {
+    grid-column: 1;
+    max-width: none;
+  }
+
+  .night .product-card__description,
+  .night .promise-list__text {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+  }
+
+  .night .product-card__action {
+    grid-column: 2;
+    grid-row: 4;
+  }
+}
+
+/* ---- "La base è sempre questa": frasi grandi, una per riga -------------- */
+
+.night .feature-grid {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  border-bottom: 1px solid var(--p-line);
+}
+
+.night .feature-grid__item {
+  padding: var(--space-small) 0;
+  border-top: 1px solid var(--p-line);
+  color: #FFFFFF;
+  font-size: clamp(1.2rem, 1rem + 1vw, 1.75rem);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.night .feature-grid__item::before {
+  display: none;
+}
+
+@media (min-width: 64em) {
+  .night .feature-grid__item {
+    text-align: left;
+  }
+}
+
+/* Le parole che contano sono bianche e pesanti, il resto più leggero:
+   così le sette frasi non sembrano tutte uguali. */
+.night .feature-grid {
+  counter-reset: feature;
+}
+
+.night .feature-grid__item {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2xsmall);
+  padding: var(--space-medium) 0;
+  color: var(--p-soft);
+  font-size: clamp(1.15rem, 1rem + 0.7vw, 1.5rem);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.35;
+  counter-increment: feature;
+}
+
+.night .feature-grid__item > strong {
+  display: block;
+  color: #FFFFFF;
+  font-family: var(--font-heading);
+  font-size: clamp(1.9rem, 1.4rem + 1.9vw, 2.75rem);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0;
+  line-height: 1.02;
+}
+
+/* il numero della voce, piccolo e azzurro, al posto della spunta */
+.night .feature-grid__item::before {
+  content: counter(feature) " / 7";
+  position: static;
+  display: block;
+  width: auto;
+  height: auto;
+  background: none;
+  border-radius: 0;
+  color: var(--p-sky);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-bold);
+}
+
+@media (min-width: 64em) {
+  .night .feature-grid__item {
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+    justify-items: start;
+    align-items: baseline;
+    column-gap: var(--space-small);
+  }
+
+  .night .feature-grid__item::before {
+    grid-row: 1 / span 2;
+  }
+
+  .night .feature-grid__item > * {
+    grid-column: 2;
+  }
+}
+
+/* ---- Tipi di sito: ogni tipo ha il suo disegno -------------------------- */
+
+.night .product-card--type {
+  position: relative;
+}
+
+/* Il braccio da cui pende l'insegna: un'asta e due catenelle. */
+.night .product-card--type::before {
+  content: "";
+  position: absolute;
+  top: var(--space-medium);
+  left: 0;
+  width: 5.25rem;
+  height: 0.9rem;
+  background:
+    linear-gradient(var(--p-sky) 0 0) top left / 100% 3px no-repeat,
+    linear-gradient(var(--p-sky) 0 0) 1.1rem 0 / 2px 100% no-repeat,
+    linear-gradient(var(--p-sky) 0 0) 3.3rem 0 / 2px 100% no-repeat;
+}
+
+.night .product-card__icon {
+  width: 4.5rem;
+  height: 4.5rem;
+  margin-top: 0.9rem;
+  padding: 0.8rem;
+  background-color: var(--p-sky);
+  border-radius: 6px;
+  box-shadow: 0 8px 14px rgba(0, 0, 0, 0.3);
+  fill: none;
+  stroke: var(--p-ink);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (min-width: 48em) {
+  .night .product-card--type {
+    grid-template-columns: 4.5rem minmax(0, 1fr);
+    align-items: start;
+    column-gap: var(--space-medium);
+    row-gap: var(--space-3xsmall);
+  }
+
+  .night .product-card--type > .product-card__icon {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+
+  .night .product-card--type > .product-card__title,
+  .night .product-card--type > .product-card__description {
+    grid-column: 2;
+    grid-row: auto;
+  }
+}
+
+/* ---- I passi: numero enorme contornato, come nella home ----------------- */
+
+.night .step-list {
+  gap: 0;
+  border-bottom: 1px solid var(--p-line);
+}
+
+.night .step-list__item {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  row-gap: var(--space-2xsmall);
+  padding: var(--space-medium) 0;
+  border-top: 1px solid var(--p-line);
+  text-align: center;
+}
+
+.night .step-list__item::after {
+  display: none;
+}
+
+.night .step-list__item::before {
+  color: transparent;
+  font-family: var(--font-heading);
+  font-size: clamp(4.5rem, 3rem + 7vw, 7.5rem);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 0.85;
+  -webkit-text-stroke: 2px rgba(127, 200, 216, 0.7);
+  animation: none;
+}
+
+.night .step-list__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.9rem, 1.4rem + 1.9vw, 2.75rem);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0;
+  line-height: 1.02;
+}
+
+.night .step-list__text {
+  max-width: 36ch;
+  color: var(--p-soft);
+}
+
+@media (min-width: 48em) {
+  .night .step-list__item {
+    grid-template-columns: minmax(5rem, auto) minmax(0, 1fr);
+    justify-items: start;
+    align-items: center;
+    column-gap: var(--space-large);
+    text-align: left;
+  }
+}
+
+/* ---- I piani dell'assistenza: tre cartellini appesi --------------------- */
+/* Ogni piano è un cartellino del prezzo: carta bianca, angoli tagliati in
+   alto, il foro e lo spago. Da computer pendono tutti dalla stessa asta. */
+
+.night .card-grid:has(.price-card) {
+  gap: 4.5rem var(--space-medium);
+  padding-top: 3rem;
+}
+
+.night .price-card {
+  position: relative;
+  padding: 3.5rem var(--space-medium) var(--space-large);
+  background:
+    linear-gradient(135deg, transparent 1.5rem, #fff 0) top left / 50.5% 100% no-repeat,
+    linear-gradient(225deg, transparent 1.5rem, #fff 0) top right / 50.5% 100% no-repeat;
+  border: 0;
+  border-radius: 0 0 6px 6px;
+  color: var(--p-ink);
+  filter: drop-shadow(0 16px 18px rgba(0, 0, 0, 0.35));
+}
+
+/* Lo spago, dal foro in su. */
+.night .price-card::before {
+  content: "";
+  position: absolute;
+  bottom: calc(100% - 1.6rem);
+  left: 50%;
+  width: 2px;
+  height: 4.6rem;
+  margin-left: -1px;
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+/* Il foro, con l'occhiello. */
+.night .price-card::after {
+  content: "";
+  position: absolute;
+  top: 1.1rem;
+  left: 50%;
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-left: -0.55rem;
+  background-color: var(--p-ink);
+  border: 3px solid var(--p-sky);
+  border-radius: var(--radius-pill);
+}
+
+.night .price-card__plan {
+  color: var(--p-ink);
+  font-size: clamp(2.2rem, 1.6rem + 2vw, 3.25rem);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0;
+  line-height: 1;
+  text-align: center;
+}
+
+.night .price-card__price {
+  margin-bottom: var(--space-medium);
+  padding-bottom: var(--space-small);
+  border-bottom: 2px dashed rgba(22, 23, 79, 0.3);
+  color: #2070A1;
+  font-family: var(--font-heading);
+  font-size: clamp(1.9rem, 1.5rem + 1.2vw, 2.4rem);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.1;
+  text-align: center;
+}
+
+.night .price-card__include-list {
+  gap: var(--space-xsmall);
+  margin-bottom: 0;
+  font-size: var(--font-size-body);
+}
+
+.night .price-card__include::before {
+  color: #2070A1;
+}
+
+/* "Il più scelto": un cartello da vetrina, storto, con la riga della tenda. */
+.night .price-card__badge {
+  position: absolute;
+  top: -1rem;
+  right: 0.5rem;
+  z-index: 1;
+  margin: 0;
+  padding: calc(0.3rem + 6px) 0.85rem 0.3rem;
+  background:
+    repeating-linear-gradient(90deg, #fff 0 8px, #2070A1 8px 16px) top / 100% 6px no-repeat,
+    var(--p-ink);
+  border: 2px solid #fff;
+  border-radius: 3px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.35);
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  text-transform: uppercase;
+  rotate: 5deg;
+}
+
+@media (min-width: 64em) {
+  /* L'asta da cui pendono i tre cartellini. */
+  .night .card-grid:has(.price-card) {
+    border-top: 4px solid rgba(255, 255, 255, 0.75);
+    border-radius: 2px;
+  }
+
+  .night .price-card {
+    transform-origin: 50% 1.6rem;
+    transition: rotate var(--duration-fast) var(--ease-out);
+  }
+
+  .night .price-card:nth-child(1) { rotate: -1.2deg; }
+  .night .price-card:nth-child(3) { rotate: 1.2deg; }
+
+  .night .price-card:hover { rotate: 0deg; }
+
+  .night .price-card__badge {
+    right: -0.75rem;
+  }
+}
+
+/* ---- Portfolio: una riga per lavoro, foto e testo affiancati ------------ */
+
+.night .project-card {
+  display: grid;
+  gap: var(--space-small);
+  padding: var(--space-large) 0;
+  overflow: visible;
+  background-color: transparent;
+  border: 0;
+  border-top: 1px solid var(--p-line);
+  border-radius: 0;
+}
+
+.night .project-card.is-hidden {
+  display: none;
+}
+
+.night .project-card__media {
+  overflow: visible;
+  background-color: transparent;
+  border: 0;
+}
+
+.night .project-card__image {
+  display: block;
+  border-radius: 12px;
+}
+
+/* Lo stesso sito visto da telefono, appoggiato sull'angolo della foto. */
+.night .project-card__media:has(.project-card__phone) {
+  margin-bottom: 1.5rem;
+  padding-right: 6%;
+}
+
+.night .project-card__phone {
+  position: absolute;
+  right: 0;
+  bottom: -1.5rem;
+  width: 24%;
+  height: auto;
+  background-color: #05061f;
+  border: 0.3rem solid #05061f;
+  border-radius: 1rem;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28), 0 14px 26px rgba(0, 0, 0, 0.5);
+}
+
+.night .project-card__body {
+  align-items: center;
+  padding: 0;
+  text-align: center;
+}
+
+.night .project-card__body .badge {
+  align-self: center;
+}
+
+.night .project-card__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.9rem, 1.4rem + 1.9vw, 2.75rem);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0;
+  line-height: 1.02;
+}
+
+.night .project-card__summary {
+  max-width: 44ch;
+  color: var(--p-soft);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+@media (min-width: 48em) {
+  .night .project-card {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: center;
+    column-gap: var(--space-large);
+  }
+
+  .night .project-card__body {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .night .project-card__body .badge {
+    align-self: flex-start;
+  }
+}
+
+/* ---- La squadra: tre volti, nessuna scheda ------------------------------ */
+
+.night .card-grid--team {
+  gap: var(--space-xlarge) var(--space-large);
+}
+
+.night .person-card {
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+}
+
+.night .card-grid--team .person-card__avatar {
+  width: 11rem;
+  height: 11rem;
+  border: 5px solid var(--p-ink);
+  box-shadow: 0 0 0 2px var(--p-line);
+}
+
+.night .person-card__name {
+  font-size: clamp(1.9rem, 1.4rem + 1.9vw, 2.6rem);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0;
+  line-height: 1.02;
+}
+
+.night .person-card__role {
+  color: var(--p-sky);
+  font-weight: var(--font-weight-bold);
+}
+
+.night .person-card__text {
+  max-width: 34ch;
+  color: var(--p-soft);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+/* ---- Domande: righe, non riquadri (come nella home) --------------------- */
+
+.night .accordion {
+  gap: 0;
+  border-bottom: 1px solid var(--p-line);
+}
+
+.night .accordion__item,
+.night .accordion__item:hover,
+.night .accordion__item.is-open {
+  background-color: transparent;
+  border: 0;
+  border-top: 1px solid var(--p-line);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.night .accordion__trigger {
+  padding: var(--space-small) 0;
+  color: #FFFFFF;
+  font-size: clamp(1.1rem, 1rem + 0.5vw, 1.375rem);
+}
+
+.night .accordion__trigger:hover {
+  color: var(--p-sky);
+}
+
+.night .accordion__icon {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+}
+
+.night .accordion__item.is-open .accordion__icon {
+  background-color: var(--p-sky);
+  color: var(--p-ink);
+}
+
+.night .accordion__panel p {
+  padding: 0 0 var(--space-medium);
+  color: var(--p-soft);
+}
+
+/* ---- Modulo e note: senza scatola intorno ------------------------------- */
+
+.night .form {
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+}
+
+.night .note {
+  padding: 0 0 0 var(--space-small);
+  background-color: transparent;
+  border: 0;
+  border-left: 3px solid var(--p-sky);
+  border-radius: 0;
+  color: var(--p-soft);
+  font-size: var(--font-size-body);
+}
+
+/* ---- Chiusura: come l'ultima schermata della home ----------------------- */
+
+.night .call-to-action {
+  display: grid;
+  align-items: center;
+  min-height: 70vh;
+  min-height: 70svh;
+  padding-block: var(--space-2xlarge);
+}
+
+.night .call-to-action__title {
+  max-width: 18ch;
+  color: #FFFFFF;
+  font-size: clamp(3.2rem, 1.2rem + 7.5vw, 7rem);
+  letter-spacing: -0.005em;
+  line-height: 0.95;
+  text-wrap: balance;
+}
+
+.night .call-to-action__text {
+  margin-top: var(--space-medium);
+  color: var(--p-soft);
+}
+
+.night .call-to-action__actions {
+  margin-top: 0;
+}
+
+/* ---- Telefono: i testi lunghi a sinistra (prova) ------------------------ */
+/* Titoli di sezione e bottoni restano al centro; le righe con una
+   spiegazione lunga (tipi di sito, lavori del portfolio) si leggono meglio
+   allineate a sinistra. */
+
+@media (max-width: 47.99em) {
+  .night .product-card--type {
+    justify-items: start;
+    text-align: left;
+  }
+
+  .night .product-card--type > * {
+    max-width: none;
+  }
+
+  .night .project-card__body {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .night .project-card__body .badge {
+    align-self: flex-start;
+  }
+}

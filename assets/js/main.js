@@ -482,10 +482,38 @@
   }
 
   /* ------------------------------------------------------------------ *
+   * Piè di pagina: la serranda del negozio si alza mentre arrivi in fondo.
+   * Comincia a salire quando ne vedi un quarto, è su quando la vedi quasi
+   * tutta. Con "riduci movimento" non parte: il CSS la tiene già alzata.
+   * ------------------------------------------------------------------ */
+
+  function init_shopfront() {
+    var shop = document.querySelector("[data-shopfront]");
+    var bay = shop && shop.querySelector("[data-shopfront-bay]");
+    if (!bay || prefers_reduced_motion()) return;
+
+    function update_state() {
+      var box = bay.getBoundingClientRect();
+      var seen = (window.innerHeight - box.top) / Math.max(1, box.height);
+      var open = Math.max(0, Math.min(1, (seen - 0.25) / 0.65));
+      /* in fondo alla pagina è sempre aperta, anche se la pagina è corta */
+      var at_end = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+      if (at_end) open = 1;
+      shop.style.setProperty("--shutter-open", open.toFixed(3));
+      shop.classList.toggle("is-open", open > 0.9);
+    }
+
+    window.addEventListener("scroll", update_state, { passive: true });
+    window.addEventListener("resize", update_state);
+    update_state();
+  }
+
+  /* ------------------------------------------------------------------ *
    * Avvio
    * ------------------------------------------------------------------ */
 
   init_back_to_top();
+  init_shopfront();
   init_reveal();
   init_hero_reveal();
   init_mobile_menu();

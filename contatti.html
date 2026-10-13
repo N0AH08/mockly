@@ -7,7 +7,7 @@
   <title>Contatti: WhatsApp, email, telefono | Mockly</title>
   <meta name="description" content="Scrivici su WhatsApp al 351 757 8080. Rispondiamo nel pomeriggio, entro sera. Lavoriamo soprattutto in Sardegna.">
   <link rel="canonical" href="https://mockly.it/contatti.html">
-  <meta name="theme-color" content="#FFFFFF">
+  <meta name="theme-color" content="#0D0E3A">
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="it_IT">
@@ -18,46 +18,27 @@
   <meta property="og:image" content="https://mockly.it/assets/img/og-cover.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Mockly — siti web costruiti a mano, su misura.">
+  <meta property="og:image:alt" content="Mockly: parti dal tuo lavoro, al sito pensiamo noi.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Contatti: scrivici su WhatsApp, rispondiamo nel pomeriggio">
   <meta name="twitter:description" content="Scrivici su WhatsApp al 351 757 8080. Rispondiamo nel pomeriggio, entro sera. Lavoriamo soprattutto in Sardegna.">
   <meta name="twitter:image" content="https://mockly.it/assets/img/og-cover.png">
-  <meta name="twitter:image:alt" content="Mockly — siti web costruiti a mano, su misura.">
+  <meta name="twitter:image:alt" content="Mockly: parti dal tuo lavoro, al sito pensiamo noi.">
 
-  <link rel="stylesheet" href="assets/css/fonts.css?v=20261007r">
+  <link rel="stylesheet" href="assets/css/fonts.css?v=20261014f">
 
-  <link rel="icon" href="assets/img/favicon.ico" sizes="any">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="assets/img/logo-mockly-icon.svg" type="image/svg+xml">
   <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="icon" href="assets/img/favicon-16.png" sizes="16x16" type="image/png">
   <link rel="icon" href="assets/img/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
 
-  <link rel="stylesheet" href="assets/css/tokens.css?v=20261007r">
-  <link rel="stylesheet" href="assets/css/base.css?v=20261007r">
-  <link rel="stylesheet" href="assets/css/components.css?v=20261007r">
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://mockly.it/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Contatti",
-        "item": "https://mockly.it/contatti.html"
-      }
-    ]
-  }
-  </script>
+  <link rel="stylesheet" href="assets/css/tokens.css?v=20261014f">
+  <link rel="stylesheet" href="assets/css/base.css?v=20261014f">
+  <link rel="stylesheet" href="assets/css/components.css?v=20261014f">
+  <link rel="stylesheet" href="assets/css/pages.css?v=20261014f">
 
   <script type="application/ld+json">
   {
@@ -115,7 +96,7 @@
         "name": "Il sito è mio o vostro? E se disdico l'assistenza?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "È tuo, sempre. Il nome del sito (tipo tuolocale.it) è registrato con i tuoi dati dal primo giorno, i file del sito te li consegniamo a fine lavoro. L'abbonamento ha una durata minima (6 mesi per Acceso, 12 per Aggiornato e Seguito); passata quella, se disdici l'assistenza: preavviso di 30 giorni con un messaggio, esportazione completa, sito raggiungibile fino alla fine del mese pagato, 30 giorni di aiuto per il trasloco, zero penali. Il sito resta tuo comunque, anche prima: il nome del sito e i file non sono mai in ostaggio dell'abbonamento."
+          "text": "È tuo, sempre. Il nome del sito (tipo tuolocale.it) è registrato a tuo nome dal primo giorno e i file ti vengono consegnati a fine lavoro. Se disdici l'assistenza, passata la durata minima (6 mesi per Acceso, 12 per Aggiornato e Seguito), basta un messaggio con 30 giorni di preavviso: ricevi l'esportazione completa, il sito resta raggiungibile fino a fine mese e ti aiutiamo per 30 giorni con il trasloco. Zero penali."
         }
       },
       {
@@ -131,7 +112,7 @@
         "name": "Ho già Facebook e Instagram. Mi serve davvero un sito?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Sui social ti trova chi ti segue già. Ma chi è appena arrivato in zona non ti segue: apre Google Maps, cerca “parrucchiere vicino a me” e legge le prime tre schede. Su Instagram i tuoi orari e il listino sono in una foto di due mesi fa, tre post sotto, e non si leggono senza zoom. Il sito serve a quelli lì, non ai tuoi affezionati."
+          "text": "Sui social ti trova chi ti segue già. Chi è appena arrivato in zona cerca su Google “parrucchiere vicino a me” e legge le prime schede. Il sito serve a quelli lì, non ai tuoi affezionati."
         }
       },
       {
@@ -147,13 +128,24 @@
   </script>
 </head>
 
-<body class="page-body">
+<body class="page-body night">
+  <!-- Apertura: la serranda si alza una volta sola per visita. Solo decorazione;
+       si toglie da sola con il CSS, anche senza JavaScript. -->
+  <div class="loader" aria-hidden="true">
+    <div class="loader__bar"><span class="loader__dots"></span><span class="loader__url">mockly.it</span></div>
+    <div class="loader__roll"><span class="loader__paint">mockly</span><span class="loader__hint">apriamo subito</span><span class="loader__rail"></span></div>
+  </div>
+  <script>try{if(sessionStorage.getItem("mockly-aperto")){document.documentElement.classList.add("is-returning")}else{sessionStorage.setItem("mockly-aperto","1")}}catch(e){}</script>
+  <!-- Sfondo: blu notte fermo, con una sola luce dall'alto. -->
+  <div class="scene-bg" aria-hidden="true"></div>
+  <!-- La tenda del negozio, in cima a ogni pagina: scorre via con il contenuto. -->
+  <div class="awning" aria-hidden="true"></div>
 
 
 
   <a class="skip-link" href="#contenuto">Salta al contenuto</a>
 
-  <!-- Intestazione: uguale su tutte le pagine (logo, menu, bottone WhatsApp). -->
+  <!-- Intestazione: uguale su tutte le pagine (logo, menu, tasto Chiama). -->
   <header class="site-header">
     <div class="container site-header__inner">
         <a class="site-header__logo" href="index.html">
@@ -171,15 +163,6 @@
           <li><a class="site-header__navigation-link is-current" href="contatti.html" aria-current="page">Contatti</a></li>
         </ul>
       </nav>
-
-      <div class="site-header__action">
-        <a class="button button--primary" href="https://wa.me/393517578080?text=Ciao%20Mockly%2C%20ho%20visto%20il%20vostro%20sito%20e%20vorrei%20parlare%20del%20sito%20della%20mia%20attivit%C3%A0." aria-label="Scrivici su WhatsApp al 351 757 8080">
-          Scrivici su WhatsApp
-        </a>
-      </div>
-
-      <!-- Chiama: sempre a portata di pollice finché il menu orizzontale non c'è (sotto 1280px) -->
-      <a class="site-header__call" href="tel:+393517578080" aria-label="Chiama il 351 757 8080"><svg class="site-header__call-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M6.6 2.5 4.3 3.2C3.5 3.5 3 4.3 3.1 5.1c.7 6 5.8 11.1 11.8 11.8.8.1 1.6-.4 1.9-1.2l.7-2.3a1 1 0 0 0-.6-1.2l-3.2-1.2a1 1 0 0 0-1.1.3l-1 1.2a9.6 9.6 0 0 1-4.6-4.6l1.2-1a1 1 0 0 0 .3-1.1L7.8 3.1a1 1 0 0 0-1.2-.6Z"/></svg>Chiama</a>
 
       <!-- Hamburger: apre il pannello sotto i 1280px -->
       <button class="site-header__toggle" type="button" aria-label="Apri il menu" aria-expanded="false" aria-controls="menu-principale">
@@ -205,31 +188,28 @@
       <nav aria-label="Menu principale su telefono">
         <p class="site-header__panel-label" aria-hidden="true">Menu</p>
         <ul class="site-header__panel-list">
-          <li><a class="site-header__panel-link" href="index.html">Home</a></li>
-          <li><a class="site-header__panel-link" href="siti-web.html">Siti web</a></li>
-          <li><a class="site-header__panel-link" href="portfolio.html">Portfolio</a></li>
-          <li><a class="site-header__panel-link" href="chi-siamo.html">Chi siamo</a></li>
-          <li><a class="site-header__panel-link is-current" href="contatti.html" aria-current="page">Contatti</a></li>
+          <li><a class="site-header__panel-link" href="index.html"><span class="site-header__panel-name">Home</span><span class="site-header__panel-hint">Da dove si parte</span></a></li>
+          <li><a class="site-header__panel-link" href="siti-web.html"><span class="site-header__panel-name">Siti web</span><span class="site-header__panel-hint">Cosa facciamo e l'assistenza</span></a></li>
+          <li><a class="site-header__panel-link" href="portfolio.html"><span class="site-header__panel-name">Portfolio</span><span class="site-header__panel-hint">Un lavoro vero e undici esempi</span></a></li>
+          <li><a class="site-header__panel-link" href="chi-siamo.html"><span class="site-header__panel-name">Chi siamo</span><span class="site-header__panel-hint">Noah, Adriano e Simone</span></a></li>
+          <li><a class="site-header__panel-link is-current" href="contatti.html" aria-current="page"><span class="site-header__panel-name">Contatti</span><span class="site-header__panel-hint">WhatsApp, telefono, modulo</span></a></li>
         </ul>
       </nav>
+      <!-- In fondo al menu: i due modi più rapidi per sentirci -->
+      <div class="site-header__panel-foot">
+        <a class="button button--primary site-header__panel-contact" href="https://wa.me/393517578080" aria-label="Scrivici su WhatsApp al 351 757 8080">WhatsApp</a>
+        <a class="button button--ghost site-header__panel-contact" href="tel:+393517578080" aria-label="Chiama il 351 757 8080">Chiama</a>
+      </div>
+      <span class="site-header__panel-rail" aria-hidden="true"></span>
     </div>
   </header>
 
     <main id="contenuto">
 
-    <nav class="breadcrumb" aria-label="Percorso">
-      <div class="container">
-        <ol class="breadcrumb__list">
-          <li class="breadcrumb__item"><a class="breadcrumb__link" href="index.html">Home</a></li>
-          <li class="breadcrumb__item is-current" aria-current="page">Contatti</li>
-        </ol>
-      </div>
-    </nav>
 
     <!-- ── Hero ─────────────────────────────────────────────────────── -->
     <section class="hero hero--page">
       <div class="container">
-        <p class="hero__label">Contatti</p>
         <h1 class="hero__title-page">Scrivici.</h1>
         <div class="hero__actions button-group button-group--stacked">
           <a class="button button--primary" href="https://wa.me/393517578080?text=Ciao%20Mockly%2C%20vi%20scrivo%20dal%20sito."
@@ -277,7 +257,7 @@
             <p class="product-card__label">Per le cose scritte</p>
             <h3 class="product-card__title">Email</h3>
             <p class="product-card__price">mockly.website@gmail.com</p>
-            <p class="product-card__description">Per preventivi, documenti, cose scritte.</p>
+            <p class="product-card__description">Per preventivi e documenti.</p>
             <p class="product-card__action">
               <a class="button button--secondary button--full-width" href="mailto:mockly.website@gmail.com"
                  aria-label="Scrivi a mockly.website@gmail.com">Scrivi una email</a>
@@ -293,7 +273,7 @@
         <div class="section__header">
           <h2 class="section__title section__title--wide">Che risposta aspettarti, e quando</h2>
           <p class="text-lead">
-            Siamo studenti: di mattina il telefono può essere spento o muto. Preferiamo dirti tempi veri che promettere risposte in cinque minuti.
+            Siamo studenti: di mattina il telefono può essere spento. Preferiamo dirti tempi veri che promettere risposte in cinque minuti.
           </p>
         </div>
 
@@ -313,8 +293,7 @@
           <li class="promise-list__item">
             <h3 class="promise-list__title">Domenica</h3>
             <p class="promise-list__text">
-              Rispondiamo il luned&igrave;. Se hai un&rsquo;urgenza vera perch&eacute; il sito &egrave; gi&ugrave;, scrivi
-              &ldquo;URGENTE&rdquo; su WhatsApp e guardiamo subito.
+              Rispondiamo il lunedì. Se il sito è giù, scrivi “URGENTE” su WhatsApp e guardiamo subito.
             </p>
           </li>
           <li class="promise-list__item">
@@ -470,11 +449,8 @@
             </h3>
             <div class="accordion__panel" id="faq-panel-3" role="region" aria-labelledby="faq-trigger-3" hidden>
               <p>
-                &Egrave; tuo, sempre. Il nome del sito (tipo tuolocale.it) &egrave; registrato con i tuoi dati dal primo giorno, i file del sito te li consegniamo a fine lavoro. L'abbonamento ha una durata minima (6 mesi per Acceso, 12 per
-                Aggiornato e Seguito); passata quella, se disdici l'assistenza: preavviso di 30 giorni con un
-                messaggio, esportazione completa, sito raggiungibile fino alla fine del mese pagato, 30 giorni di
-                aiuto per il trasloco, zero penali. Il sito resta tuo comunque, anche prima: il nome del sito e i file non sono mai in ostaggio dell'abbonamento.
-              </p>
+                  È tuo, sempre. Il nome del sito (tipo tuolocale.it) è registrato a tuo nome dal primo giorno e i file ti vengono consegnati a fine lavoro. Se disdici l'assistenza, passata la durata minima (6 mesi per Acceso, 12 per Aggiornato e Seguito), basta un messaggio con 30 giorni di preavviso: ricevi l'esportazione completa, il sito resta raggiungibile fino a fine mese e ti aiutiamo per 30 giorni con il trasloco. Zero penali.
+                </p>
             </div>
           </div>
 
@@ -505,9 +481,8 @@
             </h3>
             <div class="accordion__panel" id="faq-panel-5" role="region" aria-labelledby="faq-trigger-5" hidden>
               <p>
-                Sui social ti trova chi ti segue gi&agrave;. Ma chi &egrave; appena arrivato in zona non ti segue: apre Google Maps, cerca &ldquo;parrucchiere vicino a me&rdquo; e legge le prime tre schede. Su Instagram i tuoi orari e il listino sono in una foto di due mesi fa, tre post sotto, e non si leggono senza zoom. Il
-                sito serve a quelli l&igrave;, non ai tuoi affezionati.
-              </p>
+                  Sui social ti trova chi ti segue già. Chi è appena arrivato in zona cerca su Google “parrucchiere vicino a me” e legge le prime schede. Il sito serve a quelli lì, non ai tuoi affezionati.
+                </p>
             </div>
           </div>
 
@@ -564,38 +539,43 @@
   <footer class="site-footer">
     <div class="container">
 
-      <div class="site-footer__grid">
-        <div>
-          <p class="site-footer__brand-name"><img class="site-footer__logo-image" src="assets/img/logo-mockly-icon-light.svg" alt="" width="100" height="100"><span class="site-footer__brand-word">mockly</span></p>
-          <p class="site-footer__tagline">Siti web, senza complessità.</p>
-          <p>Siti web costruiti su misura, per tutta la Sardegna.</p>
+      <!-- La facciata di un negozio: la serranda si alza mentre arrivi in fondo. -->
+      <div class="shopfront" data-shopfront>
+        <p class="shopfront__sign"><img class="shopfront__logo" src="assets/img/logo-mockly-icon-light.svg" alt="" width="100" height="100"><span class="shopfront__name">mockly</span><span class="shopfront__motto">Siti web, senza complessità.</span></p>
+        <div class="shopfront__awning" aria-hidden="true"></div>
+
+        <div class="shopfront__bay" data-shopfront-bay>
+          <div class="shopfront__shop">
+            <div class="shopfront__glass">
+              <p class="shopfront__vinyl">Entra pure, siamo aperti.</p>
+              <ul class="shopfront__contacts">
+                <li><a class="shopfront__contact" href="https://wa.me/393517578080" aria-label="Scrivici su WhatsApp al 351 757 8080"><svg class="shopfront__icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 15.5 5 12a6 6 0 1 1 2.4 2.1L4 15.5Z"/></svg><span class="shopfront__contact-text"><small>WhatsApp</small>351 757 8080</span></a></li>
+                <li><a class="shopfront__contact" href="tel:+393517578080" aria-label="Chiama il 351 757 8080"><svg class="shopfront__icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M6.6 2.5 4.3 3.2C3.5 3.5 3 4.3 3.1 5.1c.7 6 5.8 11.1 11.8 11.8.8.1 1.6-.4 1.9-1.2l.7-2.3a1 1 0 0 0-.6-1.2l-3.2-1.2a1 1 0 0 0-1.1.3l-1 1.2a9.6 9.6 0 0 1-4.6-4.6l1.2-1a1 1 0 0 0 .3-1.1L7.8 3.1a1 1 0 0 0-1.2-.6Z"/></svg><span class="shopfront__contact-text"><small>Telefono</small>351 757 8080</span></a></li>
+                <li><a class="shopfront__contact" href="mailto:mockly.website@gmail.com" aria-label="Scrivi a mockly.website@gmail.com"><svg class="shopfront__icon" viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="4.5" width="15" height="11" rx="2"/><path d="m3 6 7 5 7-5"/></svg><span class="shopfront__contact-text"><small>Email</small>mockly.website@gmail.com</span></a></li>
+                <li><a class="shopfront__contact" href="https://www.instagram.com/mockly.site/" target="_blank" rel="noopener"><svg class="shopfront__icon" viewBox="0 0 20 20" aria-hidden="true"><rect x="3" y="3" width="14" height="14" rx="4"/><circle cx="10" cy="10" r="3.2"/><circle cx="14.2" cy="5.8" r="0.6"/></svg><span class="shopfront__contact-text"><small>Instagram</small>@mockly.site</span></a></li>
+              </ul>
+            </div>
+
+            <nav class="shopfront__door" aria-label="Collegamenti del footer">
+              <span class="shopfront__plate" aria-hidden="true">Aperto</span>
+              <ul class="shopfront__pages">
+                <li><a class="shopfront__page" href="index.html">Home</a></li>
+                <li><a class="shopfront__page" href="siti-web.html">Siti web</a></li>
+                <li><a class="shopfront__page" href="portfolio.html">Portfolio</a></li>
+                <li><a class="shopfront__page" href="chi-siamo.html">Chi siamo</a></li>
+                <li><a class="shopfront__page" href="contatti.html">Contatti</a></li>
+              </ul>
+            </nav>
+          </div>
+
+          <div class="shopfront__roll" aria-hidden="true">
+            <span class="shopfront__paint">mockly</span>
+            <span class="shopfront__hint">scorri, apriamo subito</span>
+            <span class="shopfront__rail"></span>
+          </div>
         </div>
 
-        <nav aria-label="Collegamenti del footer">
-          <p class="site-footer__column-title">Cosa facciamo</p>
-          <ul class="site-footer__link-list">
-            <li><a class="site-footer__link" href="siti-web.html">Siti web</a></li>
-          </ul>
-        </nav>
-
-        <nav aria-label="Collegamenti su Mockly">
-          <p class="site-footer__column-title">Mockly</p>
-          <ul class="site-footer__link-list">
-            <li><a class="site-footer__link" href="portfolio.html">Portfolio</a></li>
-            <li><a class="site-footer__link" href="chi-siamo.html">Chi siamo</a></li>
-            <li><a class="site-footer__link" href="contatti.html">Contatti</a></li>
-          </ul>
-        </nav>
-
-        <div>
-          <p class="site-footer__column-title">Scrivici</p>
-          <ul class="site-footer__link-list">
-            <li><a class="site-footer__link" href="https://wa.me/393517578080" aria-label="Scrivici su WhatsApp al 351 757 8080">WhatsApp: 351 757 8080</a></li>
-            <li><a class="site-footer__link" href="tel:+393517578080" aria-label="Chiama il 351 757 8080">Telefono: +39 351 757 8080</a></li>
-            <li><a class="site-footer__link" href="mailto:mockly.website@gmail.com" aria-label="Scrivi a mockly.website@gmail.com">mockly.website@gmail.com</a></li>
-            <li><a class="site-footer__link" href="https://www.instagram.com/mockly.site/" target="_blank" rel="noopener">Instagram: @mockly.site</a></li>
-          </ul>
-        </div>
+        <div class="shopfront__step" aria-hidden="true"></div>
       </div>
 
       <div class="site-footer__legal">
@@ -616,7 +596,7 @@
     <svg class="back-to-top__icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 16V4m0 0 6 6m-6-6L4 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
 
-  <script src="assets/js/main.js?v=20261007r"></script>
+  <script src="assets/js/main.js?v=20261014f"></script>
 
 </body>
 </html>

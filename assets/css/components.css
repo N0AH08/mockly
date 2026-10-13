@@ -22,7 +22,7 @@
      primi elementi con cui si interagisce, e i font arrotondati di D94
      chiedevano forme altrettanto morbide sotto di loro. */
   border-radius: var(--radius-pill);
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 1.0625rem;
   font-weight: var(--font-weight-bold);
   line-height: 1.2;
@@ -145,6 +145,7 @@
     top: var(--space-2xsmall);
     width: calc(100% - var(--space-2xsmall) * 2);
   }
+
 }
 
 .site-header__inner {
@@ -161,7 +162,7 @@
   min-height: 2.75rem;
   gap: 0.4em;
   color: var(--color-heading);
-  font-family: var(--font-heading);
+  font-family: var(--font-logo);
   font-size: 1.6rem;
   font-weight: var(--font-weight-extrabold);
   letter-spacing: -0.04em;
@@ -219,54 +220,12 @@
   content: none;
 }
 
-.site-header__action {
-  display: none;
-}
-
-.site-header__action .button {
-  min-height: 2.5rem;
-  padding: 0.5rem 1.2rem;
-  font-size: var(--font-size-small);
-}
-
-.site-header__call {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  min-height: 2.75rem;
-  margin-left: auto;
-  padding: 0 1.1rem 0 0.9rem;
-  background-color: var(--color-accent);
-  border-radius: var(--radius-pill);
-  color: var(--color-text-inverse-on-accent);
-  font-weight: var(--font-weight-bold);
-  text-decoration: none;
-  transition: background-color var(--duration-fast) var(--ease-out);
-}
-
-.site-header__call-icon {
-  width: 1.15rem;
-  height: 1.15rem;
-  fill: currentColor;
-}
-
-.site-header__call:hover,
-.site-header__call:focus-visible {
-  background-color: var(--color-accent-hover);
-  color: var(--color-text-inverse-on-accent);
-}
-
-@media (min-width: 80em) {
-  .site-header__call {
-    display: none;
-  }
-}
-
 .site-header__toggle {
   display: inline-flex;
   flex-direction: column;
   justify-content: center;
   gap: 5px;
+  flex: none; /* sui telefoni stretti non si schiaccia sotto i 44px */
   width: 2.75rem;
   height: 2.75rem;
   padding: 0 0.6rem;
@@ -323,31 +282,42 @@
 
 .site-header__panel {
   position: fixed;
-  top: 0;
-  right: 0;
-  /* Stesso motivo dell'overlay qui sopra: "bottom: 0" si misura sull'header
-     (backdrop-filter lo rende il contenitore dei discendenti fixed), non sul
-     viewport reale, e il pannello resta alto quanto la sola barra — si vede
-     la testata col logo e la X, il resto del sito sotto. Altezza esplicita
-     in unità di viewport invece di dedurla da top+bottom. */
+  /* L'intestazione ha un transform, quindi fa da riferimento ai suoi
+     discendenti "fixed": top e right si misurano sulla pillola, non sullo
+     schermo. Questi due valori riportano il pannello ai bordi veri. */
+  top: calc(var(--space-2xsmall) * -1);
+  right: calc((100% - 100vw) / 2);
+  /* Altezza esplicita in unità di viewport, per lo stesso motivo. */
   height: 100vh;
   height: 100dvh;
   z-index: var(--layer-menu);
   display: flex;
   flex-direction: column;
-  gap: var(--space-small);
-  width: min(22rem, 88vw);
-  padding: var(--space-small) var(--space-medium) calc(var(--space-medium) + env(safe-area-inset-bottom, 0px));
+  gap: var(--space-medium);
+  width: 100vw;
+  padding: var(--space-small) var(--space-medium) calc(var(--space-large) + env(safe-area-inset-bottom, 0px));
   overflow-y: auto;
-  background-color: var(--color-surface);
-  color: var(--color-text);
-  border-radius: var(--radius-soft) 0 0 var(--radius-soft);
-  box-shadow: var(--shadow-float);
+  /* Lo stesso blu notte delle pagine, con un bagliore in alto. */
+  background:
+    radial-gradient(90% 55% at 15% 0, rgba(84, 168, 188, 0.45), transparent 70%),
+    radial-gradient(80% 50% at 100% 100%, rgba(32, 112, 161, 0.6), transparent 70%),
+    #0D0E3A;
+  color: #FFFFFF;
   transform: translateX(100%);
   visibility: hidden;
   transition:
     transform var(--duration-menu) var(--ease-menu),
     visibility 0s linear var(--duration-menu);
+}
+
+/* Da tablet in su è una colonna a destra, non tutto lo schermo. */
+@media (min-width: 48em) {
+  .site-header__panel {
+    top: calc(var(--space-small) * -1);
+    width: 26rem;
+    border-radius: var(--radius-soft) 0 0 var(--radius-soft);
+    box-shadow: var(--shadow-float);
+  }
 }
 
 .site-header__panel.is-open {
@@ -358,8 +328,7 @@
     visibility 0s;
 }
 
-/* Barra propria del pannello: marchio + X dedicata. Senza, la X
-   dell'hamburger resterebbe coperta dal pannello stesso. */
+/* Barra propria del pannello: marchio + X dedicata. */
 .site-header__panel-head {
   display: flex;
   align-items: center;
@@ -373,28 +342,33 @@
   gap: 0.3em;
   margin: 0;
   max-width: none;
-  color: var(--color-heading);
-  font-family: var(--font-heading);
+  color: #FFFFFF;
+  font-family: var(--font-logo);
   font-size: 1.5rem;
   font-weight: var(--font-weight-extrabold);
   letter-spacing: -0.03em;
+}
+
+/* Sul blu il logo scuro non si leggerebbe: lo schiarisco. */
+.site-header__panel-brand .site-header__logo-icon {
+  filter: brightness(0) invert(1);
 }
 
 .site-header__close {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
+  width: 3rem;
+  height: 3rem;
   background-color: transparent;
-  border: var(--border-width-medium) solid var(--color-heading);
+  border: var(--border-width-medium) solid rgba(255, 255, 255, 0.7);
   border-radius: var(--radius-pill);
-  color: var(--color-heading);
+  color: #FFFFFF;
   transition: background-color var(--duration-fast) var(--ease-out);
 }
 
 .site-header__close:hover {
-  background-color: var(--color-surface-alt);
+  background-color: rgba(255, 255, 255, 0.14);
 }
 
 .site-header__toggle,
@@ -408,55 +382,190 @@
   height: 1.1rem;
 }
 
-.site-header__panel-link:active {
-  background-color: var(--color-accent-soft);
-}
-
-/* Eyebrow sopra la lista: un'etichetta piccola per dare struttura al
-   pannello, non solo una lista di link senza intestazione. */
 .site-header__panel-label {
   margin-bottom: var(--space-2xsmall);
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.7);
   font-family: var(--font-body);
   font-size: var(--font-size-label);
   font-weight: var(--font-weight-medium);
   letter-spacing: var(--letter-spacing-label);
 }
 
+/* Le voci: grandi, una per riga, con sotto una riga che dice cosa trovi. */
 .site-header__panel-list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2xsmall);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: var(--border-width-hairline) solid rgba(255, 255, 255, 0.22);
 }
 
 .site-header__panel-link {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-small);
-  padding: var(--space-xsmall) var(--space-small);
-  border-radius: var(--radius-soft);
-  color: var(--color-text);
-  font-family: var(--font-heading);
-  font-size: 1.25rem;
-  font-weight: var(--font-weight-bold);
-  letter-spacing: -0.01em;
+  position: relative;
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.85rem 2.5rem 0.9rem 0;
+  border-bottom: var(--border-width-hairline) solid rgba(255, 255, 255, 0.22);
+  color: #FFFFFF;
   text-decoration: none;
-  transition: background-color var(--duration-fast) var(--ease-out);
+  transition: color var(--duration-fast) var(--ease-out), padding-left var(--duration-fast) var(--ease-out);
 }
 
-.site-header__panel-link:hover {
-  background-color: var(--color-surface-alt);
+.site-header__panel-name {
+  font-family: var(--font-heading);
+  font-size: clamp(2.6rem, 1.6rem + 5vw, 3.5rem);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0;
+  line-height: 1;
 }
 
-.site-header__panel-link.is-current {
-  background-color: var(--color-accent-soft);
-  color: var(--color-accent);
+.site-header__panel-hint {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: var(--font-size-label);
+  line-height: 1.3;
+}
+
+/* La freccia a destra: un cerchio che si riempie sulla pagina in cui sei. */
+.site-header__panel-link::after {
+  content: "→";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: var(--border-width-hairline) solid rgba(255, 255, 255, 0.45);
+  border-radius: var(--radius-pill);
+  font-size: 1rem;
+  transform: translateY(-50%);
+  transition: background-color var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
+}
+
+.site-header__panel-link:hover,
+.site-header__panel-link:active {
+  padding-left: var(--space-2xsmall);
+  color: #7FC8D8;
+}
+
+.site-header__panel-link.is-current .site-header__panel-name {
+  color: #7FC8D8;
+}
+
+.site-header__panel-link.is-current::after {
+  content: "•";
+  background-color: #7FC8D8;
+  border-color: #7FC8D8;
+  color: #0D0E3A;
+}
+
+/* In fondo: WhatsApp e telefono, sempre raggiungibili dal menu. */
+.site-header__panel-foot {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-xsmall);
+  margin-top: auto;
+}
+
+.site-header__panel-contact {
+  width: 100%;
+  justify-content: center;
+}
+
+.site-header__panel .button--ghost {
+  background-color: transparent;
+  border-color: rgba(255, 255, 255, 0.65);
+  color: #FFFFFF;
+}
+
+.site-header__panel .button--ghost:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+}
+
+
+/* Su telefono il menu scende dall'alto come la serranda del negozio in fondo
+   alla pagina: questa è la sua barra, con la maniglia. */
+.site-header__panel-rail {
+  display: none;
+}
+
+@media (max-width: 47.99em) {
+  .site-header__panel {
+    padding-bottom: calc(var(--space-large) + 1.1rem + env(safe-area-inset-bottom, 0px));
+    transform: translateY(-102%);
+  }
+
+  .site-header__panel.is-open {
+    transform: translateY(0);
+  }
+
+  .site-header__panel-rail {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    height: 1.1rem;
+    background: linear-gradient(#6c727c, #3b4049 60%, #23262d);
+  }
+
+  .site-header__panel-rail::before {
+    content: "";
+    position: absolute;
+    top: 0.32rem;
+    left: 50%;
+    width: 4.5rem;
+    height: 0.4rem;
+    background-color: #14161b;
+    border-radius: var(--radius-pill);
+    transform: translateX(-50%);
+  }
+}
+
+/* Le voci entrano una dopo l'altra, appena il menu è aperto. */
+@media (prefers-reduced-motion: no-preference) {
+  .site-header__panel.is-open .site-header__panel-list li,
+  .site-header__panel.is-open .site-header__panel-foot {
+    animation: menu-item-in 0.5s var(--ease-out) both;
+    animation-delay: 0.16s;
+  }
+
+  .site-header__panel.is-open .site-header__panel-list li:nth-child(2) { animation-delay: 0.22s; }
+  .site-header__panel.is-open .site-header__panel-list li:nth-child(3) { animation-delay: 0.28s; }
+  .site-header__panel.is-open .site-header__panel-list li:nth-child(4) { animation-delay: 0.34s; }
+  .site-header__panel.is-open .site-header__panel-list li:nth-child(5) { animation-delay: 0.4s; }
+  .site-header__panel.is-open .site-header__panel-foot { animation-delay: 0.5s; }
+}
+
+@keyframes menu-item-in {
+  from {
+    opacity: 0;
+    transform: translateY(1.2rem);
+  }
+}
+
+/* A menu aperto la bolla WhatsApp si nasconde: starebbe sopra i contatti in fondo. */
+.site-header:has(.site-header__panel.is-open) ~ .whatsapp-bar {
+  visibility: hidden;
 }
 
 @media (min-width: 80em) {
-  .site-header__navigation,
-  .site-header__action {
+  /* Da computer la pillola è larga quanto serve a logo e menu, non quanto
+     tutta la pagina. */
+  .site-header {
+    width: fit-content;
+    max-width: calc(100% - var(--space-large) * 2);
+  }
+
+  .site-header__inner {
+    width: auto;
+    gap: var(--space-2xlarge);
+    padding-inline: var(--space-large);
+  }
+
+  .site-header__navigation {
     display: block;
   }
 
@@ -739,18 +848,6 @@
   text-align: center;
 }
 
-/* Kicker di pagina: solo testo, niente pillola — un indizio, non un badge. */
-.hero__label {
-  display: block;
-  margin-bottom: var(--space-small);
-  color: var(--color-accent-hover);
-  font-family: var(--font-body);
-  font-size: var(--font-size-label);
-  font-weight: var(--font-weight-medium);
-  letter-spacing: var(--letter-spacing-label);
-  text-align: center;
-}
-
 @media (min-width: 64em) {
   /* Da computer il titolo sta un po' più in basso, con aria sotto
      l'intestazione (D122). Da telefono resta com'è. */
@@ -758,9 +855,26 @@
     padding-block: var(--space-xlarge) var(--space-2xlarge);
   }
 
-  /* Una colonna sola, testo centrato e demo sotto: nessuna hero a metà. */
-  .hero__inner {
-    gap: var(--space-xlarge);
+  /* Hero a lato: il testo a sinistra, lo schizzo che diventa sito a destra.
+     Il testo resta centrato nella sua colonna, come in tutto il sito. */
+  .hero__inner--split {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    align-items: center;
+    gap: var(--space-2xlarge);
+  }
+
+  .hero__inner--split .hero__title {
+    max-width: 14ch;
+    font-size: clamp(2.25rem, 1.2rem + 2.4vw, 3.5rem);
+  }
+
+  .hero__inner--split .hero__text {
+    max-width: 34ch;
+  }
+
+  .hero__inner--split .hero__reveal {
+    max-width: none;
+    margin-inline: 0;
   }
 }
 
@@ -1255,11 +1369,13 @@
 
 .badge {
   display: inline-block;
+  align-self: flex-start; /* dentro una card a colonna non si allarga a tutta la riga */
+  max-width: 100%;
   padding: var(--space-3xsmall) var(--space-small);
   border-radius: var(--radius-crisp);
   font-family: var(--font-body);
-  font-size: 0.6875rem;
-  font-weight: var(--font-weight-medium);
+  font-size: 0.875rem; /* 14px: si legge anche su telefono */
+  font-weight: var(--font-weight-semibold);
   letter-spacing: var(--letter-spacing-label);
   line-height: 1.4;
 }
@@ -1298,13 +1414,25 @@
   align-items: start;
   column-gap: var(--space-medium);
   padding-left: var(--space-medium);
-  border-left: 3px solid var(--color-accent);
   counter-increment: step;
-  transition: border-color var(--duration-base) var(--ease-out);
 }
 
-.step-list__item:hover {
-  border-left-color: var(--color-accent-hover);
+/* La linea laterale del passo. È un pezzo a sé (non un bordo) perché da
+   browser che lo supportano si disegna dall'alto mentre scorri. */
+.step-list__item::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 3px;
+  background-color: var(--color-accent);
+  transform-origin: top;
+  transition: background-color var(--duration-base) var(--ease-out);
+}
+
+.step-list__item:hover::after {
+  background-color: var(--color-accent-hover);
 }
 
 .step-list__item::before {
@@ -1398,7 +1526,7 @@
   border: 0;
   border-radius: var(--radius-crisp);
   color: var(--color-text);
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 1.1rem;
   font-weight: var(--font-weight-bold);
   letter-spacing: -0.01em;
@@ -1589,56 +1717,6 @@
 }
 
 /* ==========================================================================
-   Briciole di pane
-   Il percorso "Home / Pagina" in cima ad alcune pagine interne.
-   ========================================================================== */
-
-.breadcrumb {
-  padding-top: var(--space-medium);
-}
-
-.breadcrumb__list {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-2xsmall);
-  font-size: var(--font-size-small);
-}
-
-.breadcrumb__item {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2xsmall);
-  color: var(--color-text-muted);
-}
-
-.breadcrumb__item:not(:last-child)::after {
-  content: "/";
-  color: var(--color-border-strong);
-}
-
-.breadcrumb__link {
-  display: inline-block;
-  padding-block: 0.6rem;
-  color: var(--color-text-muted);
-}
-
-.breadcrumb__link:hover {
-  color: var(--color-accent);
-}
-
-.breadcrumb__item.is-current {
-  color: var(--color-text);
-  font-weight: var(--font-weight-medium);
-}
-
-@media (max-width: 29.99em) {
-  .breadcrumb__item:not(:first-child):not(:last-child) {
-    display: none;
-  }
-}
-
-/* ==========================================================================
    Nota
    Box con un bordo blu a sinistra, per un'informazione da far notare.
    ========================================================================== */
@@ -1739,61 +1817,464 @@
 }
 
 /* ==========================================================================
-   Piè di pagina — espresso caldo
+   Piè di pagina — la facciata di un negozio
+   La serranda (.shopfront__roll) si alza mentre arrivi in fondo alla pagina:
+   --shutter-open (da 0 a 1) lo scrive init_shopfront() in main.js. Senza
+   JavaScript, o con "riduci movimento", vale 1: negozio aperto, tutto visibile.
+   I grigi del metallo e il crema del cartellino sono colori di materiale e
+   vivono solo qui; il resto usa i token.
    ========================================================================== */
 
 .site-footer {
-  padding-block: var(--space-2xlarge) var(--space-large);
+  padding-block: var(--space-xlarge) var(--space-large);
   background-color: var(--color-surface-inverse);
   color: var(--color-text-inverse-muted);
   font-size: var(--font-size-small);
   line-height: var(--line-height-small);
   border-radius: var(--radius-soft) var(--radius-soft) 0 0;
+  overflow: hidden; /* il marciapiede sporge di poco oltre il contenitore */
 }
 
-.site-footer__grid {
-  display: grid;
-  gap: var(--space-large);
+.shopfront {
+  position: relative;
+  max-width: 60rem;
+  margin-inline: auto;
+  padding: var(--space-2xsmall) var(--space-2xsmall) 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0.07) 5rem); /* il muro sfuma nel fondo, senza stacco */
+  border-radius: var(--radius-soft) var(--radius-soft) 0 0;
 }
 
-.site-footer__brand-name {
+/* L'insegna: si illumina quando il negozio è aperto. */
+.shopfront__sign {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: var(--space-2xsmall);
+  justify-content: center;
+  gap: 0.1rem 0.5rem;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0.4rem 1rem 0.45rem;
+  background-color: #101238;
+  border: var(--border-width-medium) solid #3b3d8a;
+  border-radius: var(--radius-crisp);
+  color: rgba(255, 255, 255, 0.6);
+  transition: color 0.6s, border-color 0.6s, box-shadow 0.6s;
+}
+
+.shopfront__logo {
+  width: 1.8rem;
+  height: 1.8rem;
+  opacity: 0.6;
+  transition: opacity 0.6s;
+}
+
+.shopfront__name {
+  font-family: var(--font-logo);
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-extrabold);
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.shopfront__motto {
+  flex-basis: 100%;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.shopfront.is-open .shopfront__sign {
+  border-color: #9fdcf0;
+  box-shadow: 0 0 26px rgba(127, 227, 255, 0.45), inset 0 0 18px rgba(127, 227, 255, 0.18);
+  color: var(--color-text-inverse);
+}
+
+.shopfront.is-open .shopfront__logo {
+  opacity: 1;
+}
+
+.shopfront.is-open .shopfront__name {
+  text-shadow: 0 0 0.45em rgba(127, 227, 255, 0.9);
+}
+
+/* La tenda a righe, con il bordo a festoni. */
+.shopfront__awning {
+  position: relative;
+  z-index: 2;
+  height: 2rem;
+  margin: var(--space-2xsmall) -0.3rem -0.5rem;
+  background: repeating-linear-gradient(90deg, #f4f6fb 0 2.4rem, var(--color-accent) 2.4rem 4.8rem);
+  border-radius: var(--radius-crisp) var(--radius-crisp) 0 0;
+  filter: drop-shadow(0 8px 6px rgba(0, 0, 0, 0.45));
+  -webkit-mask: linear-gradient(#000 0 0) top / 100% calc(100% - 0.6rem) no-repeat, radial-gradient(circle at 50% 0, #000 0.6rem, transparent 0.62rem) bottom left / 1.2rem 0.6rem repeat-x;
+  mask: linear-gradient(#000 0 0) top / 100% calc(100% - 0.6rem) no-repeat, radial-gradient(circle at 50% 0, #000 0.6rem, transparent 0.62rem) bottom left / 1.2rem 0.6rem repeat-x;
+}
+
+/* Il vano: guide ai lati, cassonetto in alto. */
+.shopfront__bay {
+  position: relative;
+  overflow: hidden;
+  background-color: #05061c;
+  border: 0.35rem solid #14153f;
+  border-top: 1.2rem solid #0b0c2e;
+  border-bottom: 0;
+}
+
+/* L'interno: la luce si accende man mano che la serranda sale. */
+.shopfront__shop {
+  display: grid;
+  gap: 0.35rem;
+  padding: 1.65rem 0.35rem 0; /* in alto, lo spazio della barra quando è alzata */
+  background-color: #14153f;
+  filter: brightness(calc(0.4 + 0.6 * var(--shutter-open, 1)));
+}
+
+.shopfront__glass,
+.shopfront__door {
+  position: relative;
+  padding: var(--space-small);
+  background:
+    linear-gradient(115deg, rgba(255, 255, 255, 0.13) 0 13%, transparent 13% 33%, rgba(255, 255, 255, 0.06) 33% 39%, transparent 39%),
+    radial-gradient(90% 70% at 50% 0, rgba(255, 221, 150, 0.28), transparent 70%),
+    #171a4d;
+  color: var(--color-text-inverse);
+}
+
+.shopfront__glass {
+  display: grid;
+  align-content: center;
+  gap: var(--space-2xsmall);
+  border-bottom: 0.6rem solid #0b0c2e; /* lo zoccolo sotto la vetrina */
+}
+
+.shopfront__vinyl {
+  max-width: none;
+  margin: 0;
   color: var(--color-text-inverse);
   font-family: var(--font-heading);
-  font-size: 1.75rem;
-  font-weight: var(--font-weight-extrabold);
-  letter-spacing: -0.04em;
+  font-size: clamp(2.1rem, 1.3rem + 3vw, 3.25rem);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0;
   line-height: 1;
 }
 
-.site-footer__logo-image {
-  display: block;
-  height: 2.75rem;
-  width: auto;
+.shopfront__contacts,
+.shopfront__pages {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.site-footer__tagline {
-  margin-bottom: var(--space-small);
-  color: var(--color-text-inverse-muted);
-  font-weight: var(--font-weight-semibold);
+.shopfront__contacts {
+  display: grid;
+  gap: 0.15rem var(--space-small);
 }
 
-.site-footer__column-title {
-  margin-bottom: var(--space-xsmall);
-  color: var(--color-text-inverse);
-  font-family: var(--font-body);
-  font-size: var(--font-size-label);
-  font-weight: var(--font-weight-medium);
-  letter-spacing: var(--letter-spacing-label);
-}
-
-.site-footer__link-list {
+.shopfront__contact {
   display: flex;
-  flex-direction: column;
-  gap: 0;
+  align-items: center;
+  gap: 0.7rem;
+  min-height: 3rem; /* area di tocco comoda col pollice */
+  color: var(--color-text-inverse);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+}
+
+.shopfront__icon {
+  flex: none;
+  width: 1.3rem;
+  height: 1.3rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.shopfront__contact-text {
+  display: grid;
+  min-width: 0;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.shopfront__contact-text small {
+  color: #9fdcf0;
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.shopfront__contact:hover,
+.shopfront__page:hover {
+  text-decoration: underline;
+}
+
+/* La porta, con il cartellino appeso. */
+.shopfront__door {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-small);
+  border: 0.3rem solid #0b0c2e;
+  border-bottom: 0;
+}
+
+.shopfront__plate {
+  position: relative;
+  margin-top: 1.2rem;
+  padding: 0.3rem 0.8rem 0.4rem;
+  background-color: #fbf6ea;
+  border: var(--border-width-medium) solid var(--color-heading);
+  border-radius: var(--radius-crisp);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.45);
+  color: var(--color-heading);
+  font-size: 1.05rem;
+  font-weight: var(--font-weight-extrabold);
+  transform: rotate(-3deg);
+  transform-origin: 50% -1.6rem;
+}
+
+.shopfront__plate::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  width: 3.4rem;
+  height: 1.6rem;
+  background:
+    linear-gradient(to top right, transparent calc(50% - 1px), #cfd3e6 calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)) left / 50% 100% no-repeat,
+    linear-gradient(to top left, transparent calc(50% - 1px), #cfd3e6 calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)) right / 50% 100% no-repeat;
+  transform: translateX(-50%);
+}
+
+.shopfront__pages {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--space-2xsmall);
+}
+
+.shopfront__page {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+  color: var(--color-text-inverse);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+}
+
+/* La serranda. Da alzata resta visibile solo la barra in fondo. */
+.shopfront__roll {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.3rem;
+  padding-bottom: 1.4rem;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.25), transparent 6% 94%, rgba(0, 0, 0, 0.25)),
+    repeating-linear-gradient(180deg, #d5d9df 0 0.35rem, #b9bec7 0.35rem 0.85rem, #8e949e 0.85rem 0.95rem, #e6e9ed 0.95rem 1.1rem);
+  box-shadow: 0 10px 16px rgba(0, 0, 0, 0.65);
+  transform: translateY(calc(var(--shutter-open, 1) * (1.4rem - 100%)));
+  will-change: transform;
+}
+
+.shopfront.is-open .shopfront__roll {
+  pointer-events: none;
+}
+
+.shopfront__paint {
+  color: var(--color-heading);
+  font-family: var(--font-logo);
+  font-size: clamp(3.8rem, 15vw, 9rem);
+  font-weight: var(--font-weight-extrabold);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  mix-blend-mode: multiply;
+  opacity: 0.82;
+  transform: rotate(-5deg);
+}
+
+.shopfront__hint {
+  padding: 0.2rem 0.8rem;
+  background-color: var(--color-heading);
+  border-radius: var(--radius-pill);
+  color: var(--color-text-inverse);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-bold);
+}
+
+/* La barra in fondo alla serranda, con la maniglia e il lucchetto. */
+.shopfront__rail {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1.4rem;
+  background: linear-gradient(#6c727c, #3b4049 60%, #23262d);
+}
+
+.shopfront__rail::before {
+  content: "";
+  position: absolute;
+  top: 0.4rem;
+  left: 50%;
+  width: 5rem;
+  height: 0.5rem;
+  background-color: #14161b;
+  border-radius: var(--radius-pill);
+  transform: translateX(-50%);
+}
+
+.shopfront__rail::after {
+  content: "";
+  position: absolute;
+  top: 0.2rem;
+  right: 12%;
+  width: 0.9rem;
+  height: 1rem;
+  background-color: #d8a93a;
+  border-radius: 2px;
+  box-shadow: 0 -0.35rem 0 -0.2rem #d8a93a, 0 2px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Il marciapiede. */
+.shopfront__step {
+  height: 1rem;
+  margin-inline: -0.8rem;
+  background: linear-gradient(#aeb4bd, #7d838d);
+  border-radius: 2px;
+  box-shadow: 0 8px 14px rgba(0, 0, 0, 0.5);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .shopfront__roll {
+    transition: transform 0.12s linear;
+  }
+
+  .shopfront.is-open .shopfront__plate {
+    animation: shopfront-swing 1.6s ease-out;
+  }
+}
+
+@keyframes shopfront-swing {
+  0% { transform: rotate(-3deg); }
+  20% { transform: rotate(9deg); }
+  45% { transform: rotate(-8deg); }
+  70% { transform: rotate(2deg); }
+  100% { transform: rotate(-3deg); }
+}
+
+@media (min-width: 48em) {
+  .shopfront {
+    padding: var(--space-small) var(--space-medium) 0;
+  }
+
+  .shopfront__sign {
+    padding: 0.5rem 1.6rem 0.6rem;
+  }
+
+  .shopfront__logo {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+
+  .shopfront__name {
+    font-size: 1.9rem;
+  }
+
+  .shopfront__motto {
+    flex-basis: auto;
+    font-size: var(--font-size-label);
+  }
+
+  .shopfront__awning {
+    height: 2.6rem;
+    margin-inline: -0.6rem;
+  }
+
+  .shopfront__bay {
+    border-width: 0.55rem;
+    border-top-width: 1.5rem;
+    border-bottom: 0;
+  }
+
+  .shopfront__shop {
+    grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr);
+    gap: 0.5rem;
+    padding: 1.75rem 0.5rem 0;
+  }
+
+  .shopfront__glass,
+  .shopfront__door {
+    padding: var(--space-medium);
+  }
+
+  .shopfront__glass {
+    gap: var(--space-small);
+    min-height: 19rem;
+    border-bottom-width: 2.2rem;
+  }
+
+  .shopfront__door {
+    grid-template-columns: minmax(0, 1fr);
+    align-content: start;
+    justify-items: center;
+    border-width: 0.45rem;
+    border-bottom: 0;
+  }
+
+  /* la maniglia della porta */
+  .shopfront__door::after {
+    content: "";
+    position: absolute;
+    top: 52%;
+    left: 0.5rem;
+    width: 0.4rem;
+    height: 4rem;
+    background: linear-gradient(90deg, #f2f3f6, #8c929c);
+    border-radius: 3px;
+  }
+
+  .shopfront__plate {
+    margin-top: 1.6rem;
+    padding: 0.35rem 1.2rem 0.45rem;
+    font-size: 1.25rem;
+  }
+
+  .shopfront__pages {
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    padding-left: var(--space-small);
+  }
+
+  .shopfront__step {
+    height: 1.1rem;
+    margin-inline: -1.4rem;
+  }
+}
+
+/* Solo da computer i contatti stanno su due colonne: prima l'email andrebbe a capo. */
+@media (min-width: 64em) {
+  .shopfront__contacts {
+    grid-auto-flow: column;
+    grid-template-rows: repeat(2, auto);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr);
+  }
+}
+
+/* Telefoni molto stretti: il cartellino sta sopra le pagine, non di fianco. */
+@media (max-width: 23.99em) {
+  .shopfront__door {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: var(--space-2xsmall);
+  }
+
+  .shopfront__pages {
+    width: 100%;
+  }
 }
 
 .site-footer__link {
@@ -1809,19 +2290,17 @@
   text-decoration: underline;
 }
 
+/* Copyright a sinistra, Privacy e Cookie a destra, sulla stessa riga. */
 .site-footer__legal {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 0 var(--space-medium);
-  margin-top: var(--space-medium);
-  padding-top: var(--space-small);
-  border-top: var(--border-width-hairline) solid rgba(255, 255, 255, 0.16);
+  max-width: 60rem;
+  margin: var(--space-medium) auto 0;
 }
 
-/* Il copyright e i due link stanno sulla stessa riga, alla stessa altezza
-   (prima il testo non aveva l'altezza minima dei link e si disallineava). */
 .site-footer__legal > span {
   display: inline-flex;
   align-items: center;
@@ -1836,20 +2315,11 @@
    fondo al piè di pagina perché non copra Privacy e Cookie. */
 @media (max-width: 79.99em) {
   .site-footer {
-    padding-bottom: calc(var(--space-3xlarge) + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(var(--space-2xlarge) + env(safe-area-inset-bottom, 0px));
   }
-}
 
-@media (min-width: 30em) {
-  .site-footer__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 64em) {
-  .site-footer__grid {
-    grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
-    gap: var(--space-xlarge);
+  .site-footer__legal {
+    padding-right: 4.5rem;
   }
 }
 
@@ -1881,7 +2351,7 @@
   background-color: var(--color-accent);
   border-radius: var(--radius-pill);
   color: var(--color-text-inverse-on-accent);
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: var(--font-size-h3);
   font-weight: var(--font-weight-extrabold);
 }
@@ -1932,3 +2402,369 @@
   padding: 0.7rem 0.4rem; /* area di tocco da 44px */
 }
 
+/* ==========================================================================
+   Movimenti legati allo scorrimento
+   Pochi e piccoli: servono a dare un filo alla pagina mentre scorri, non a
+   stupire. Solo CSS (nessuno script), solo dove il browser li supporta e
+   mai con "riduci movimento". Dove non ci sono, la pagina è già completa.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+
+    /* La linea di ogni passo si disegna dall'alto mentre il passo entra. */
+    .step-list__item::after {
+      animation: scroll-line linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 40%;
+    }
+
+    /* Il numero del passo si accende insieme alla linea. */
+    .step-list__item::before {
+      animation: scroll-number linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 40%;
+    }
+
+    /* I punti della scheda arrivano uno dopo l'altro, da sinistra. */
+    .bento__points li {
+      animation: scroll-point linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 90%;
+    }
+
+    /* La foto del lavoro vero si assesta mentre entra. */
+    .project-card__image {
+      animation: scroll-settle linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 40%;
+    }
+
+    /* Da computer lo schizzo scende un po' più piano del testo. */
+    .hero__reveal {
+      animation: scroll-lag linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0 60vh;
+    }
+  }
+}
+
+@keyframes scroll-line {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
+
+@keyframes scroll-number {
+  from { opacity: 0.15; transform: scale(0.7); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes scroll-point {
+  from { opacity: 0.2; transform: translateX(-14px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scroll-settle {
+  from { transform: scale(1.1); }
+  to   { transform: scale(1); }
+}
+
+@keyframes scroll-lag {
+  from { transform: translateY(0); }
+  to   { transform: translateY(28px); }
+}
+
+/* ==========================================================================
+   Notte — il fondo blu, su tutte le pagine
+   .scene-bg è lo sfondo fisso (un <div> vuoto subito dopo <body>): blu notte
+   pieno con una sola luce ferma dall'alto, come quella di un'insegna. Niente
+   aloni che si muovono. Lo usano la home (.home-scenes) e le pagine interne
+   (.night).
+   Sulle pagine interne i colori cambiano solo dentro <main>: intestazione e
+   menu restano chiari. I componenti leggono gli stessi token di sempre.
+   ========================================================================== */
+
+/* Anche la radice è blu: oltre i bordi (rimbalzo dello scorrimento su
+   iPhone, barre di Safari) non deve mai spuntare il bianco. */
+html:has(.scene-bg) {
+  background-color: #0D0E3A;
+}
+
+.night,
+.home-scenes {
+  --l-ink: #0d0e3a;
+  background-color: var(--l-ink);
+}
+
+.scene-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  /* Su iPhone la finestra cresce quando Safari ritira le barre: lvh è
+     l'altezza massima dello schermo, più un margine per il rimbalzo. */
+  height: 120vh;
+  height: calc(100lvh + 8rem);
+  background:
+    radial-gradient(120% 62% at 50% 0, rgba(32, 112, 161, 0.5), rgba(32, 112, 161, 0) 70%),
+    var(--l-ink);
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Tenda — la tenda a righe del negozio, in cima a ogni pagina
+   Stesso disegno di quella nel piè di pagina. Sta in cima al documento e
+   scorre via con il contenuto; l'intestazione ci passa sopra.
+   ========================================================================== */
+
+.awning {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  height: calc(var(--header-height) + var(--space-large));
+  background: repeating-linear-gradient(90deg, #f4f6fb 0 3rem, var(--color-accent) 3rem 6rem);
+  filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.45));
+  -webkit-mask: linear-gradient(#000 0 0) top / 100% calc(100% - 0.75rem) no-repeat, radial-gradient(circle at 50% 0, #000 0.75rem, transparent 0.77rem) bottom left / 1.5rem 0.75rem repeat-x;
+  mask: linear-gradient(#000 0 0) top / 100% calc(100% - 0.75rem) no-repeat, radial-gradient(circle at 50% 0, #000 0.75rem, transparent 0.77rem) bottom left / 1.5rem 0.75rem repeat-x;
+  pointer-events: none;
+}
+
+@media (max-width: 47.99em) {
+  .awning {
+    height: calc(var(--header-height) + var(--space-medium));
+    background-size: auto;
+    background-image: repeating-linear-gradient(90deg, #f4f6fb 0 2.25rem, var(--color-accent) 2.25rem 4.5rem);
+  }
+}
+
+.night main,
+.night .site-footer,
+.home-scenes .site-footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* Il negozio poggia direttamente sul blu della pagina, senza fascia propria. */
+.night .site-footer,
+.home-scenes .site-footer {
+  background-color: transparent;
+  border-radius: 0;
+}
+
+.night main {
+  color-scheme: dark;
+  --color-background: transparent;
+  --color-background-warm: transparent;
+  --color-surface: rgba(255, 255, 255, 0.05);
+  --color-surface-alt: rgba(255, 255, 255, 0.1);
+  --color-text: rgba(255, 255, 255, 0.92);
+  --color-text-muted: rgba(255, 255, 255, 0.78);
+  --color-heading: #FFFFFF;
+  --color-border: rgba(255, 255, 255, 0.2);
+  --color-border-strong: rgba(255, 255, 255, 0.5);
+  --color-accent: #7FC8D8;                  /* azzurro chiaro: link ed evidenze sul blu notte */
+  --color-accent-hover: #B4E3EE;
+  --color-accent-active: #FFFFFF;
+  --color-accent-soft: rgba(127, 200, 216, 0.16);
+  --color-text-inverse-on-accent: #0D0E3A;  /* testo scuro sopra l'azzurro pieno */
+  --color-success: #7BE0A8;
+  --color-error: #FF9AA2;
+  --color-error-soft: rgba(255, 154, 162, 0.14);
+  --shadow-lift: none;
+  --shadow-float: 0 20px 48px rgba(0, 0, 0, 0.4);
+  color: var(--color-text);
+}
+
+/* Titoli grandi e stretti, come nella home. */
+.night .hero__title,
+.night .hero__title-page,
+.night .hero > .container > h1 {
+  font-size: clamp(3.2rem, 1.4rem + 7vw, 7rem);
+  letter-spacing: -0.005em;
+  line-height: 0.95;
+  text-wrap: balance;
+}
+
+.night .section__title {
+  text-wrap: balance;
+}
+
+/* I bottoni restano quelli della home: blu pieno con testo bianco, e
+   contorno bianco per quello secondario. */
+.night main .button--primary {
+  background-color: #2070A1;
+  border-color: #2070A1;
+  color: #FFFFFF;
+}
+
+.night main .button--primary:hover {
+  background-color: #2B86BD;
+  border-color: #2B86BD;
+  color: #FFFFFF;
+}
+
+.night main .button--secondary,
+.night main .button--ghost {
+  background-color: transparent;
+  border-color: rgba(255, 255, 255, 0.65);
+  color: #FFFFFF;
+}
+
+.night main .button--secondary:hover,
+.night main .button--ghost:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+}
+
+.night main ::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+
+/* ==========================================================================
+   Apertura — la serranda che si alza al primo arrivo
+   Un <div class="loader"> subito dopo <body>, su ogni pagina. Sopra una
+   barra da finestra del browser con l'indirizzo, sotto la serranda con
+   "mockly" a vernice: si alza e scopre il sito, come il negozio in fondo
+   alla pagina. Dura circa un secondo e mezzo, poi sparisce da sola: è tutto
+   CSS, quindi non resta mai bloccata.
+   Si vede una volta per visita: una riga di script subito dopo il <div>
+   mette "is-returning" sulla radice quando sei già passato di qui.
+   ========================================================================== */
+
+.loader {
+  display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    width: 100%;
+    height: 100vh;
+    height: 100lvh;
+    overflow: hidden;
+    pointer-events: none;
+    animation: loader-gone 0s linear 1.75s forwards;
+  }
+
+  .is-returning .loader {
+    display: none;
+  }
+
+  /* la barra del browser: resta un attimo, poi sale via */
+  .loader__bar {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: var(--space-small);
+    padding: 0.6rem var(--space-small);
+    padding-top: calc(0.6rem + env(safe-area-inset-top, 0px));
+    background-color: #dfe3ea;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+    animation: loader-bar 0.45s cubic-bezier(0.6, 0, 0.8, 0.2) 1.25s forwards;
+  }
+
+  .loader__dots {
+    flex: none;
+    width: 3.1rem;
+    height: 0.75rem;
+    background:
+      radial-gradient(circle at 0.375rem 50%, #b6bcc7 0.36rem, transparent 0.38rem),
+      radial-gradient(circle at 1.55rem 50%, #b6bcc7 0.36rem, transparent 0.38rem),
+      radial-gradient(circle at 2.725rem 50%, #b6bcc7 0.36rem, transparent 0.38rem);
+  }
+
+  .loader__url {
+    flex: 1;
+    max-width: 30rem;
+    margin-inline: auto;
+    padding: 0.35rem 1rem;
+    background-color: #f6f7fa;
+    border-radius: var(--radius-pill);
+    color: #2a2f38;
+    font-size: var(--font-size-label);
+    font-weight: var(--font-weight-semibold);
+    text-align: center;
+  }
+
+  /* la serranda: un piccolo scatto verso il basso, poi su */
+  .loader__roll {
+    position: relative;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 0.5rem;
+    padding-bottom: 1.6rem;
+    background:
+      linear-gradient(90deg, rgba(0, 0, 0, 0.25), transparent 6% 94%, rgba(0, 0, 0, 0.25)),
+      repeating-linear-gradient(180deg, #d5d9df 0 0.35rem, #b9bec7 0.35rem 0.85rem, #8e949e 0.85rem 0.95rem, #e6e9ed 0.95rem 1.1rem);
+    box-shadow: 0 14px 24px rgba(0, 0, 0, 0.6);
+    animation: loader-roll 1s cubic-bezier(0.65, 0, 0.3, 1) 0.4s forwards;
+    will-change: transform;
+  }
+
+  .loader__paint {
+    color: #16174F;
+    font-family: var(--font-logo);
+    font-size: clamp(4.5rem, 20vw, 13rem);
+    font-weight: var(--font-weight-extrabold);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    mix-blend-mode: multiply;
+    opacity: 0.82;
+    transform: rotate(-5deg);
+  }
+
+  .loader__hint {
+    padding: 0.25rem 0.9rem;
+    background-color: #16174F;
+    border-radius: var(--radius-pill);
+    color: #FFFFFF;
+    font-size: var(--font-size-label);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .loader__rail {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 1.6rem;
+    background: linear-gradient(#6c727c, #3b4049 60%, #23262d);
+  }
+
+  .loader__rail::before {
+    content: "";
+    position: absolute;
+    top: 0.5rem;
+    left: 50%;
+    width: 6rem;
+    height: 0.55rem;
+    background-color: #14161b;
+    border-radius: var(--radius-pill);
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes loader-roll {
+  0% { transform: translateY(0); }
+  14% { transform: translateY(0.5rem); }
+  100% { transform: translateY(-105%); }
+}
+
+@keyframes loader-bar {
+  to { transform: translateY(-110%); }
+}
+
+@keyframes loader-gone {
+  to { visibility: hidden; }
+}

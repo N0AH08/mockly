@@ -104,7 +104,7 @@ h3 {
 
 h4 {
   font-size: var(--font-size-h4);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-bold);
   line-height: var(--line-height-h4);
 }
 
@@ -251,10 +251,6 @@ button {
   line-height: var(--line-height-lead);
   color: var(--color-text-muted);
 }
-
-/* Compatibilità: .is-highlighted resta nell'HTML come marcatore del blocco
-   di conversione (lo conta tools/check.js). La firma visiva viene dal
-   pannello scuro (.call-to-action__panel), non richiede token dedicati. */
 
 /* --- Comparsa allo scroll ----------------------------------------------------
    La classe .reveal la mette main.js: senza JavaScript non si nasconde niente.

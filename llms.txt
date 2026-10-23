@@ -1,13 +1,13 @@
 # Mockly
 
-> Mockly costruisce siti web su misura per attività in Sardegna (saloni, negozi, fioristi, ristoranti, sale per eventi) (con l'obiettivo di arrivare presto in tutta Italia). Tre studenti sardi scrivono ogni sito a mano, senza template né plugin: preventivo scritto entro 48 ore, bozza in una settimana, sito pubblicato in due. Il nome del sito e i file restano sempre del cliente.
+> Mockly costruisce siti web su misura per attività in Sardegna (saloni, negozi, fioristi, ristoranti, sale per eventi, società sportive) (con l'obiettivo di arrivare presto in tutta Italia). Tre studenti sardi scrivono ogni sito a mano, senza template né plugin. Un sito parte da 300 €: preventivo scritto entro 48 ore, sito pronto in circa 2 settimane dall'approvazione del preventivo (i tempi possono allungarsi per le revisioni e per i tempi di Google). Tutto quello che è incluso è scritto nel preventivo; le modifiche fuori dal preventivo hanno un preventivo a parte. Il nome del sito e i file restano sempre del cliente; nome del sito e spazio web sono a parte (costi di attivazione nel preventivo), separati dall'assistenza. Su richiesta configuriamo anche WordPress, per chi vuole pubblicare da solo.
 
 Contatti: WhatsApp/telefono +39 351 757 8080, email mockly.website@gmail.com, Instagram @mockly.site.
 
 ## Pagine principali
 
 - [Home](https://mockly.it/): panoramica del servizio, come si lavora, prezzi.
-- [Siti web](https://mockly.it/siti-web.html): tipi di sito realizzabili (vetrina, aziendali, negozio su internet, in più lingue, prenotazioni), cosa è incluso, abbonamenti di assistenza.
+- [Siti web](https://mockly.it/siti-web.html): tipi di sito realizzabili (vetrina, più pagine, negozio su internet, in più lingue, prenotazioni), cosa è incluso, assistenza mensile facoltativa (Base 15 €, Plus 25 €, Pro 35 € al mese; pagando l'anno intero 135, 225 e 315 €).
 - [Portfolio](https://mockly.it/portfolio.html): un lavoro reale su commessa (Tonnara di Flumentorgiu) e undici esempi per settore costruiti da Mockly per mostrare cosa sa fare un sito, dichiarati chiaramente come esempi (i locali mostrati non sono veri, salvo Sa Sida Country, che è un locale vero).
 - [Chi siamo](https://mockly.it/chi-siamo.html): la squadra (Noah, Adriano e Simone) e come lavorano con te.
 - [Contatti](https://mockly.it/contatti.html): come scrivere, tempi di risposta, FAQ.

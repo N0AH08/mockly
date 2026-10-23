@@ -4,8 +4,7 @@
    il testo in pagina. Vedi cookie.html e privacy.html.
 
    Barlow Condensed per i titoli e Barlow per il testo (D133): nasce dalla
-   segnaletica, è stretto e deciso come una scritta su una serranda e si
-   legge bene. Sottoinsieme "latin", che copre l'italiano.
+   segnaletica, è stretto e deciso e si legge bene. Sottoinsieme "latin", che copre l'italiano.
    Manrope resta solo per la parola "mockly" del logo, che è disegnata così.
    ========================================================================== */
 
@@ -21,14 +20,6 @@
   font-family: "Barlow";
   src: url("../fonts/barlow-500.woff2") format("woff2");
   font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Barlow";
-  src: url("../fonts/barlow-600.woff2") format("woff2");
-  font-weight: 600;
   font-style: normal;
   font-display: swap;
 }

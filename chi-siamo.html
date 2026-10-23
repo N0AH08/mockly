@@ -25,7 +25,7 @@
   <meta name="twitter:image" content="https://mockly.it/assets/img/og-cover.png">
   <meta name="twitter:image:alt" content="Mockly: parti dal tuo lavoro, al sito pensiamo noi.">
 
-  <link rel="stylesheet" href="assets/css/fonts.css?v=20261014g">
+  <link rel="stylesheet" href="assets/css/fonts.css?v=20261023a">
 
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" href="assets/img/logo-mockly-icon.svg" type="image/svg+xml">
@@ -35,10 +35,10 @@
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
 
-  <link rel="stylesheet" href="assets/css/tokens.css?v=20261014g">
-  <link rel="stylesheet" href="assets/css/base.css?v=20261014g">
-  <link rel="stylesheet" href="assets/css/components.css?v=20261014g">
-  <link rel="stylesheet" href="assets/css/pages.css?v=20261014g">
+  <link rel="stylesheet" href="assets/css/tokens.css?v=20261023a">
+  <link rel="stylesheet" href="assets/css/base.css?v=20261023a">
+  <link rel="stylesheet" href="assets/css/components.css?v=20261023a">
+  <link rel="stylesheet" href="assets/css/pages.css?v=20261023a">
 
   <script type="application/ld+json">
   {
@@ -93,19 +93,8 @@
 </head>
 
 <body class="page-body night">
-  <!-- Apertura: la serranda si alza una volta sola per visita. Solo decorazione;
-       si toglie da sola con il CSS, anche senza JavaScript. -->
-  <div class="loader" aria-hidden="true">
-    <div class="loader__bar"><span class="loader__dots"></span><span class="loader__url">mockly.it</span></div>
-    <div class="loader__roll"><span class="loader__paint">mockly</span><span class="loader__hint">apriamo subito</span><span class="loader__rail"></span></div>
-  </div>
-  <script>try{if(sessionStorage.getItem("mockly-aperto")){document.documentElement.classList.add("is-returning")}else{sessionStorage.setItem("mockly-aperto","1")}}catch(e){}</script>
   <!-- Sfondo: blu notte fermo, con una sola luce dall'alto. -->
   <div class="scene-bg" aria-hidden="true"></div>
-  <!-- La tenda del negozio, in cima a ogni pagina: scorre via con il contenuto. -->
-  <div class="awning" aria-hidden="true"></div>
-
-
 
   <a class="skip-link" href="#contenuto">Salta al contenuto</a>
 
@@ -164,7 +153,6 @@
         <a class="button button--primary site-header__panel-contact" href="https://wa.me/393517578080" aria-label="Scrivici su WhatsApp al 351 757 8080">WhatsApp</a>
         <a class="button button--ghost site-header__panel-contact" href="tel:+393517578080" aria-label="Chiama il 351 757 8080">Chiama</a>
       </div>
-      <span class="site-header__panel-rail" aria-hidden="true"></span>
     </div>
   </header>
 
@@ -176,7 +164,7 @@
       <div class="container">
         <h1 class="hero__title-page">Tre studenti sardi che costruiscono siti per attività come la tua.</h1>
         <p class="hero__text">
-          Siamo Noah, Adriano e Simone. Studiamo a Oristano e lavoriamo in tutta la Sardegna. Parli sempre con noi tre, mai con un ufficio.
+          Siamo Noah, Adriano e Simone. Studiamo a Oristano e lavoriamo in tutta la Sardegna. Parli sempre con noi tre.
         </p>
       </div>
     </section>
@@ -228,7 +216,8 @@
             <p class="person-card__role">Moduli, collegamenti e automazioni</p>
             <p class="person-card__text">
               Fa arrivare a te quello che il sito raccoglie: il modulo sulla tua email, il pulsante
-              WhatsApp con il messaggio gi&agrave; scritto, il collegamento con TheFork o con altri servizi che usi gi&agrave;.
+              WhatsApp con il messaggio gi&agrave; scritto, il collegamento con i servizi di prenotazione che usi gi&agrave;,
+              come TheFork. Scrive e ordina il codice, così il sito resta pulito e facile da modificare.
             </p>
             <p class="person-card__link-list">
               <a href="https://github.com/ssimo-gg" target="_blank" rel="noopener"
@@ -246,7 +235,7 @@
       <div class="container">
         <div class="section__header">
           <h2 class="section__title section__title--wide">Come lavoriamo con te</h2>
-          <p class="section__intro">&ldquo;Sono tre ragazzi, si pu&ograve; fare?&rdquo; &Egrave; giusto chiederselo. Ecco cosa ricevi.</p>
+          <p class="section__intro">&ldquo;Sono tre ragazzi, si pu&ograve; fare?&rdquo; &Egrave; giusto chiederselo. Ecco cosa ti promettiamo.</p>
         </div>
 
         <ol class="step-list">
@@ -254,7 +243,7 @@
             <div>
               <h3 class="step-list__title">Parli con noi, non con un ufficio</h3>
               <p class="step-list__text">
-                Rispondiamo in giornata e il tuo sito lo seguiamo noi tre, dall&rsquo;inizio alla fine. Sai sempre chi
+                Rispondiamo in giornata e il tuo sito lo seguiamo noi tre, dall'inizio alla fine. Sai sempre chi
                 sta facendo cosa.
               </p>
             </div>
@@ -263,8 +252,9 @@
             <div>
               <h3 class="step-list__title">Il prezzo lo sai prima</h3>
               <p class="step-list__text">
-                Il preventivo ha una cifra unica e una data di consegna, e non cambia dopo. Non abbiamo uffici da
-                mantenere: paghi il lavoro.
+                Si parte da 300&nbsp;&euro;. Il preventivo ha una cifra unica e una data di consegna, e non cambia dopo.
+                Nome del sito e spazio web sono a parte, scritti nel preventivo. Non abbiamo uffici da mantenere:
+                paghi il lavoro.
               </p>
             </div>
           </li>
@@ -272,8 +262,8 @@
             <div>
               <h3 class="step-list__title">Il sito &egrave; tuo</h3>
               <p class="step-list__text">
-                Il nome del sito &egrave; intestato a te dal primo giorno e i file ti vengono consegnati, in un formato che
-                qualunque tecnico sa aprire. Se cambi fornitore, nessun riscatto e nessuna penale.
+                Il nome del sito e lo spazio web sono intestati a te dal primo giorno, e i file ti vengono consegnati
+                in un formato che qualunque tecnico sa aprire. Se cambi fornitore, nessun riscatto e nessuna penale.
               </p>
             </div>
           </li>
@@ -292,7 +282,7 @@
           <div>
             <h2 class="call-to-action__title">Scrivici due righe.</h2>
             <p class="call-to-action__text">
-              Dicci che attivit&agrave; hai: ti diciamo se possiamo esserti utili o se ti conviene un&rsquo;altra strada.
+              Dicci che attivit&agrave; hai: ti diciamo se possiamo esserti utili o se ti conviene un'altra strada.
             </p>
           </div>
           <div>
@@ -322,7 +312,6 @@
         <div class="shopfront__bay" data-shopfront-bay>
           <div class="shopfront__shop">
             <div class="shopfront__glass">
-              <p class="shopfront__vinyl">Entra pure, siamo aperti.</p>
               <ul class="shopfront__contacts">
                 <li><a class="shopfront__contact" href="https://wa.me/393517578080" aria-label="Scrivici su WhatsApp al 351 757 8080"><svg class="shopfront__icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 15.5 5 12a6 6 0 1 1 2.4 2.1L4 15.5Z"/></svg><span class="shopfront__contact-text"><small>WhatsApp</small>351 757 8080</span></a></li>
                 <li><a class="shopfront__contact" href="tel:+393517578080" aria-label="Chiama il 351 757 8080"><svg class="shopfront__icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M6.6 2.5 4.3 3.2C3.5 3.5 3 4.3 3.1 5.1c.7 6 5.8 11.1 11.8 11.8.8.1 1.6-.4 1.9-1.2l.7-2.3a1 1 0 0 0-.6-1.2l-3.2-1.2a1 1 0 0 0-1.1.3l-1 1.2a9.6 9.6 0 0 1-4.6-4.6l1.2-1a1 1 0 0 0 .3-1.1L7.8 3.1a1 1 0 0 0-1.2-.6Z"/></svg><span class="shopfront__contact-text"><small>Telefono</small>351 757 8080</span></a></li>
@@ -332,7 +321,6 @@
             </div>
 
             <nav class="shopfront__door" aria-label="Collegamenti del footer">
-              <span class="shopfront__plate" aria-hidden="true">Aperto</span>
               <ul class="shopfront__pages">
                 <li><a class="shopfront__page" href="index.html">Home</a></li>
                 <li><a class="shopfront__page" href="siti-web.html">Siti web</a></li>
@@ -345,7 +333,6 @@
 
           <div class="shopfront__roll" aria-hidden="true">
             <span class="shopfront__paint">mockly</span>
-            <span class="shopfront__hint">scorri, apriamo subito</span>
             <span class="shopfront__rail"></span>
           </div>
         </div>
@@ -371,7 +358,7 @@
     <svg class="back-to-top__icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 16V4m0 0 6 6m-6-6L4 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
 
-  <script src="assets/js/main.js?v=20261014g"></script>
+  <script src="assets/js/main.js?v=20261023a"></script>
 
 </body>
 </html>

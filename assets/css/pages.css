@@ -45,7 +45,6 @@
   font-size: clamp(2.4rem, 1.8rem + 2.4vw, 3.5rem);
 }
 
-.night .hero__title,
 .night .hero__title-page,
 .night .hero > .container > h1 {
   max-width: 20ch;
@@ -473,7 +472,7 @@
   color: #2070A1;
 }
 
-/* "Il più scelto": un cartello da vetrina, storto, con la riga della tenda. */
+/* "Il più scelto": un cartello storto, con una riga a strisce in cima. */
 .night .price-card__badge {
   position: absolute;
   top: -1rem;
@@ -756,4 +755,159 @@
   .night .project-card__body .badge {
     align-self: flex-start;
   }
+}
+
+/* ---- Siti web: tre esempi visti da telefono sotto il titolo ------------- */
+.hero-phones {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  max-height: 19rem;
+  margin-top: var(--space-medium);
+  padding-top: var(--space-small);
+  overflow: hidden;
+  -webkit-mask: linear-gradient(#000 65%, transparent);
+  mask: linear-gradient(#000 65%, transparent);
+}
+
+.hero-phones__item {
+  flex: none;
+  width: clamp(7rem, 28vw, 13rem);
+  margin-inline: -0.75rem;
+  overflow: hidden;
+  background-color: #05061f;
+  border: 0.35rem solid #05061f;
+  border-radius: 1.6rem;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28), 0 24px 50px rgba(0, 0, 0, 0.45);
+}
+
+.hero-phones__item:nth-child(1) {
+  rotate: -7deg;
+  translate: 0 1.5rem;
+}
+
+.hero-phones__item:nth-child(2) {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-phones__item:nth-child(3) {
+  rotate: 7deg;
+  translate: 0 1.5rem;
+}
+
+.hero-phones__item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 1.25rem;
+}
+
+@media (min-width: 64em) {
+  .hero-phones {
+    max-height: 26rem;
+  }
+
+  .hero-phones__item {
+    margin-inline: -1rem;
+  }
+}
+
+/* ---- Piani: mese o anno -------------------------------------------------- */
+/* Il tasto lo mostra main.js (init_billing). Senza JavaScript si vedono i
+   prezzi al mese, con il prezzo annuale scritto sotto. */
+
+.billing {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-xsmall);
+  margin-block: var(--space-large) var(--space-medium);
+  text-align: center;
+}
+
+.billing[hidden] {
+  display: none;
+}
+
+.billing__switch {
+  display: inline-flex;
+  padding: 0.3rem;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: var(--radius-pill);
+}
+
+.billing__option {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xsmall);
+  min-height: 2.75rem;
+  padding: 0 1.25rem;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-pill);
+  color: #fff;
+  font: inherit;
+  font-weight: var(--font-weight-bold);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
+}
+
+.billing__option:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.billing__option[aria-pressed="true"] {
+  background-color: #7FC8D8;
+  color: #0D0E3A;
+}
+
+.billing__save {
+  padding: 0.1rem 0.45rem;
+  background-color: rgba(127, 200, 216, 0.18);
+  border-radius: var(--radius-pill);
+  color: #7FC8D8;
+  font-size: var(--font-size-label);
+}
+
+.billing__option[aria-pressed="true"] .billing__save {
+  background-color: #0D0E3A;
+  color: #7FC8D8;
+}
+
+.billing__note {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+}
+
+.price-card__amount,
+.price-card__detail {
+  display: block;
+}
+
+.price-card__amount small {
+  margin-left: 0.1em;
+  font-size: 0.55em;
+  font-weight: var(--font-weight-medium);
+}
+
+.night .price-card__detail {
+  margin-top: 0.35rem;
+  color: rgba(22, 23, 79, 0.78);
+  font-family: var(--font-body);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.35;
+}
+
+/* Si vede solo il periodo scelto. */
+.price-card [data-period="anno"],
+.has-billing[data-active-period="anno"] .price-card [data-period="mese"],
+.has-billing .billing-fallback {
+  display: none;
+}
+
+.has-billing[data-active-period="anno"] .price-card [data-period="anno"] {
+  display: block;
 }

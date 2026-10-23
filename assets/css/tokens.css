@@ -65,7 +65,6 @@
   /* --- Tipografia: pesi ------------------------------------------------ */
   --font-weight-regular: 400;
   --font-weight-medium: 500;
-  --font-weight-semibold: 600;
   --font-weight-bold: 700;
   --font-weight-extrabold: 800;
 
@@ -93,7 +92,6 @@
   --space-large: 2rem;
   --space-xlarge: 3rem;
   --space-2xlarge: 4rem;
-  --space-3xlarge: 6rem;
 
   /* --- Raggi: due soli valori, non tre sfumature dello stesso mezzo ------ */
   --radius-crisp: 4px;    /* tutto ciò che è ripetuto: bottoni, campi, card, badge — tagliato con precisione */

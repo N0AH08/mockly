@@ -237,7 +237,7 @@
   }
 
   /* ------------------------------------------------------------------ *
-   * Curatela del portfolio: alcune demo restano dietro "Scopri di più"
+   * Curatela del portfolio: alcune demo restano dietro "Mostra gli altri esempi"
    * finché non lo clicchi. I filtri per settore sono stati tolti: questa
    * funzione fa solo la parte di curatela rimasta.
    * ------------------------------------------------------------------ */
@@ -401,12 +401,77 @@
         return;
       }
 
+      // Invio in pagina: se va a buon fine si passa a grazie.html.
+      event.preventDefault();
+      var label = submit_button ? submit_button.textContent : "";
       if (submit_button) {
         submit_button.classList.add("is-loading");
         submit_button.setAttribute("aria-busy", "true");
+        submit_button.disabled = true;
         submit_button.textContent = "Invio in corso…";
       }
+
+      fetch(action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" }
+      })
+        .then(function (response) {
+          if (!response.ok) throw new Error("invio non riuscito");
+          window.location.href = "grazie.html";
+        })
+        .catch(function () {
+          if (submit_button) {
+            submit_button.classList.remove("is-loading");
+            submit_button.removeAttribute("aria-busy");
+            submit_button.disabled = false;
+            submit_button.textContent = label;
+          }
+          if (status) {
+            status.className = "form__status is-error";
+            status.innerHTML =
+              "Il messaggio non è partito. Riprova, oppure scrivici su " +
+              '<a href="https://wa.me/393517578080">WhatsApp</a>.';
+          }
+        });
     });
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Piani dell'assistenza: tasto "Mese per mese / Anno intero".
+   * Mostra il tasto e scrive sulla sezione il periodo scelto; il CSS
+   * (pages.css) fa vedere solo i prezzi di quel periodo.
+   * ------------------------------------------------------------------ */
+
+  function init_billing() {
+    var billing = document.querySelector("[data-billing]");
+    var section = billing && billing.closest("section");
+    if (!section) return;
+
+    var options = Array.prototype.slice.call(billing.querySelectorAll(".billing__option"));
+    var note = billing.querySelector("[data-billing-note]");
+    var notes = {
+      mese: "Alla prima attivazione hai 2 mesi gratis.",
+      anno: "Ogni anno hai 2 mesi gratis e il 10% di sconto."
+    };
+
+    function choose(period) {
+      section.setAttribute("data-active-period", period);
+      options.forEach(function (option) {
+        option.setAttribute("aria-pressed", String(option.getAttribute("data-period") === period));
+      });
+      if (note) note.textContent = notes[period];
+    }
+
+    options.forEach(function (option) {
+      option.addEventListener("click", function () {
+        choose(option.getAttribute("data-period"));
+      });
+    });
+
+    section.classList.add("has-billing");
+    billing.hidden = false;
+    choose("mese");
   }
 
   /* ------------------------------------------------------------------ *
@@ -454,10 +519,9 @@
     if (prefers_reduced_motion() || typeof window.IntersectionObserver !== "function") return;
 
     var targets = document.querySelectorAll(
-      "main .section__header, main .bento__card, main .step-list__item, main .project-card, " +
+      "main .section__header, main .step-list__item, main .project-card, " +
       "main .product-card, main .price-card, main .person-card, main .accordion, " +
-      "main .call-to-action__panel, main .note, main .feature-grid__item, main .balance__column, " +
-      "main .contact-card, main .faq-item, main .form"
+      "main .note, main .feature-grid__item, main .form"
     );
     if (!targets.length) return;
 
@@ -520,4 +584,5 @@
   init_accordions();
   init_project_filters();
   init_contact_form();
+  init_billing();
 })();

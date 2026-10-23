@@ -2186,25 +2186,26 @@
 }
 
 /* ==========================================================================
-   Notte — il fondo blu, su tutte le pagine
-   .scene-bg è lo sfondo fisso (un <div> vuoto subito dopo <body>): blu notte
-   pieno con una sola luce ferma dall'alto. Niente
-   aloni che si muovono. Lo usano la home (.home-scenes) e le pagine interne
-   (.night).
-   Sulle pagine interne i colori cambiano solo dentro <main>: intestazione e
-   menu restano chiari. I componenti leggono gli stessi token di sempre.
+   Carta crema e fogli blu notte, su tutte le pagine
+   .scene-bg è lo sfondo fisso (un <div> vuoto subito dopo <body>): carta
+   crema piena. Alcune sezioni hanno la classe .sheet e diventano fogli blu
+   notte con gli angoli arrotondati. Lo usano la home (.home-scenes) e le
+   pagine interne (.night; il nome è rimasto da quando il fondo era blu).
+   I colori cambiano solo dentro <main>: intestazione e menu restano chiari,
+   il footer è blu notte. I componenti leggono gli stessi token di sempre.
    ========================================================================== */
 
-/* Anche la radice è blu: oltre i bordi (rimbalzo dello scorrimento su
-   iPhone, barre di Safari) non deve mai spuntare il bianco. */
+/* La radice è color crema: oltre i bordi (rimbalzo dello scorrimento su
+   iPhone, barre di Safari) si vede la carta, mai il bianco. */
 html:has(.scene-bg) {
-  background-color: #0D0E3A;
+  background-color: #F6F3EC;
 }
 
 .night,
 .home-scenes {
   --l-ink: #0d0e3a;
-  background-color: var(--l-ink);
+  --paper: #F6F3EC;
+  background-color: var(--paper);
 }
 
 .scene-bg {
@@ -2217,9 +2218,7 @@ html:has(.scene-bg) {
      l'altezza massima dello schermo, più un margine per il rimbalzo. */
   height: 120vh;
   height: calc(100lvh + 8rem);
-  background:
-    radial-gradient(120% 62% at 50% 0, rgba(32, 112, 161, 0.5), rgba(32, 112, 161, 0) 70%),
-    var(--l-ink);
+  background-color: var(--paper);
   pointer-events: none;
 }
 
@@ -2230,17 +2229,52 @@ html:has(.scene-bg) {
   z-index: 1;
 }
 
-/* Il negozio poggia direttamente sul blu della pagina, senza fascia propria. */
+/* Il footer è blu notte: il negozio con la serranda, di sera. */
 .night .site-footer,
 .home-scenes .site-footer {
-  background-color: transparent;
+  background-color: var(--l-ink);
   border-radius: 0;
 }
 
-.night main {
-  color-scheme: dark;
+/* Carta crema: testi blu notte, bottone principale blu.
+   I --p-* e --l-* sono i colori che usano pages.css e home.css: cambiano
+   insieme quando una sezione diventa un foglio blu notte (.sheet). */
+.night main,
+.home-scenes main {
+  color-scheme: light;
   --color-background: transparent;
   --color-background-warm: transparent;
+  --color-surface: #FFFFFF;
+  --color-surface-alt: #EFEBE2;
+  --color-heading: #16174F;
+  --color-border: rgba(13, 14, 58, 0.16);
+  --color-border-strong: rgba(13, 14, 58, 0.4);
+  --p-line: rgba(13, 14, 58, 0.14);
+  --p-soft: #3D3F5C;                        /* 9.8 su crema */
+  --p-sky: #2070A1;                         /* 4.9 su crema */
+  --p-strong: #16174F;
+  --p-tint: rgba(13, 14, 58, 0.07);
+  --p-string: rgba(13, 14, 58, 0.55);
+  --p-stroke: rgba(32, 112, 161, 0.7);
+  --l-soft: #3D3F5C;
+  --l-line: rgba(13, 14, 58, 0.14);
+  --l-sky: #2070A1;
+  --btn-bg: #2070A1;
+  --btn-fg: #FFFFFF;
+  --btn-bg-hover: #16174F;
+  --btn2-border: rgba(13, 14, 58, 0.4);
+  --btn2-fg: #16174F;
+  --btn2-hover: rgba(13, 14, 58, 0.06);
+  --pressed-bg: #16174F;
+  --pressed-fg: #FFFFFF;
+  --placeholder: rgba(13, 14, 58, 0.5);
+  color: var(--color-text);
+}
+
+/* Foglio blu notte: una sezione che si stacca dalla carta. */
+.night main .sheet,
+.home-scenes main .sheet {
+  color-scheme: dark;
   --color-surface: rgba(255, 255, 255, 0.05);
   --color-surface-alt: rgba(255, 255, 255, 0.1);
   --color-text: rgba(255, 255, 255, 0.92);
@@ -2252,13 +2286,42 @@ html:has(.scene-bg) {
   --color-accent-hover: #B4E3EE;
   --color-accent-active: #FFFFFF;
   --color-accent-soft: rgba(127, 200, 216, 0.16);
-  --color-text-inverse-on-accent: #0D0E3A;  /* testo scuro sopra l'azzurro pieno */
+  --color-text-inverse-on-accent: #0D0E3A;
   --color-success: #7BE0A8;
   --color-error: #FF9AA2;
   --color-error-soft: rgba(255, 154, 162, 0.14);
   --shadow-lift: none;
   --shadow-float: 0 20px 48px rgba(0, 0, 0, 0.4);
+  --p-line: rgba(255, 255, 255, 0.22);
+  --p-soft: rgba(255, 255, 255, 0.8);
+  --p-sky: #7FC8D8;
+  --p-strong: #FFFFFF;
+  --p-tint: rgba(255, 255, 255, 0.12);
+  --p-string: rgba(255, 255, 255, 0.75);
+  --p-stroke: rgba(127, 200, 216, 0.7);
+  --l-soft: rgba(255, 255, 255, 0.8);
+  --l-line: rgba(255, 255, 255, 0.22);
+  --l-sky: #7FC8D8;
+  --btn-bg: #7FC8D8;                        /* testo blu notte sopra: 9.6:1 */
+  --btn-fg: #0D0E3A;
+  --btn-bg-hover: #B4E3EE;
+  --btn2-border: rgba(255, 255, 255, 0.45);
+  --btn2-fg: #FFFFFF;
+  --btn2-hover: rgba(255, 255, 255, 0.12);
+  --pressed-bg: #7FC8D8;
+  --pressed-fg: #0D0E3A;
+  --placeholder: rgba(255, 255, 255, 0.55);
+  position: relative;
+  z-index: 1;
+  background-color: var(--l-ink);
+  border-radius: 28px;
   color: var(--color-text);
+}
+
+/* La chiusura si appoggia al footer: angoli tondi solo in alto. */
+.night main .sheet.call-to-action,
+.home-scenes main .sheet.scene--end {
+  border-radius: 28px 28px 0 0;
 }
 
 /* Titoli grandi e stretti, come nella home. */
@@ -2274,37 +2337,36 @@ html:has(.scene-bg) {
   text-wrap: balance;
 }
 
-/* Sul blu notte il bottone principale è azzurro chiaro con testo blu notte
-   (9.6:1): è la cosa più visibile della schermata, e si usa solo per
-   scriverci. Il secondario è un contorno bianco più tenue. Vale anche per
-   la home (.home-scenes). */
+/* Il bottone principale è la cosa più visibile della schermata e si usa solo
+   per scriverci: blu sulla carta, azzurro chiaro sui fogli blu notte. Il
+   secondario è solo un contorno. */
 .night main .button--primary,
 .home-scenes main .button--primary {
-  background-color: #7FC8D8;
-  border-color: #7FC8D8;
-  color: #0D0E3A;
+  background-color: var(--btn-bg);
+  border-color: var(--btn-bg);
+  color: var(--btn-fg);
 }
 
 .night main .button--primary:hover,
 .home-scenes main .button--primary:hover {
-  background-color: #B4E3EE;
-  border-color: #B4E3EE;
-  color: #0D0E3A;
+  background-color: var(--btn-bg-hover);
+  border-color: var(--btn-bg-hover);
+  color: var(--btn-fg);
 }
 
 .night main .button--secondary,
 .night main .button--ghost {
   background-color: transparent;
-  border-color: rgba(255, 255, 255, 0.45);
-  color: #FFFFFF;
+  border-color: var(--btn2-border);
+  color: var(--btn2-fg);
 }
 
 .night main .button--secondary:hover,
 .night main .button--ghost:hover {
-  background-color: rgba(255, 255, 255, 0.12);
-  color: #FFFFFF;
+  background-color: var(--btn2-hover);
+  color: var(--btn2-fg);
 }
 
 .night main ::placeholder {
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--placeholder);
 }

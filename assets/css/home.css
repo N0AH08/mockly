@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Home — una schermata alla volta, su fondo blu notte luminoso.
+   Home — una schermata alla volta, su carta crema con fogli blu notte.
    Solo index.html carica questo file (e assets/js/home.js). Niente riquadri:
    il testo sta sullo sfondo e ogni schermata ha una composizione diversa.
      1 Inizio         titolo enorme al centro
@@ -32,13 +32,13 @@
   min-height: 100vh;
   min-height: 100svh;
   padding-block: calc(var(--header-height) + var(--space-xlarge)) var(--space-xlarge);
-  color: #fff;
+  color: var(--color-text);
 }
 
 .scene__mega,
 .scene__title {
   margin: 0;
-  color: #fff;
+  color: var(--p-strong);
   text-wrap: balance;
 }
 
@@ -74,14 +74,14 @@
 .home-scenes .button--secondary,
 .home-scenes .button--ghost {
   background-color: transparent;
-  border-color: rgba(255, 255, 255, 0.45);
-  color: #fff;
+  border-color: var(--btn2-border);
+  color: var(--btn2-fg);
 }
 
 .home-scenes .button--secondary:hover,
 .home-scenes .button--ghost:hover {
-  background-color: rgba(255, 255, 255, 0.12);
-  color: #fff;
+  background-color: var(--btn2-hover);
+  color: var(--btn2-fg);
 }
 
 /* Entrata: i pezzi di ogni schermata salgono uno dopo l'altro. */
@@ -129,13 +129,13 @@
   align-items: center;
   min-height: 2.75rem;
   text-decoration: underline;
-  text-decoration-color: rgba(255, 255, 255, 0.4);
+  text-decoration-color: var(--p-line);
   text-underline-offset: 0.25em;
 }
 
 .hero-phone:hover .hero-phone__caption {
-  color: #fff;
-  text-decoration-color: #fff;
+  color: var(--p-strong);
+  text-decoration-color: var(--p-strong);
 }
 
 .hero-phone__frame {
@@ -213,7 +213,7 @@
     height: auto;
     border-bottom: 0.45rem solid #05061f;
     border-radius: 2.4rem;
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28), 0 30px 60px rgba(0, 0, 0, 0.45);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28), 0 30px 60px rgba(13, 14, 58, 0.3);
     -webkit-mask: none;
     mask: none;
   }
@@ -231,7 +231,7 @@
   place-items: center;
   width: 2.75rem;
   height: 2.75rem;
-  color: #fff;
+  color: var(--p-strong);
   transform: translateX(-50%);
   animation: l-cue 1.8s ease-in-out infinite;
 }
@@ -285,7 +285,7 @@
   height: 2.75rem;
   padding: 0.6rem;
   color: var(--l-sky);
-  background-color: rgba(127, 200, 216, 0.12);
+  background-color: var(--color-accent-soft);
   border-radius: 50%;
 }
 
@@ -303,7 +303,7 @@
   z-index: 1;
   height: 400vh;
   height: 400svh;
-  color: #fff;
+  color: var(--color-text);
 }
 
 .pin__stage {
@@ -350,7 +350,7 @@
   font-size: clamp(6rem, 3rem + 14vw, 17rem);
   font-weight: var(--font-weight-extrabold);
   line-height: 0.8;
-  -webkit-text-stroke: 2px rgba(127, 200, 216, 0.7);
+  -webkit-text-stroke: 2px var(--p-stroke);
 }
 
 .pin__kicker {
@@ -364,7 +364,7 @@
   overflow: hidden;
   background-color: #fff;
   border-radius: 14px;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 30px 80px rgba(13, 14, 58, 0.3);
 }
 
 .device__bar {
@@ -535,7 +535,7 @@
   display: inline-flex;
   align-items: center;
   min-height: 2.75rem; /* area di tocco comoda */
-  color: #fff;
+  color: var(--p-strong);
   font-weight: var(--font-weight-bold);
 }
 
@@ -577,7 +577,7 @@
 
 .home-scenes .accordion__trigger {
   padding: var(--space-small) 0;
-  color: #fff;
+  color: var(--p-strong);
   font-size: clamp(1.1rem, 1rem + 0.5vw, 1.375rem);
 }
 
@@ -586,13 +586,13 @@
 }
 
 .home-scenes .accordion__icon {
-  background-color: rgba(255, 255, 255, 0.12);
-  color: #fff;
+  background-color: var(--p-tint);
+  color: var(--p-strong);
 }
 
 .home-scenes .accordion__item.is-open .accordion__icon {
-  background-color: var(--l-sky);
-  color: var(--l-ink);
+  background-color: var(--btn-bg);
+  color: var(--btn-fg);
 }
 
 .home-scenes .accordion__panel p {
@@ -652,13 +652,14 @@
   content: "";
   width: 0.5rem;
   height: 0.5rem;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(13, 14, 58, 0.35);
   border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.7); /* si vede anche sui fogli blu */
   transition: transform var(--duration-base) var(--ease-out), background-color var(--duration-base) var(--ease-out);
 }
 
 .scene-dots button[aria-current="true"]::before {
-  background-color: #fff;
+  background-color: #2070A1;
   transform: scale(1.7);
 }
 

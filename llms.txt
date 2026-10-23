@@ -7,7 +7,7 @@ Contatti: WhatsApp/telefono +39 351 757 8080, email mockly.website@gmail.com, In
 ## Pagine principali
 
 - [Home](https://mockly.it/): panoramica del servizio, come si lavora, prezzi.
-- [Siti web](https://mockly.it/siti-web.html): tipi di sito realizzabili (vetrina, più pagine, negozio su internet, in più lingue, prenotazioni), cosa è incluso, assistenza mensile facoltativa (Base 15 €, Plus 25 €, Pro 35 € al mese; pagando l'anno intero 162, 270 e 378 €, con 2 mesi gratis alla prima attivazione).
+- [Siti web](https://mockly.it/siti-web.html): tipi di sito realizzabili (vetrina, più pagine, negozio su internet, in più lingue, prenotazioni), cosa è incluso, assistenza mensile facoltativa (Base 15 €, Plus 25 €, Pro 35 € al mese; pagando l'anno intero 150, 250 e 350 €; 2 mesi gratis alla prima attivazione).
 - [Portfolio](https://mockly.it/portfolio.html): un lavoro reale su commessa (Tonnara di Flumentorgiu) e undici esempi per settore costruiti da Mockly per mostrare cosa sa fare un sito, dichiarati chiaramente come esempi (i locali mostrati non sono veri, salvo Sa Sida Country, che è un locale vero).
 - [Chi siamo](https://mockly.it/chi-siamo.html): la squadra (Noah, Adriano e Simone) e come lavorano con te.
 - [Contatti](https://mockly.it/contatti.html): come scrivere, tempi di risposta, FAQ.

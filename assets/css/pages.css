@@ -911,3 +911,24 @@
 .has-billing[data-active-period="anno"] .price-card [data-period="anno"] {
   display: block;
 }
+
+/* ---- Telefono: niente vuoti inutili -------------------------------------- */
+/* La prima schermata e la chiusura sono alte quanto il loro contenuto, e le
+   sezioni sono un po' più vicine. Da computer resta tutto com'è. */
+@media (max-width: 63.99em) {
+  .night .section,
+  .night .section--tight {
+    padding-block: 2.75rem;
+  }
+
+  .night .hero,
+  .night .hero:not(.hero--page) {
+    min-height: 0;
+    padding-block: var(--space-xlarge) var(--space-large);
+  }
+
+  .night .call-to-action {
+    min-height: 0;
+    padding-block: var(--space-xlarge) var(--space-large);
+  }
+}

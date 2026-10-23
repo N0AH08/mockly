@@ -445,11 +445,13 @@
   /* Chi siamo e Domande non riempiono per forza tutto lo schermo:
      niente vuoto fra la Tonnara e le domande. */
   .scene--team,
-  .scene--faq {
+  .scene--faq,
+  .scene--end {
     min-height: 0;
   }
 
-  .scene--faq {
+  .scene--faq,
+  .scene--end {
     padding-top: var(--space-xlarge);
   }
 

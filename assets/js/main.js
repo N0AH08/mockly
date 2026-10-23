@@ -452,7 +452,7 @@
     var note = billing.querySelector("[data-billing-note]");
     var notes = {
       mese: "Alla prima attivazione hai 2 mesi gratis.",
-      anno: "Ogni anno hai 2 mesi gratis e il 10% di sconto."
+      anno: "Alla prima attivazione hai 2 mesi gratis, e ogni anno il 10% di sconto."
     };
 
     function choose(period) {
